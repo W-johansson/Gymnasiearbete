@@ -2,13 +2,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[swedish]{babel}
-\usepackage{graphicx}
-\usepackage{multicol}
 \usepackage[style=verbose-ibid,backend=biber]{biblatex}
 \usepackage{comment}
-\usepackage{blindtext}
-\usepackage{lmodern}
-\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{lmodern,microtype}
 
 \bibliography{cites}
 
@@ -19,22 +16,20 @@
 \begin{document}
 \begin{titlepage}
 	\centering
-	\includegraphics[height=3.5cm]{messengerpicture.png}\\*
+	\includegraphics[height=3.5cm]{messengerpicture.png}\par
 	\vspace{0.6cm}
-	{\scshape\LARGE Hulebäcksgymnasiet}\\*
+	{\scshape\LARGE Hulebäcksgymnasiet}\par
 	\vspace{0.5cm}
-	{\bfseries\Large Gymnasiearbete}\\*
+	{\bfseries\Large Gymnasiearbete}\par
 	\vspace{2cm}
-	{\scshape\huge Felkompensering av Lutningsgivare med Neuronnät}\\*
-
+	{\scshape\huge Felkompensering av Lutningsgivare med Neuronnät}\par
 	\vfill
-
-	{\Large\itshape Anders, Axel, Jonas \& William}\\*
+	{\Large\itshape Anders, Axel, Jonas \& William}\par
 	\vspace{0.4cm}
-	{\large handledare:\\
-	{\itshape ehllo \& heoeoe}}\\*
+	{\large handledare:\par
+	{\itshape ehllo \& heoeoe}}\par
 	\vspace{0.4cm}
-	{\today}
+	{\today\par}
 \end{titlepage}
 
 % Innehållsförtecking
@@ -46,10 +41,6 @@
 \input{inledning}
 
 \section{Metod \& material}
-
-\subsection{Metod}
-
-\subsection{Material}
 
 \section{Resultat}
 
