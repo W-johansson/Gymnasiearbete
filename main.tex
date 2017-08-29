@@ -2,18 +2,16 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[swedish]{babel}
-\usepackage[style=verbose-ibid,backend=biber]{biblatex}
+\usepackage[backend=biber,style=verbose-ibid,citestyle=authortitle-ibid]{biblatex}
 \usepackage{comment}
 \usepackage{graphicx}
 \usepackage{lmodern,microtype}
 
 \bibliography{cites}
 
-\title{Gymnasiearbete}
-\author{William, Axel, Jonas \& Anders \\
-\emph{Hulebäcksgymnasiet}}
 
 \begin{document}
+%försättsblad
 \begin{titlepage}
 	\centering
 	\includegraphics[height=3.5cm]{messengerpicture.png}\par
@@ -38,9 +36,10 @@
 \cleardoublepage
 \pagenumbering{arabic}
 
+%Rapporten
 \input{inledning}
 
-\section{Metod \& material}
+\section{Metod \& materiel}
 
 \section{Resultat}
 
