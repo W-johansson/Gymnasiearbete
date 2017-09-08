@@ -4,9 +4,31 @@
 % - buss
 % - växellåda
 
+Automatiska växellådor sitter idag i en bredd av olika fordon, däribland en
+helt elektrisk buss under utveckling av Volvo.
+För att bland annat köra på rätt växel, optimera motorns styrprogram och operera
+olika bromsfunktioner %och vad mer/något mer?
+installeras lutningsgivare som mäter lutningen fordonet framförs i.
+Lutningsgivare är en fristående moduler som baseras på piezoelektriska
+kristaller och kommunicerar med fordonets styrdator via Controller
+Area Network-kommunikation (CAN-).
+Dessa fungerar bra så länge som de är stilla, under rörelse (alltså vid
+användning)  uppstår det mätbrus och andra signalstörningar.
+Till den elektriska bussen ska en ny lutningsgivare utvecklas och utvärderas,
+vilket innebär att en algoritm som kan felkompensera dessa störningar behöver
+utvecklas.
+
 %teori
 % - piezoelekrtiskakristaller
 % - algoritmen
+
+Piezoelektriska material, har en kristallstruktur och, ger upphov till
+elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
+direkta piezoelektriska effekten.
+Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäller
+också, elektricitet omvandlas till mekansikt arbete i den omvända
+piezoelektriska effekten i vilken kristallen deformeras.
+\autocite{electronicdesign2016}
 
 \subsection{Syfte}
 Syftet med  undersökningen var att ta fram en algoritm med neuronnät som
