@@ -1,22 +1,26 @@
 \section{Inledning}
 \subsection{Teori \& bakgrund}
-%bakgrund
-% - buss
-% - växellåda
+% Bakgrund
 
-Automatiska växellådor sitter idag i en bredd av olika fordon, däribland en
-helt elektrisk buss under utveckling av Volvo.
-För att bland annat köra på rätt växel, optimera motorns styrprogram och operera
-olika bromsfunktioner %och vad mer/något mer?
-installeras lutningsgivare som mäter lutningen fordonet framförs i.
-Lutningsgivare är fristående moduler som baseras på piezoelektriska
-kristaller och kommunicerar med fordonets styrdator via Controller
-Area Network-kommunikation (CAN-kommunikation).
-Dessa fungerar bra så länge som de är stilla, när de accelererar (alltså vid
-användning)  uppstår det mätbrus och andra signalstörningar.
-Till den elektriska bussen ska en ny lutningsgivare utvecklas och utvärderas,
-vilket innebär att en algoritm som kan felkompensera dessa störningar behöver
-utvecklas.
+Automatiska växellådor sitter idag i en mängd av olika fordon,
+däribland en helt elektrisk buss under utveckling av Volvo.
+För att bland annat köra på rätt växel, optimera motorns styrprogram
+och operera olika bromsfunktioner % och vad mer/något mer?
+mätes fordonets lutning.
+För det ändamålet ska lutningsgivare användas.
+Lutningsgivaren är en fristående modul som kommunicerar med styrdatorn via
+Controller Area Network (CAN)-kommunikation.
+De använder elektriska signaler som är
+inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
+under gravitationskraften från en tyngd.
+Vinkeln mellan gravitationskraften och
+riktningen på den piezoelektriska kroppens vibration
+fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
+och använder geometriska samband mellan dem.
+\autocite{chiang00}
+Detta fungerar bra vid rörelse i konstant hastighet
+men vid accelereration uppstår mätbrus och andra störningar.
+Därför behövs en algoritm för att felkompensera dessa störningar.
 
 %teori
 % - piezoelekrtiskakristaller
