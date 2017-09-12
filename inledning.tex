@@ -10,14 +10,6 @@ mätes fordonets lutning.
 För det ändamålet ska lutningsgivare användas.
 Lutningsgivaren är en fristående modul som kommunicerar med styrdatorn via
 Controller Area Network (CAN)-kommunikation.
-De använder elektriska signaler som är
-inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
-under gravitationskraften från en tyngd.
-Vinkeln mellan gravitationskraften och
-riktningen på den piezoelektriska kroppens vibration
-fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
-och använder geometriska samband mellan dem.
-\autocite{chiang00}
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
@@ -33,6 +25,14 @@ Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäll
 också, elektricitet omvandlas till mekansikt arbete i den omvända
 piezoelektriska effekten i vilken kristallen deformeras.
 \autocite{electronicdesign2016}
+Piezoelektriska lutningsgivare använder elektriska signaler som är
+inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
+under gravitationskraften från en tyngd.
+Vinkeln mellan gravitationskraften och
+riktningen på den piezoelektriska kroppens vibration
+fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
+och använder geometriska samband mellan dem.
+\autocite{chiang00}
 
 \subsection{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
