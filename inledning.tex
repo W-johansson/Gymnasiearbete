@@ -55,6 +55,25 @@ Inmatningen (från eng. \textit{input}) till en sigmoidneuron är alltså ett
 tal mellan 0 och 1.
 \autocite{nielsen15}
 
+% Förlustfunktionen
+Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
+kan man korrelera små ändringar i weights och biases
+till små förbättringar i prestandan.
+Den \emph{kvadratiska förlustfunktionen} är en sådan funktion:
+
+\begin{equation}
+	C(w, b) \equiv \frac{1}{2n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
+\end{equation}
+
+där $ w $ är alla weights i nätet, $ b $ är alla biases,
+$ n $ är antalet träningsindata, $ a $ är en vektor med utdata när $ x $ är indata
+och summan är över all träningsindata $ x $.
+Man ser att $ C(w, b) $ är icke-negativ då varje term i summan är positiv.
+Dessutom är förlusten $ C(w, b) $ liten, det vill säga $ C(w, b) \approx 0 $,
+när $ y(x) $ är ungefär lika med utdatan, $ a $, för alla träningsindata, $ x $.
+Målet med träningsalgoritmen blir då att hitta weights and biases
+så att $ C(w, b) $ minimeras.
+
 \subsection{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
 artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
