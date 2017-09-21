@@ -71,8 +71,43 @@ och summan är över all träningsindata $ x $.
 Man ser att $ C(w, b) $ är icke-negativ då varje term i summan är positiv.
 Dessutom är förlusten $ C(w, b) $ liten, det vill säga $ C(w, b) \approx 0 $,
 när $ y(x) $ är ungefär lika med utdatan, $ a $, för alla träningsindata, $ x $.
-Målet med träningsalgoritmen blir då att hitta weights and biases
-så att $ C(w, b) $ minimeras.
+Målet med träningsalgoritmen blir då att minimera $ C(w, b) $.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[domain=0:1,xlabel={$x_1$},ylabel={$x_2$},zlabel={$f$}]
+			\addplot3[surf,shader=flat] {(x-0.5)^2 + (y-0.5)^2};
+			\draw[->,line width=0.004\linewidth,>=latex] (axis cs:0.2,0.6,0.4) -- (axis cs:0.3,0.5,0.3);
+			\node[circle,shading=ball,minimum width=0.5cm] (ball) at (axis cs:0.2,0.6,0.4) {};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Gradient descent}
+	\label{fig:descent}
+\end{figure}
+
+En algoritm för det är \emph{gradient descent}.
+Om man föreställer sig en funktion $ f(x_1, x_2) $ som en dal,
+se figur~\ref{fig:descent},
+säger intuition att en boll skulle rulla ner för sluttningen till botten.
+Vi kan simulera detta genom att räkna ut gradienten av $ f $.
+Gradienten av $ f $, $ \nabla f $, vid en punkt är en vektor
+som pekar i riktningen av den brantaste lutningen vid den punkten:
+
+\begin{equation}
+	\nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} \end{bmatrix}^{T}
+\end{equation}
+
+där $ \partial f / \partial x_i $ är den partiella derivatan
+som beskriver hur snabbt $ f $ växer med avseende på variablen $ x_i $.
+Vi kan minska $ f $ genom att gå i riktningen av den negativa gradienten:
+
+\begin{equation}
+	x \rightarrow x' = x - \eta \nabla f(x)
+\end{equation}
+
+där $ \eta $ är inlärningshastigheten,
+en positiv skalär som bestämmer längden av steget.
 
 \subsection{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
