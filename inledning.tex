@@ -202,11 +202,18 @@ som beskriver hur snabbt $ f $ växer med avseende på variablen $ x_i $.
 Vi kan minska $ f $ genom att gå i riktningen av den negativa gradienten:
 
 \begin{equation}
-	x \rightarrow x' = x - \eta \nabla f(x)
+	x \leftarrow x - \eta \nabla f(x)
 \end{equation}
 
 där $ \eta $ är inlärningshastigheten,
 en positiv skalär som bestämmer längden av steget.
+Genom att generalisera det till flera dimensioner kan vi
+applicera det på neuronnät:
+
+\begin{align}
+	w_k &\leftarrow w_k - \eta \frac{\partial C}{\partial w_k} \\
+	b_l &\leftarrow b_l - \eta \frac{\partial C}{\partial b_l}
+\end{align}
 
 \subsection{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
