@@ -160,7 +160,7 @@ kan man korrelera små ändringar i weights och biases
 till små förbättringar i prestandan.
 Den \emph{kvadratiska förlustfunktionen} är en sådan funktion:
 
-\begin{equation}
+\begin{equation} \label{eq:cost}
 	C(w, b) \equiv \frac{1}{2n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
 \end{equation}
 
@@ -214,6 +214,18 @@ applicera det på neuronnät:
 	w_k &\leftarrow w_k - \eta \frac{\partial C}{\partial w_k} \\
 	b_l &\leftarrow b_l - \eta \frac{\partial C}{\partial b_l}
 \end{align}
+
+Då förlustfunktionen i ekvation~\eqref{eq:cost} är ett genomsnitt av
+förlusterna $ C_x = \frac{\lVert y(x) - a \rVert^2}{2} $ för individuella träningsexempel
+kan det ta lång tid att beräkna gradienten med ett stort antal träningsindata.
+\emph{Stochastic gradient descent} uppskattar $ \nabla C $ genom att
+sampla en \emph{minibatch} av likformigt slumpade exempel
+$ \mathbb{B} = \left\{ x_1, \dotsc, x_{m'} \right\} $ från träningsindatan
+och räkna ut gradienten från dem:
+\begin{equation}
+	\nabla C \approx \frac{1}{m'} \sum^{m'}_{i=1} \nabla C_{x_i}
+\end{equation}
+med exempel från minibatchen $ \mathbb{B} $.
 
 \subsection{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
