@@ -35,7 +35,7 @@ och använder geometriska samband mellan dem.
 \autocite{chiang00}
 
 %vad neuronnät är och vad de används till
-Ett artificiellt neuronnät är ett en självlärande algoritm som inspirerats av
+Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
 hur djurs hjärnor fungerar och kommunicerar.
 Neuronnät kan användas för att klara av vissa problem som annars är svårlösta
 med konventionella datalogiska metoder.
@@ -48,6 +48,103 @@ Det är möjligt att sedan forstätta träna nätverket
 under användning, men oftast slutar man träna det när resultet är önskvärt.
 \autocite{wiki-neuronnat}
 
+
+% Williams personliga TODO:
+%	- bli konsekvent i hur begrepp ska skrivas, alltså språk osv.
+%	- knyt ihop styckena bra
+%   - ska det vara med hur antal neuroner bestämms?
+%   - recurrent
+%	- skulle kanske vara vettigt med en mer utförlig förklaring av weights och
+%	  biases
+%	- fixa det axel såg var fel om bias
+%	- z kallas weighted input
+
+%figur för sigmoid neuron
+\begin{figure}
+	\begin{tikzpicture}[
+		init/.style={draw,circle,inner sep=2pt,font=\Huge,join = by -latex},
+		squa/.style={draw,inner sep=2pt,font=\Large,join = by -latex},
+		start chain=2,node distance=13mm]
+		\node[on chain=2]
+			(x2) {$x_2$};
+		\node[on chain=2,join=by o-latex]
+  			{$w_2$};
+		\node[on chain=2,init] (sigma)
+  			{$\displaystyle\Sigma$};
+		\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Aktiverings
+		\\ funktion}}]
+  			{$f$};
+		\node[on chain=2,label=above:Utmatning,join=by -latex]
+  			{$y$};
+		\begin{scope}[start chain=1]
+		\node[on chain=1] at (0,1.5cm)
+  			(x1) {$x_1$};
+		\node[on chain=1,join=by o-latex]
+  			(w1) {$w_1$};
+		\end{scope}
+		\begin{scope}[start chain=3]
+		\node[on chain=3] at (0,-1.5cm)
+  			(x3) {$x_n$};
+		\node[on chain=3,label=below:Weights,join=by o-latex]
+  			(w3) {$w_n$};
+		\end{scope}
+		\node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
+		\draw[-latex] (w1) -- (sigma);
+		\draw[-latex] (w3) -- (sigma);
+		\draw[o-latex] (b) -- (sigma);
+		\draw[decorate,decoration={brace,mirror}] (x1.north west) --
+		node[left=10pt] {Inmatning} (x3.south west);
+	\end{tikzpicture}
+	\caption{Sigmoid neuron}
+	\label{fig:sigmoidneuron}
+\end{figure}
+
+%sigmoid neuroner
+En artificell neuron tar en eller flera inmatningar och skapar en
+utmatning av dem genom att summera dem i en s.k. \emph{weighted input} och
+sedan applicera en aktiveringsfunktion, se figur~\ref{fig:sigmoidneuron}.
+Varje inmatning, $x$, är tilldelad en \emph{weight}, $w$, som beskriver
+hur viktig den är för utmatningen, $y$. Utöver det har varje neuron en \emph{bias},
+$b$.
+Inmatningarna, $x_1,x_2, \ldots, x_n$, weightsen, $w_1, w_2, \ldots, w_n$, och
+den allmäna biasen, $b$, ger den weighted input som är $\Sigma_nw_nx_n + b$ och
+är ekvivalent med $z$.
+För att sedan få utmatningen används en aktiveringsfunktion på den weightade
+inputen. En sigmoidfunktion, se ekvation~\ref{eq:sigmoid}, är ett exempel på en
+aktiveringsfunktion, vilken ger utmatningen $\sigma(\Sigma_nw_nx_n + b)$.
+Tänk att $z$ är ett stort positivt tal, då är $e^{-z} \approx 0 $ medan
+$\sigma(z) \approx 1$.
+Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
+\infty $ och därmed blir $\sigma(z) \approx 0$. Det är alltså bara när talen är
+stora som förändringen är drastiskt. Inom ramen för ``små'' tal ger de en
+gradvis förändring, vilket går se på formen av sigmoid funktionen om man
+visualierar den, se figur~\ref{fig:sigmoidfunction}. Grafens lutning påverkas av
+weightsen medan biasen förskjuter hela kurvan i x-led.
+
+\begin{equation} \label{eq:sigmoid}
+	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
+\end{equation}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[xlabel=$Z$,xmin=-5,xmax=5,
+				legend style={at={(0.98,0.02)},anchor=south east},
+			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 1.5$,
+		$w = 0.75\text{, } b = -1$},]
+			\addplot[red!75] {(1)/(1+e^-x)};
+			\addplot[OliveGreen!75] {(1)/(1+e^(-2*x+1.5))};
+			\addplot[blue!75] {(1)/(1+e^(-0.75*x-1))};
+			%\addplot[yellow!75] {(1)/(1+e^(-x+2))};
+			%\addplot[purple!75] {(1)/(1+e^(-x-3))};
+			%\addplot[green!75] {(1)/(1+e^(-2*x))};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Sigmoid funktion}
+	\label{fig:sigmoidfunction}
+\end{figure}
+
+%figur för neuronnäts arkitektur
 \def\layersep{2.5cm}
 \begin{figure}
 	\centering
@@ -79,14 +176,6 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 	\label{fig:genericnetwork}
 \end{figure}
 
-% Williams personliga TODO:
-%	- bli konsekvent i hur begrepp ska skrivas, alltså språk osv.
-%	- knyt ihop styckena bra
-%   - ska det vara med hur antal neuroner bestämms?
-%   - recurrent
-%	- skulle kanske vara vettigt med en mer utförlig förklaring av weights och
-%	  biases
-
 %neuronnäts arkitektur
 Neuronnät har en generell arkitektur, se figur~\ref{fig:genericnetwork}, där
 det lagret längst till vänster är inmatningslagret (bestående av
@@ -97,61 +186,6 @@ varje annan neuron i det föregående lagret, förutom inmatningsneuronerna som
 direkt får data. %rätt att använda data!?
 Den här arkitekturen kallas \textit{feedforward}, inforamtionen matas
 alltid framåt.
-%sigmoid neuroner
-Neuronnät består av s.k. sigmoidneuroner vars inmatning, $x$ är ett tal mellan 0 och 1.
-Varje neuron är tilldelad en \textit{weight}, $w$, och en \textit{bias}, $b$.
-Förenklat säger weighten av hur stor betydelse informationen är för neuronen
-och biasen i hur hög grad man bör lita på denna enskilda neuron.
-Utmatningen, $\sigma$, från en sigmoidneuron blir alltså: $ \sigma(w \cdot x
-+b) $, där $\sigma$ kallas sigmoid funktionen, och defineras som:
-
-\begin{equation}
-	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
-\end{equation}
-
-Utmatningen för en sigmoid neuron med inmatningen $ x_1, x_2,
-\ldots$, weightsen $w_1, w_2, \ldots$ och biasen $b$ är:
-
-\begin{equation}
-	\frac{1}{1 + \exp(-\Sigma_jw_jx_j - b)}
-\end{equation}
-
-%skulle behöva fixa en förklaring av mina variabler
-
-Tänk att $z \equiv w \cdot x + b $ och är ett stort positivt tal då är $e^{-z} \approx 0 $
-medan $\sigma(z) \approx 1$.
-Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
-\infty $ och därmed $\sigma(z) \approx 0$. Det är alltså bara när talen är
-stora som förändringen är drastiskt. Inom ramen för ``små'' tal ger de en
-gradvis förändring, vilket går se på formen av sigmoid funktionen om man
-visualierar den, se figur~\ref{fig:sigmoid}.
-
-\begin{comment}
-	Kolla så att det här faktiskt är rätt
-
-Alltså kommer en liten förändring i en weight, $\Delta w_j$, eller bias,
-$\Delta b_j$, att ge en liten förändirng i utmatningen,
-$\Delta\text{utmatning}$:
-
-\begin{equation}
-	\Delta \mbox{utmatning} \approx \sum_j \frac{\partial \, \mbox{utmatning}}{\partial w_j}
-	\Delta w_j + \frac{\partial \, \mbox{utmatning}}{\partial b} \Delta b,
-\end{equation}
-
-där summan betecknar de partiella derivatorna i förhållande till weights
-respektive biases. Vilket innebär att $\Delta\text{utmatning}$ är
-\end{comment}
-
-\begin{figure}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[xlabel=$Z$,xmin=-5,xmax=5,]
-			\addplot[red!75] {(1)/(1+e^-x)};
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Sigmoid funktion}
-	\label{fig:sigmoid}
-\end{figure}
 
 
 % Förlustfunktionen
