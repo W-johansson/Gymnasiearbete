@@ -93,7 +93,7 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 		\draw[-latex] (w3) -- (sigma);
 		\draw[o-latex] (b) -- (sigma);
 		\draw[decorate,decoration={brace,mirror}] (x1.north west) --
-		node[left=10pt] {Inmatning} (x3.south west);
+		node[left=10pt] {Inmatning(ar)} (x3.south west);
 	\end{tikzpicture}
 	\caption{Sigmoid neuron}
 	\label{fig:sigmoidneuron}
@@ -125,16 +125,18 @@ weightsen medan biasen förskjuter hela kurvan i x-led.
 	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
 \end{equation}
 
+%figur för sigmoidfunktionens graf
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[xlabel=$Z$,xmin=-5,xmax=5,
-				legend style={at={(0.98,0.02)},anchor=south east},
-			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 1.5$,
-		$w = 0.75\text{, } b = -1$},]
-			\addplot[red!75] {(1)/(1+e^-x)};
-			\addplot[OliveGreen!75] {(1)/(1+e^(-2*x+1.5))};
-			\addplot[blue!75] {(1)/(1+e^(-0.75*x-1))};
+		\begin{axis}[xlabel=$Z$,%xmin=-7,xmax=7,
+			legend style={at={(0.98,0.02)},anchor=south east},
+			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 4$,
+				$w = 0.5\text{, } b = -1$},
+			]
+			\addplot[Brown!] {(1)/(1+e^-x)};
+			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
+			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
 			%\addplot[yellow!75] {(1)/(1+e^(-x+2))};
 			%\addplot[purple!75] {(1)/(1+e^(-x-3))};
 			%\addplot[green!75] {(1)/(1+e^(-2*x))};
