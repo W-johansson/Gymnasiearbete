@@ -2,11 +2,8 @@
 
 Designa ett neuronnät i MATLAB som lämpar sig för felkompensationen.
 
-Köra buss med GPS för att ta fram en rutt och sen fixa höjddatan från
-(en fin sida Axel hittade på nätet) [Insert webbpage here]. Höjddatan deriveras och ger den riktiga lutningen.
-Derivera hastigheten från elbussen.
-Detta är träningsdatan. 
+Köra buss med GPS och lutningsgivare för att få höjddata och rå lutningsdata. Under bestämda tidsintervall så kommer en trigometrisk funktion regelbundet att mäta lutningen med hjälp av höjddatan och en intergral av hastigheten. 
+Den råa lutningsdatan tillsammans med en beräknade lutningen är neuronnätets träningsdata.
 
 Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
-
 Träna neuronnätet med träningsdatan för att hitta fungerande weights och biases.
