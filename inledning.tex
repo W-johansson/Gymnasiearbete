@@ -27,7 +27,6 @@ Det är möjligt att sedan forstätta träna nätverket
 under användning, men oftast slutar man träna det när resultet är önskvärt.
 \autocite{wiki-neuronnat}
 
-
 \subsection{Piezoelektriska kristaller}
 Piezoelektriska material, har en kristallstruktur och, ger upphov till
 elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
@@ -45,179 +44,134 @@ fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
 
-
-% Williams personliga TODO:
-%	- bli konsekvent i hur begrepp ska skrivas, alltså språk osv.
-%	- knyt ihop styckena bra
-%   - ska det vara med hur antal neuroner bestämms?
-%   - recurrent
-%	- skulle kanske vara vettigt med en mer utförlig förklaring av weights och
-%	  biases
-%	- fixa det axel såg var fel om bias
-%	- z kallas weighted input
-
-
-%figur för sigmoid neuron
+\subsection{Artificiella neuroner}
+% Figur för neuron
 \begin{figure}
+	\centering
 	\begin{tikzpicture}[
-		init/.style={draw,circle,inner sep=2pt,font=\Huge,join = by -latex},
+			init/.style={draw,circle,inner sep=2pt,font=\Huge,join = by -latex},
 		squa/.style={draw,inner sep=2pt,font=\Large,join = by -latex},
 		start chain=2,node distance=13mm]
-		\node[on chain=2]
-			(x2) {$x_2$};
-		\node[on chain=2,join=by o-latex]
-  			{$w_2$};
-		\node[on chain=2,init] (sigma)
-  			{$\displaystyle\Sigma$};
-		\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Aktiverings
-		\\ funktion}}]
-  			{$f$};
-		\node[on chain=2,label=above:Utmatning,join=by -latex]
-  			{$y$};
+	\node[on chain=2] (x2) {$x_2$};
+		\node[on chain=2,join=by o-latex] {$w_2$};
+		\node[on chain=2,init] (sigma) {$\displaystyle\Sigma$};
+		\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Aktiverings-\\ funktion}}] {$\phi$};
+		\node[on chain=2,label=above:Output,join=by -latex] {$y$};
 		\begin{scope}[start chain=1]
-		\node[on chain=1] at (0,1.5cm)
-  			(x1) {$x_1$};
-		\node[on chain=1,join=by o-latex]
-  			(w1) {$w_1$};
+			\node[on chain=1] at (0,1.0cm) (x1) {$x_1$};
+			\node[on chain=1,label=above:Vikter,join=by o-latex] (w1) {$w_1$};
 		\end{scope}
 		\begin{scope}[start chain=3]
-		\node[on chain=3] at (0,-1.5cm)
-  			(x3) {$x_n$};
-		\node[on chain=3,label=below:Weights,join=by o-latex]
-  			(w3) {$w_n$};
+			\node[on chain=3] at (0,-1.0cm) (x3) {$x_n$};
+			\node[on chain=3,join=by o-latex] (w3) {$w_n$};
 		\end{scope}
-		\node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
+		\node[label=above:\parbox{2cm}{\centering Bias, $b$}] at (sigma|-w1) (b) {};
 		\draw[-latex] (w1) -- (sigma);
 		\draw[-latex] (w3) -- (sigma);
-		\draw[o-latex] (b) -- (sigma);
-		\draw[decorate,decoration={brace,mirror}] (x1.north west) --
-		node[left=10pt] {Inmatning(ar)} (x3.south west);
+		\draw[-latex] (b) -- (sigma);
+		\draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
 	\end{tikzpicture}
-	\caption{Sigmoid neuron}
-	\label{fig:sigmoidneuron}
+	\caption{Schematisk skiss över en neuron.}
+	\label{fig:neuron}
 \end{figure}
-
-\subsection{Artificiella neuroner}
-%sigmoid neuroner
-En artificell neuron tar en eller flera inmatningar och skapar en
-utmatning av dem genom att summera dem i en s.k. \emph{weighted input} och
-sedan applicera en aktiveringsfunktion, se figur~\ref{fig:sigmoidneuron}.
-Varje inmatning, $x$, är tilldelad en \emph{weight}, $w$, som beskriver
-hur viktig den är för utmatningen, $y$. Utöver det har varje neuron en \emph{bias},
-$b$.
-Inmatningarna, $x_1,x_2, \ldots, x_n$, weightsen, $w_1, w_2, \ldots, w_n$, och
-biasen, $b$, ger den weighted input som är $\Sigma_nw_nx_n + b$ och
-är ekvivalent med $z$.
-För att sedan få utmatningen används en aktiveringsfunktion på den weightade
-inputen. En sigmoidfunktion:
-
-\begin{equation} \label{eq:sigmoid}
-	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
-\end{equation}
-
-%lite om att de nbllir mättad med stora tal
-är ett exempel på en aktiveringsfunktion, vilken ger utmatningen
-$\sigma(%\Sigma_nw_nx_n + b)$. -- se vilken av dessa borde det vara?
-z)$.
-Tänk att om $z$ är ett stort positivt tal, då är $e^{-z} \approx 0 $ medan
-$\sigma(z) \approx 1$.
-Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
-\infty $ och därmed blir $\sigma(z) \approx 0$. Det är alltså bara när talen är
-stora som förändringen är drastiskt. Inom ramen för `` lagom små'' tal ger de en
-gradvis förändring, vilket går se på formen av sigmoid funktionen om man
-visualierar den, se figur~\ref{fig:sigmoidfunction}. Grafens lutning påverkas av
-weightsen medan biasen förskjuter hela kurvan i x-led.
-Med sigmoid funktionen som aktiveringsfunktion ger en liten förändring i
-neuronens weights eller bias en liten förändring i dess utmatning; vilket gör
-det möjligt att modifiera dessa för att gradvis förbättra nätets prestanda.
-Något som i praktiken innebär att man har tränat neuronnätet, vilket vi
-återkommer till senare.
-
 
 % Figur för sigmoidfunktionens graf
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[xlabel=$Z$,%xmin=-7,xmax=7,
-			legend style={at={(0.98,0.02)},anchor=south east},
-			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 4$,
-				$w = 0.5\text{, } b = 0$},
-			]
+		\begin{axis}[legend style={at={(0.02,0.98)},anchor=north west},
+			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$}]
 			\addplot[Brown!] {(1)/(1+e^-x)};
 			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
-			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x))};
-			%\addplot[yellow!75] {(1)/(1+e^(-x+2))};
-			%\addplot[purple!75] {(1)/(1+e^(-x-3))};
-			%\addplot[green!75] {(1)/(1+e^(-2*x))};
+			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Aktiveringsfunktionen sigmoid. \label{fig:sigmoid}}
 \end{figure}
 
-%figur för neuronnäts arkitektur
-\def\layersep{2.5cm}
+% Neuronen
+En artificiell neuron tar in en eller flera inputs och producerar en output $y$,
+se figur~\ref{fig:neuron}.
+Varje input, $x_i$, är tilldelad en \emph{vikt}, $w_i$.
+Utöver det har varje neuron en \emph{bias}, $b$.
+Neuronens inputs, $x_1,x_2, \dotsc, x_n$, vikterna, $w_1, w_2, \dotsc, w_n$,
+och biasen, $b$, ger en s.k. \emph{weighted input}, $z$:
+\begin{equation}
+	z \equiv \sum_n w_n x_n + b
+\end{equation}
+Outputen för neuronen är resultatet av en aktiveringsfunktion för $z$, $\phi(z)$.
+Aktiveringsfunktionen kan vara vad som helst så länge den är deriverbar,
+men olika funktioner ger olika bra resultat.
+Sigmoidfunktionen, $\sigma(z)$, är ett exempel på en sådan aktiveringsfunktion
+och ser ut som:
+\begin{equation}
+	\sigma(z) \equiv \frac{1}{1 + e^{-z}}
+\end{equation}
+Dess värdemängd är normaliserad från 0\,till\,1, se figur~\ref{fig:sigmoid}.
+Om $z$ är ett stort positivt tal kommer $ \sigma(z) \approx 1 $,
+medan om $z$ är ett stort negativt tal så kommer $ \sigma(z) \approx 0 $.
+Grafens lutning påverkas av vikterna medan biasen förskjuter hela kurvan i x-led.
+Med sigmoidfunktionen blir neuronens output alltså $ \sigma(\sum_n w_n x_n + b) $.
+\autocite{nielsen15}
+
+\subsection{Neuronnätsarkitektur}
 \begin{figure}
 	\centering
+	\def\layersep{2.5cm}
 	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
 		\tikzstyle{every pin edge}=[<-,shorten <=1pt]
-    	\tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
-    	\tikzstyle{inmatning}=[neuron, fill=red!45];
-    	\tikzstyle{utmatning}=[neuron, fill=green!50];
-    	\tikzstyle{hidden neuron}=[neuron, fill=blue!50];
-    	\tikzstyle{annot} = [text width=4em, text centered]
+		\tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+		\tikzstyle{input}=[neuron, fill=red!45];
+		\tikzstyle{output}=[neuron, fill=green!50];
+		\tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+		\tikzstyle{annot} = [text width=4em, text centered]
 
-    	\foreach \name / \y in {1,...,2}
-        	\node[inmatning, pin=left:Inmatning \#\y] (I-\name) at (0,-\y) {};
-    	\foreach \name / \y in {1,...,3}
-        	\path[yshift=0.5cm]
-            	node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
-    	\node[utmatning,pin={[pin edge={->}]right:Utmatning}, right of=H-2] (O) {};
-    	\foreach \source in {1,...,2}
-        	\foreach \dest in {1,...,3}
-            	\path (I-\source) edge (H-\dest);
-    	\foreach \source in {1,...,3}
-        	\path (H-\source) edge (O);
+		\foreach \name / \y in {1,...,2}
+			\node[input, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+		\foreach \name / \y in {1,...,3}
+			\path[yshift=0.5cm]
+				node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+		\node[output,pin={[pin edge={->}]right:Output}, right of=H-2] (O) {};
+		\foreach \source in {1,...,2}
+			\foreach \dest in {1,...,3}
+				\path (I-\source) edge (H-\dest);
+		\foreach \source in {1,...,3}
+			\path (H-\source) edge (O);
 
-    	\node[annot,above of=H-1, node distance=1cm] (hl) {Gömt lager};
-    	\node[annot,left of=hl] {Inmatnings lager};
-    	\node[annot,right of=hl] {Utmatnings lager};
-    \end{tikzpicture}
-	\caption{Allmänt neuronnät}
-	\label{fig:genericnetwork}
+		\node[annot,above of=H-1, node distance=1cm] (hl) {Dolt lager};
+		\node[annot,left of=hl] {Inputlager};
+		\node[annot,right of=hl] {Outputlager};
+	\end{tikzpicture}
+	\caption{Exempel på feed-forward neuronnät. \label{fig:network}}
 \end{figure}
 
-
-\subsection{Neuronnäts arkitektur}
-%neuronnäts arkitektur
-Neuronnät har en generell arkitektur, se figur~\ref{fig:genericnetwork}, där
-det lagret längst till vänster är inmatningslagret (bestående av
-inmatningsneuroner), det längst till höger är utmatningslagret (bestående av
-utmatningsneuroner). Det mellersta kallas det gömda lagret för att det varken
-innehåller in- eller utmatningsneuroner. Varje neuron får sin inmatning från
-varje annan neuron i det föregående lagret, förutom inmatningsneuronerna som
-direkt får data. %rätt att använda data!?
-Den här arkitekturen kallas \textit{feedforward}, inforamtion matas
-alltid framåt mellan neuroner.
-Medan det är förhållandevis rakt på sak att bestämma antalet in- och
-utmatningsneuroner, så finns ingen generell regel för hur många gömda lagren
-och antalet neuroner dessa ska innehålla. Istället får alltså t.ex. antalet
-neuroner ställas i förhållande till hur lång tid det tar att träna nätet.
-Med andra ord är neuronnät specifika för en uppgift och en arkitektur som
-fungerar bra i ett fall behöver nödvändigtvis inte göra det i ett annat.
-
+Neuronnät består av flera neuroner som alla är sammankopplade, se figur~\ref{fig:network}.
+I ett s.k. \textit{feed-forward} neuronnät får varje neuron inputs från
+varenda neuron i det tidigare lagret.
+Inputlagret får sina inputs direkt.
+Det dolda lagret kallas så eftersom det inte är uppenbart hur det fungerar;
+så vitt vi vet skulle det kunna använda sitt brutna ben
+för att skyffla informationen framåt.
+Outputlagrets aktiveringar blir resultatet av neuronnätet.
+Medan antalet input- och outputneuroner otvetydligt kan bestämmas
+från formen av ens träningsdata,
+så finns bara empiriskt deriverad heuristik för strukturen på ens dolda lager.
+Exempel på nackdelar med fler neuroner är längre träningstider
+och behovet av mer träningsdata.
+Neuronnät är specifika för en uppgift och en arkitektur som
+fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
+\autocite{nielsen15}
 
 \subsection{Stochastic gradient descent}
 % Förlustfunktionen
 Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
-kan man korrelera små ändringar i weights och biases
+kan man korrelera små ändringar i vikter och biases
 till små förbättringar i prestandan.
 Den \emph{kvadratiska förlustfunktionen} är en sådan funktion:
-
 \begin{equation} \label{eq:cost}
 	C(w, b) \equiv \frac{1}{2n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
 \end{equation}
-
-där $ w $ är alla weights i nätet, $ b $ är alla biases,
+där $ w $ är alla vikter i nätet, $ b $ är alla biases,
 $ n $ är antalet träningsindata, $ a $ är en vektor med utdata när $ x $ är indata
 och summan är över all träningsindata $ x $.
 Man ser att $ C(w, b) $ är icke-negativ då varje term i summan är positiv.
@@ -225,6 +179,7 @@ Dessutom är förlusten $ C(w, b) $ liten, det vill säga $ C(w, b) \approx 0 $,
 när $ y(x) $ är ungefär lika med utdatan, $ a $, för alla träningsindata, $ x $.
 Målet med träningsalgoritmen blir då att minimera $ C(w, b) $.
 
+%figur för gradient descent
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
@@ -245,24 +200,19 @@ säger intuition att en boll skulle rulla ner för sluttningen till botten.
 Vi kan simulera detta genom att räkna ut gradienten av $ f $.
 Gradienten av $ f $, $ \nabla f $, vid en punkt är en vektor
 som pekar i riktningen av den brantaste lutningen vid den punkten:
-
 \begin{equation}
 	\nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} \end{bmatrix}^{T}
 \end{equation}
-
 där $ \partial f / \partial x_i $ är den partiella derivatan
 som beskriver hur snabbt $ f $ växer med avseende på variablen $ x_i $.
 Vi kan minska $ f $ genom att gå i riktningen av den negativa gradienten:
-
 \begin{equation}
 	x \leftarrow x - \eta \nabla f(x)
 \end{equation}
-
 där $ \eta $ är inlärningshastigheten,
 en positiv skalär som bestämmer längden av steget.
 Genom att generalisera det till flera dimensioner kan vi
 applicera det på neuronnät:
-
 \begin{align}
 	w_k &\leftarrow w_k - \eta \frac{\partial C}{\partial w_k} \\
 	b_l &\leftarrow b_l - \eta \frac{\partial C}{\partial b_l}
