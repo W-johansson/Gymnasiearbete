@@ -125,25 +125,18 @@ weightsen medan biasen förskjuter hela kurvan i x-led.
 	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
 \end{equation}
 
-%figur för sigmoidfunktionens graf
+% Figur för sigmoidfunktionens graf
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[xlabel=$Z$,%xmin=-7,xmax=7,
-			legend style={at={(0.98,0.02)},anchor=south east},
-			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 4$,
-				$w = 0.5\text{, } b = -1$},
-			]
+		\begin{axis}[legend style={at={(0.02,0.98)},anchor=north west},
+			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$}]
 			\addplot[Brown!] {(1)/(1+e^-x)};
 			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
 			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
-			%\addplot[yellow!75] {(1)/(1+e^(-x+2))};
-			%\addplot[purple!75] {(1)/(1+e^(-x-3))};
-			%\addplot[green!75] {(1)/(1+e^(-2*x))};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Sigmoid funktion}
-	\label{fig:sigmoidfunction}
+	\caption{Aktiveringsfunktionen sigmoid. \label{fig:sigmoid}}
 \end{figure}
 
 %figur för neuronnäts arkitektur
