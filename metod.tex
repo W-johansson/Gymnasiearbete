@@ -1,5 +1,104 @@
 \section{Metod}
 
+\definecolor{cb42e25}{RGB}{180,46,37}
+\definecolor{ce94f2e}{RGB}{233,79,46}
+\definecolor{cd2edf3}{RGB}{210,237,243}
+\definecolor{c3f4340}{RGB}{63,67,64}
+\definecolor{cadadad}{RGB}{173,173,173}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[thick, >=stealth']
+		\draw[<->] (5,0) node[below] {$s$} -| (0,3) node[right] {$h$};
+		\draw[red, name path=slope] (0, 1) -- (1, 1) to[out=0,in=180] (4, 3) -- (5, 3);
+		\path[name path=y] (1, 1) -- (3.6, 2.9);
+		\path[name intersections={of=y and slope, by={A, B}}];
+		\draw (A) -- (B); % Mark bus
+		\coordinate (corner) at (A -| B);
+		\draw[thin] (A) -| (B) ($ (corner) - (0.2, 0) $) |- ($ (corner) + (0, 0.2) $);
+
+		\draw[thin, dashed] (A) -- (1, 0) node[below] {$s_1$} (A -| B) -- ({0, 0} -| B) node[below] {$s_1 + x$};
+		\draw[decorate,decoration={brace,mirror,raise=3pt}] ({1, 1} -| B) -- node[right=4pt] {$\Delta h$} (B);
+		\draw[decorate,decoration={brace,mirror,raise=23pt}] (B) -- node[above left=16pt] {$l$} (1, 1);
+		\draw pic[draw, "$v$", angle eccentricity=1.4] {angle=corner--A--B};
+		\fill[draw=black,fill=white] (A) circle (2.0pt);
+
+		\begin{scope}[shift={(1,1)},rotate=36,scale=0.0055]
+			\path[fill=cb42e25] (259.9767,123.5489) ..
+			controls (259.5847,123.5489) and (259.2486,123.6739) .. (258.9626,123.9290) ..
+			controls (258.6776,124.1778) and (258.5337,124.5348) .. (258.5337,124.9938) ..
+			controls (258.5337,125.3790) and (258.6716,125.7130) .. (258.9437,125.9880) ..
+			controls (259.2187,126.2669) and (259.5507,126.4079) .. (259.9517,126.4079) ..
+			controls (260.3497,126.4079) and (260.6877,126.2669) .. (260.9747,125.9958) ..
+			controls (261.2547,125.7200) and (261.3967,125.3829) .. (261.3967,124.9938) ..
+			controls (261.3967,124.5411) and (261.2547,124.1848) .. (260.9747,123.9329) ..
+			controls (260.6877,123.6739) and (260.3557,123.5489) .. (259.9767,123.5489);
+			\path[fill=ce94f2e] (373.3466,121.7386) ..
+			controls (373.3466,121.7386) and (371.7726,129.0646) .. (366.3356,129.0646) --
+			(10.3947,129.0646) .. controls (2.2927,129.0646) and (3.3829,121.7386) ..
+			(3.3829,121.7386) -- (0.2341,84.8536) .. controls (0.2341,84.8536) and
+			(0.2341,40.1426) .. (0.2341,26.4826) .. controls (0.2341,15.8967) and
+			(8.2892,15.9088) .. (8.2892,15.9088) -- (358.9956,15.9088) .. controls
+			(358.9956,15.9088) and (389.7196,12.8248) .. (389.7196,26.4826) .. controls
+			(389.7196,40.1426) and (389.7196,57.4616) .. (389.7196,57.4616) --
+			(373.3466,121.7386);
+			\path[fill=cd2edf3] (368.4866,119.4046) -- (349.4186,119.4046) --
+			(349.4186,69.3705) -- (384.2616,60.3476) -- (368.4866,119.4046);
+			\path[fill=cd2edf3] (280.5166,121.3562) -- (16.5536,121.3562) --
+			(9.2185,81.5245) -- (280.5166,81.5245) -- (280.5166,121.3562);
+			\path[fill=c3f4340] (17.6720,20.9358) ..
+			controls (17.6720,9.3494) and (27.0634,-1.9596) .. (38.6516,-1.9596) ..
+			controls (50.2376,-1.9596) and (59.6296,9.3494) .. (59.6296,20.9358) ..
+			controls (59.6296,32.5236) and (50.2376,41.9146) .. (38.6516,41.9146) ..
+			controls (27.0634,41.9146) and (17.6720,32.5236) .. (17.6720,20.9358);
+			\path[fill=cadadad] (26.5673,20.9358) ..
+			controls (26.5673,14.2616) and (31.9766,8.8518) .. (38.6516,8.8518) ..
+			controls (45.3226,8.8518) and (50.7346,14.2616) .. (50.7346,20.9358) ..
+			controls (50.7346,27.6096) and (45.3226,33.0196) .. (38.6516,33.0196) ..
+			controls (31.9766,33.0196) and (26.5673,27.6096) .. (26.5673,20.9358);
+			\path[fill=c3f4340] (64.9016,20.9358) ..
+			controls (64.9016,9.3494) and (74.2936,-1.9596) .. (85.8806,-1.9596) ..
+			controls (97.4666,-1.9596) and (106.8596,9.3494) .. (106.8596,20.9358) ..
+			controls (106.8596,32.5236) and (97.4666,41.9146) .. (85.8806,41.9146) ..
+			controls (74.2936,41.9146) and (64.9016,32.5236) .. (64.9016,20.9358);
+			\path[fill=cadadad] (73.7966,20.9358) ..
+			controls (73.7966,14.2616) and (79.2066,8.8518) .. (85.8806,8.8518) ..
+			controls (92.5516,8.8518) and (97.9636,14.2616) .. (97.9636,20.9358) ..
+			controls (97.9636,27.6096) and (92.5516,33.0196) .. (85.8806,33.0196) ..
+			controls (79.2066,33.0196) and (73.7966,27.6096) .. (73.7966,20.9358);
+			\path[fill=c3f4340] (311.6096,20.10058) ..
+			controls (311.6096,9.4194) and (320.10016,-1.10296) .. (332.5896,-1.10296) ..
+			controls (344.1756,-1.10296) and (353.5676,9.4194) .. (353.5676,20.10058) ..
+			controls (353.5676,32.5936) and (344.1756,41.9846) .. (332.5896,41.9846) ..
+			controls (320.10016,41.9846) and (311.6096,32.5936) .. (311.6096,20.10058);
+			\path[fill=cadadad] (320.5056,20.10058) ..
+			controls (320.5056,14.3316) and (325.9146,8.9218) .. (332.5896,8.9218) ..
+			controls (339.2606,8.9218) and (344.6726,14.3316) .. (344.6726,20.10058) ..
+			controls (344.6726,27.6796) and (339.2606,33.896) .. (332.5896,33.896) ..
+			controls (325.9146,33.896) and (320.5056,27.6796) .. (320.5056,20.10058);
+			\path[fill=ce94f2e] (127.5966,24.7147) --
+			(150.8966,24.7147) -- (150.8966,27.5487) -- (127.5966,27.5487) -- cycle;
+			\path[fill=ce94f2e] (190.8836,24.7147) --
+			(214.1844,24.7147) -- (214.1844,27.5487) -- (190.8836,27.5487) -- cycle;
+		\end{scope}
+	\end{tikzpicture}
+	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
+\end{figure}
+
+Bussen körs med en GPS i bakre ändan för att få höjden som en funktion av sträckan.
+I en viss punkt kan man konstruera en rätvinklig triangel
+där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
+Då gäller Pythagoras sats:
+\begin{equation} \label{eq:pythsats}
+	x^2 + \Delta h^2 = l^2
+\end{equation}
+Genom att minimera en förlustfunktion av $x$
+för hur väl ekvation~\ref{eq:pythsats} stämmer
+beräknas lutningen $v$ med arcus tangens:
+\begin{equation}
+	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
+\end{equation}
+
 Designa ett neuronnät i MATLAB som lämpar sig för felkompensationen.
 
 Köra buss med GPS för att ta fram en rutt och sen fixa höjddatan från
