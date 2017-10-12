@@ -1,7 +1,6 @@
-\section{Inledning}
-\subsection{Teori \& bakgrund}
+\section{Teori \& bakgrund}
+\subsection{Inledning}
 % Bakgrund
-
 Automatiska växellådor sitter idag i en mängd av olika fordon,
 däribland en helt elektrisk buss under utveckling av Volvo.
 För att bland annat köra på rätt växel, optimera motorns styrprogram
@@ -13,26 +12,6 @@ Controller Area Network (CAN)-kommunikation.
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
-
-%teori
-% - piezoelekrtiskakristaller
-% - algoritmen
-
-Piezoelektriska material, har en kristallstruktur och, ger upphov till
-elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
-direkta piezoelektriska effekten.
-Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäller
-också, elektricitet omvandlas till mekansikt arbete i den omvända
-piezoelektriska effekten i vilken kristallen deformeras.
-\autocite{electronicdesign2016}
-Piezoelektriska lutningsgivare använder elektriska signaler som är
-inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
-under gravitationskraften från en tyngd.
-Vinkeln mellan gravitationskraften och
-riktningen på den piezoelektriska kroppens vibration
-fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
-och använder geometriska samband mellan dem.
-\autocite{chiang00}
 
 %vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
@@ -49,6 +28,24 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 \autocite{wiki-neuronnat}
 
 
+\subsection{Piezoelektriska kristaller}
+Piezoelektriska material, har en kristallstruktur och, ger upphov till
+elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
+direkta piezoelektriska effekten.
+Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäller
+också, elektricitet omvandlas till mekansikt arbete i den omvända
+piezoelektriska effekten i vilken kristallen deformeras.
+\autocite{electronicdesign2016}
+Piezoelektriska lutningsgivare använder elektriska signaler som är
+inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
+under gravitationskraften från en tyngd.
+Vinkeln mellan gravitationskraften och
+riktningen på den piezoelektriska kroppens vibration
+fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
+och använder geometriska samband mellan dem.
+\autocite{chiang00}
+
+
 % Williams personliga TODO:
 %	- bli konsekvent i hur begrepp ska skrivas, alltså språk osv.
 %	- knyt ihop styckena bra
@@ -58,6 +55,7 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 %	  biases
 %	- fixa det axel såg var fel om bias
 %	- z kallas weighted input
+
 
 %figur för sigmoid neuron
 \begin{figure}
@@ -99,6 +97,7 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 	\label{fig:sigmoidneuron}
 \end{figure}
 
+\subsection{Artificiella neuroner}
 %sigmoid neuroner
 En artificell neuron tar en eller flera inmatningar och skapar en
 utmatning av dem genom att summera dem i en s.k. \emph{weighted input} och
@@ -107,23 +106,33 @@ Varje inmatning, $x$, är tilldelad en \emph{weight}, $w$, som beskriver
 hur viktig den är för utmatningen, $y$. Utöver det har varje neuron en \emph{bias},
 $b$.
 Inmatningarna, $x_1,x_2, \ldots, x_n$, weightsen, $w_1, w_2, \ldots, w_n$, och
-den allmäna biasen, $b$, ger den weighted input som är $\Sigma_nw_nx_n + b$ och
+biasen, $b$, ger den weighted input som är $\Sigma_nw_nx_n + b$ och
 är ekvivalent med $z$.
 För att sedan få utmatningen används en aktiveringsfunktion på den weightade
-inputen. En sigmoidfunktion, se ekvation~\ref{eq:sigmoid}, är ett exempel på en
-aktiveringsfunktion, vilken ger utmatningen $\sigma(\Sigma_nw_nx_n + b)$.
-Tänk att $z$ är ett stort positivt tal, då är $e^{-z} \approx 0 $ medan
-$\sigma(z) \approx 1$.
-Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
-\infty $ och därmed blir $\sigma(z) \approx 0$. Det är alltså bara när talen är
-stora som förändringen är drastiskt. Inom ramen för ``små'' tal ger de en
-gradvis förändring, vilket går se på formen av sigmoid funktionen om man
-visualierar den, se figur~\ref{fig:sigmoidfunction}. Grafens lutning påverkas av
-weightsen medan biasen förskjuter hela kurvan i x-led.
+inputen. En sigmoidfunktion:
 
 \begin{equation} \label{eq:sigmoid}
 	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
 \end{equation}
+
+%lite om att de nbllir mättad med stora tal
+är ett exempel på en aktiveringsfunktion, vilken ger utmatningen
+$\sigma(%\Sigma_nw_nx_n + b)$. -- se vilken av dessa borde det vara?
+z)$.
+Tänk att om $z$ är ett stort positivt tal, då är $e^{-z} \approx 0 $ medan
+$\sigma(z) \approx 1$.
+Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
+\infty $ och därmed blir $\sigma(z) \approx 0$. Det är alltså bara när talen är
+stora som förändringen är drastiskt. Inom ramen för `` lagom små'' tal ger de en
+gradvis förändring, vilket går se på formen av sigmoid funktionen om man
+visualierar den, se figur~\ref{fig:sigmoidfunction}. Grafens lutning påverkas av
+weightsen medan biasen förskjuter hela kurvan i x-led.
+Med sigmoid funktionen som aktiveringsfunktion ger en liten förändring i
+neuronens weights eller bias en liten förändring i dess utmatning; vilket gör
+det möjligt att modifiera dessa för att gradvis förbättra nätets prestanda.
+Något som i praktiken innebär att man har tränat neuronnätet, vilket vi
+återkommer till senare.
+
 
 %figur för sigmoidfunktionens graf
 \begin{figure}
@@ -132,11 +141,11 @@ weightsen medan biasen förskjuter hela kurvan i x-led.
 		\begin{axis}[xlabel=$Z$,%xmin=-7,xmax=7,
 			legend style={at={(0.98,0.02)},anchor=south east},
 			legend entries={$w = 1\text{, } b = 0$, $w = 2\text{, } b = 4$,
-				$w = 0.5\text{, } b = -1$},
+				$w = 0.5\text{, } b = 0$},
 			]
 			\addplot[Brown!] {(1)/(1+e^-x)};
 			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
-			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
+			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x))};
 			%\addplot[yellow!75] {(1)/(1+e^(-x+2))};
 			%\addplot[purple!75] {(1)/(1+e^(-x-3))};
 			%\addplot[green!75] {(1)/(1+e^(-2*x))};
@@ -178,6 +187,8 @@ weightsen medan biasen förskjuter hela kurvan i x-led.
 	\label{fig:genericnetwork}
 \end{figure}
 
+
+\subsection{Neuronnäts arkitektur}
 %neuronnäts arkitektur
 Neuronnät har en generell arkitektur, se figur~\ref{fig:genericnetwork}, där
 det lagret längst till vänster är inmatningslagret (bestående av
@@ -186,10 +197,17 @@ utmatningsneuroner). Det mellersta kallas det gömda lagret för att det varken
 innehåller in- eller utmatningsneuroner. Varje neuron får sin inmatning från
 varje annan neuron i det föregående lagret, förutom inmatningsneuronerna som
 direkt får data. %rätt att använda data!?
-Den här arkitekturen kallas \textit{feedforward}, inforamtionen matas
-alltid framåt.
+Den här arkitekturen kallas \textit{feedforward}, inforamtion matas
+alltid framåt mellan neuroner.
+Medan det är förhållandevis rakt på sak att bestämma antalet in- och
+utmatningsneuroner, så finns ingen generell regel för hur många gömda lagren
+och antalet neuroner dessa ska innehålla. Istället får alltså t.ex. antalet
+neuroner ställas i förhållande till hur lång tid det tar att träna nätet.
+Med andra ord är neuronnät specifika för en uppgift och en arkitektur som
+fungerar bra i ett fall behöver nödvändigtvis inte göra det i ett annat.
 
 
+\subsection{Stochastic gradient descent}
 % Förlustfunktionen
 Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
 kan man korrelera små ändringar i weights och biases
@@ -263,11 +281,11 @@ och räkna ut gradienten från dem:
 \end{equation}
 med exempel från minibatchen $ \mathbb{B} $.
 
-\subsection{Syfte}
+\section{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
 artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 
-\subsection{Frågeställningar}
+\section{Frågeställningar}
 Vi vill undersöka\ldots
 \begin{itemize}
 	\item Varför råsignalen från lutningsgivaren blir opålitlig.
