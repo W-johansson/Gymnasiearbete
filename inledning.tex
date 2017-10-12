@@ -1,7 +1,6 @@
-\section{Inledning}
-\subsection{Teori \& bakgrund}
+\section{Teori \& bakgrund}
+\subsection{Inledning}
 % Bakgrund
-
 Automatiska växellådor sitter idag i en mängd av olika fordon,
 däribland en helt elektrisk buss under utveckling av Volvo.
 För att bland annat köra på rätt växel, optimera motorns styrprogram
@@ -14,10 +13,21 @@ Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
 
-%teori
-% - piezoelekrtiskakristaller
-% - algoritmen
+%vad neuronnät är och vad de används till
+Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
+hur djurs hjärnor fungerar och kommunicerar.
+Neuronnät kan användas för att klara av vissa problem som annars är svårlösta
+med konventionella datalogiska metoder.
+Ett neuronnät ``lär sig'', precis som vi gör, genom att observera.
+Men för att ha avsedd funktion måste de tränas, alltså är arbete med neuronnät
+uppdelat i två faser: en inlärningsfas och en tillämpningsfas där nätverket sedan
+utför den ämnade uppgiften.
+\autocite{copeland16}
+Det är möjligt att sedan forstätta träna nätverket
+under användning, men oftast slutar man träna det när resultet är önskvärt.
+\autocite{wiki-neuronnat}
 
+\subsection{Piezoelektriska kristaller}
 Piezoelektriska material, har en kristallstruktur och, ger upphov till
 elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
 direkta piezoelektriska effekten.
@@ -34,137 +44,134 @@ fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
 
-%vad neuronnät är och vad de används till
-Ett artificiellt neuronnät är ett en självlärande algoritm som inspirerats av
-hur djurs hjärnor fungerar och kommunicerar.
-Neuronnät kan användas för att klara av vissa problem som annars är svårlösta
-med konventionella datalogiska metoder.
-Ett neuronnät ``lär sig'', precis som vi gör, genom att observera.
-Men för att ha avsedd funktion måste de tränas, alltså är arbete med neuronnät
-uppdelat i två faser: en inlärningsfas och en tillämpningsfas där nätverket sedan
-utför den ämnade uppgiften.
-\autocite{copeland16}
-Det är möjligt att sedan forstätta träna nätverket
-under användning, men oftast slutar man träna det när resultet är önskvärt.
-\autocite{wiki-neuronnat}
-
-\def\layersep{2.5cm}
+\subsection{Artificiella neuroner}
+% Figur för neuron
 \begin{figure}
 	\centering
-	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
-		\tikzstyle{every pin edge}=[<-,shorten <=1pt]
-    	\tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
-    	\tikzstyle{inmatning}=[neuron, fill=red!45];
-    	\tikzstyle{utmatning}=[neuron, fill=green!50];
-    	\tikzstyle{hidden neuron}=[neuron, fill=blue!50];
-    	\tikzstyle{annot} = [text width=4em, text centered]
-
-    	\foreach \name / \y in {1,...,2}
-        	\node[inmatning, pin=left:Inmatning \#\y] (I-\name) at (0,-\y) {};
-    	\foreach \name / \y in {1,...,3}
-        	\path[yshift=0.5cm]
-            	node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
-    	\node[utmatning,pin={[pin edge={->}]right:Utmatning}, right of=H-2] (O) {};
-    	\foreach \source in {1,...,2}
-        	\foreach \dest in {1,...,3}
-            	\path (I-\source) edge (H-\dest);
-    	\foreach \source in {1,...,3}
-        	\path (H-\source) edge (O);
-
-    	\node[annot,above of=H-1, node distance=1cm] (hl) {Gömt lager};
-    	\node[annot,left of=hl] {Inmatnings lager};
-    	\node[annot,right of=hl] {Utmatnings lager};
-    \end{tikzpicture}
-	\caption{Allmänt neuronnät}
-	\label{fig:genericnetwork}
+	\begin{tikzpicture}[
+			init/.style={draw,circle,inner sep=2pt,font=\Huge,join = by -latex},
+		squa/.style={draw,inner sep=2pt,font=\Large,join = by -latex},
+		start chain=2,node distance=13mm]
+	\node[on chain=2] (x2) {$x_2$};
+		\node[on chain=2,join=by o-latex] {$w_2$};
+		\node[on chain=2,init] (sigma) {$\displaystyle\Sigma$};
+		\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Aktiverings-\\ funktion}}] {$\phi$};
+		\node[on chain=2,label=above:Output,join=by -latex] {$y$};
+		\begin{scope}[start chain=1]
+			\node[on chain=1] at (0,1.0cm) (x1) {$x_1$};
+			\node[on chain=1,label=above:Vikter,join=by o-latex] (w1) {$w_1$};
+		\end{scope}
+		\begin{scope}[start chain=3]
+			\node[on chain=3] at (0,-1.0cm) (x3) {$x_n$};
+			\node[on chain=3,join=by o-latex] (w3) {$w_n$};
+		\end{scope}
+		\node[label=above:\parbox{2cm}{\centering Bias, $b$}] at (sigma|-w1) (b) {};
+		\draw[-latex] (w1) -- (sigma);
+		\draw[-latex] (w3) -- (sigma);
+		\draw[-latex] (b) -- (sigma);
+		\draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
+	\end{tikzpicture}
+	\caption{Schematisk skiss över en neuron.}
+	\label{fig:neuron}
 \end{figure}
 
-% Williams personliga TODO:
-%	- bli konsekvent i hur begrepp ska skrivas, alltså språk osv.
-%	- knyt ihop styckena bra
-%   - ska det vara med hur antal neuroner bestämms?
-%   - recurrent
-%	- skulle kanske vara vettigt med en mer utförlig förklaring av weights och
-%	  biases
-
-%neuronnäts arkitektur
-Neuronnät har en generell arkitektur, se figur~\ref{fig:genericnetwork}, där
-det lagret längst till vänster är inmatningslagret (bestående av
-inmatningsneuroner), det längst till höger är utmatningslagret (bestående av
-utmatningsneuroner). Det mellersta kallas det gömda lagret för att det varken
-innehåller in- eller utmatningsneuroner. Varje neuron får sin inmatning från
-varje annan neuron i det föregående lagret, förutom inmatningsneuronerna som
-direkt får data. %rätt att använda data!?
-Den här arkitekturen kallas \textit{feedforward}, inforamtionen matas
-alltid framåt.
-%sigmoid neuroner
-Neuronnät består av s.k. sigmoidneuroner vars inmatning, $x$ är ett tal mellan 0 och 1.
-Varje neuron är tilldelad en \textit{weight}, $w$, och en \textit{bias}, $b$.
-Förenklat säger weighten av hur stor betydelse informationen är för neuronen
-och biasen i hur hög grad man bör lita på denna enskilda neuron.
-Utmatningen, $\sigma$, från en sigmoidneuron blir alltså: $ \sigma(w \cdot x
-+b) $, där $\sigma$ kallas sigmoid funktionen, och defineras som:
-
-\begin{equation}
-	\sigma(z) \equiv \frac{1}{1 + e^{-z}} \\
-\end{equation}
-
-Utmatningen för en sigmoid neuron med inmatningen $ x_1, x_2,
-\ldots$, weightsen $w_1, w_2, \ldots$ och biasen $b$ är:
-
-\begin{equation}
-	\frac{1}{1 + \exp(-\Sigma_jw_jx_j - b)}
-\end{equation}
-
-%skulle behöva fixa en förklaring av mina variabler
-
-Tänk att $z \equiv w \cdot x + b $ och är ett stort positivt tal då är $e^{-z} \approx 0 $
-medan $\sigma(z) \approx 1$.
-Motsatt gäller att när $z$ är ett stort negativt tal går $e^{-z} \rightarrow
-\infty $ och därmed $\sigma(z) \approx 0$. Det är alltså bara när talen är
-stora som förändringen är drastiskt. Inom ramen för ``små'' tal ger de en
-gradvis förändring, vilket går se på formen av sigmoid funktionen om man
-visualierar den, se figur~\ref{fig:sigmoid}.
-
-\begin{comment}
-	Kolla så att det här faktiskt är rätt
-
-Alltså kommer en liten förändring i en weight, $\Delta w_j$, eller bias,
-$\Delta b_j$, att ge en liten förändirng i utmatningen,
-$\Delta\text{utmatning}$:
-
-\begin{equation}
-	\Delta \mbox{utmatning} \approx \sum_j \frac{\partial \, \mbox{utmatning}}{\partial w_j}
-	\Delta w_j + \frac{\partial \, \mbox{utmatning}}{\partial b} \Delta b,
-\end{equation}
-
-där summan betecknar de partiella derivatorna i förhållande till weights
-respektive biases. Vilket innebär att $\Delta\text{utmatning}$ är
-\end{comment}
-
+% Figur för sigmoidfunktionens graf
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[xlabel=$Z$,xmin=-5,xmax=5,]
-			\addplot[red!75] {(1)/(1+e^-x)};
+		\begin{axis}[legend style={at={(0.02,0.98)},anchor=north west},
+			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$}]
+			\addplot[Brown!] {(1)/(1+e^-x)};
+			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
+			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Sigmoid funktion}
-	\label{fig:sigmoid}
+	\caption{Aktiveringsfunktionen sigmoid. \label{fig:sigmoid}}
 \end{figure}
 
+% Neuronen
+En artificiell neuron tar in en eller flera inputs och producerar en output $y$,
+se figur~\ref{fig:neuron}.
+Varje input, $x_i$, är tilldelad en \emph{vikt}, $w_i$.
+Utöver det har varje neuron en \emph{bias}, $b$.
+Neuronens inputs, $x_1,x_2, \dotsc, x_n$, vikterna, $w_1, w_2, \dotsc, w_n$,
+och biasen, $b$, ger en s.k. \emph{weighted input}, $z$:
+\begin{equation}
+	z \equiv \sum_n w_n x_n + b
+\end{equation}
+Outputen för neuronen är resultatet av en aktiveringsfunktion för $z$, $\phi(z)$.
+Aktiveringsfunktionen kan vara vad som helst så länge den är deriverbar,
+men olika funktioner ger olika bra resultat.
+Sigmoidfunktionen, $\sigma(z)$, är ett exempel på en sådan aktiveringsfunktion
+och ser ut som:
+\begin{equation}
+	\sigma(z) \equiv \frac{1}{1 + e^{-z}}
+\end{equation}
+Dess värdemängd är normaliserad från 0\,till\,1, se figur~\ref{fig:sigmoid}.
+Om $z$ är ett stort positivt tal kommer $ \sigma(z) \approx 1 $,
+medan om $z$ är ett stort negativt tal så kommer $ \sigma(z) \approx 0 $.
+Grafens lutning påverkas av vikterna medan biasen förskjuter hela kurvan i x-led.
+Med sigmoidfunktionen blir neuronens output alltså $ \sigma(\sum_n w_n x_n + b) $.
+\autocite{nielsen15}
 
+\subsection{Neuronnätsarkitektur}
+\begin{figure}
+	\centering
+	\def\layersep{2.5cm}
+	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
+		\tikzstyle{every pin edge}=[<-,shorten <=1pt]
+		\tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
+		\tikzstyle{input}=[neuron, fill=red!45];
+		\tikzstyle{output}=[neuron, fill=green!50];
+		\tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+		\tikzstyle{annot} = [text width=4em, text centered]
+
+		\foreach \name / \y in {1,...,2}
+			\node[input, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+		\foreach \name / \y in {1,...,3}
+			\path[yshift=0.5cm]
+				node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+		\node[output,pin={[pin edge={->}]right:Output}, right of=H-2] (O) {};
+		\foreach \source in {1,...,2}
+			\foreach \dest in {1,...,3}
+				\path (I-\source) edge (H-\dest);
+		\foreach \source in {1,...,3}
+			\path (H-\source) edge (O);
+
+		\node[annot,above of=H-1, node distance=1cm] (hl) {Dolt lager};
+		\node[annot,left of=hl] {Inputlager};
+		\node[annot,right of=hl] {Outputlager};
+	\end{tikzpicture}
+	\caption{Exempel på feed-forward neuronnät. \label{fig:network}}
+\end{figure}
+
+Neuronnät består av flera neuroner som alla är sammankopplade, se figur~\ref{fig:network}.
+I ett s.k. \textit{feed-forward} neuronnät får varje neuron inputs från
+varenda neuron i det tidigare lagret.
+Inputlagret får sina inputs direkt.
+Det dolda lagret kallas så eftersom det inte är uppenbart hur det fungerar;
+så vitt vi vet skulle det kunna använda sitt brutna ben
+för att skyffla informationen framåt.
+Outputlagrets aktiveringar blir resultatet av neuronnätet.
+Medan antalet input- och outputneuroner otvetydligt kan bestämmas
+från formen av ens träningsdata,
+så finns bara empiriskt deriverad heuristik för strukturen på ens dolda lager.
+Exempel på nackdelar med fler neuroner är längre träningstider
+och behovet av mer träningsdata.
+Neuronnät är specifika för en uppgift och en arkitektur som
+fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
+\autocite{nielsen15}
+
+\subsection{Stochastic gradient descent}
 % Förlustfunktionen
 Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
-kan man korrelera små ändringar i weights och biases
+kan man korrelera små ändringar i vikter och biases
 till små förbättringar i prestandan.
 Den \emph{kvadratiska förlustfunktionen} är en sådan funktion:
-
 \begin{equation} \label{eq:cost}
 	C(w, b) \equiv \frac{1}{2n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
 \end{equation}
-
-där $ w $ är alla weights i nätet, $ b $ är alla biases,
+där $ w $ är alla vikter i nätet, $ b $ är alla biases,
 $ n $ är antalet träningsindata, $ a $ är en vektor med utdata när $ x $ är indata
 och summan är över all träningsindata $ x $.
 Man ser att $ C(w, b) $ är icke-negativ då varje term i summan är positiv.
@@ -172,6 +179,7 @@ Dessutom är förlusten $ C(w, b) $ liten, det vill säga $ C(w, b) \approx 0 $,
 när $ y(x) $ är ungefär lika med utdatan, $ a $, för alla träningsindata, $ x $.
 Målet med träningsalgoritmen blir då att minimera $ C(w, b) $.
 
+% Figur för gradient descent
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
@@ -192,24 +200,19 @@ säger intuition att en boll skulle rulla ner för sluttningen till botten.
 Vi kan simulera detta genom att räkna ut gradienten av $ f $.
 Gradienten av $ f $, $ \nabla f $, vid en punkt är en vektor
 som pekar i riktningen av den brantaste lutningen vid den punkten:
-
 \begin{equation}
 	\nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} \end{bmatrix}^{T}
 \end{equation}
-
 där $ \partial f / \partial x_i $ är den partiella derivatan
 som beskriver hur snabbt $ f $ växer med avseende på variablen $ x_i $.
 Vi kan minska $ f $ genom att gå i riktningen av den negativa gradienten:
-
 \begin{equation}
 	x \leftarrow x - \eta \nabla f(x)
 \end{equation}
-
 där $ \eta $ är inlärningshastigheten,
 en positiv skalär som bestämmer längden av steget.
 Genom att generalisera det till flera dimensioner kan vi
 applicera det på neuronnät:
-
 \begin{align}
 	w_k &\leftarrow w_k - \eta \frac{\partial C}{\partial w_k} \\
 	b_l &\leftarrow b_l - \eta \frac{\partial C}{\partial b_l}
@@ -227,11 +230,11 @@ och räkna ut gradienten från dem:
 \end{equation}
 med exempel från minibatchen $ \mathbb{B} $.
 
-\subsection{Syfte}
+\section{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
 artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 
-\subsection{Frågeställningar}
+\section{Frågeställningar}
 Vi vill undersöka\ldots
 \begin{itemize}
 	\item Varför råsignalen från lutningsgivaren blir opålitlig.
