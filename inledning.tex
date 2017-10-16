@@ -42,9 +42,9 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 \autocite{wiki-neuronnat}
 
 \subsection{Piezoelektriska kristaller}
-Piezoelektriska material, har en kristallstruktur och, ger upphov till
-elektriska laddningar på dess yta under yttre mekaniskt tryck, den så kallade
-direkta piezoelektriska effekten.
+Piezoelektriska material ger upphov till
+elektriska laddningar på deras yta under yttre mekaniskt tryck,
+vilket kallas den direkta piezoelektriska effekten.
 Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäller
 också, elektricitet omvandlas till mekansikt arbete i den omvända
 piezoelektriska effekten i vilken kristallen deformeras.
@@ -54,7 +54,7 @@ inducerade via den piezoelektriska effekten från en piezoelektrisk kropp
 under gravitationskraften från en tyngd.
 Vinkeln mellan gravitationskraften och
 riktningen på den piezoelektriska kroppens vibration
-fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
+fås av att man mäter magnituden av kraftkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
 
@@ -128,7 +128,7 @@ och biasen, $b$, ger en s.k. \emph{weighted input}, $z$:
 \begin{equation}
 	z \equiv \sum_n w_n x_n + b
 \end{equation}
-Outputen för neuronen är resultatet av en aktiveringsfunktion för $z$, $\phi(z)$.
+Neuronens output är resultatet av en aktiveringsfunktion för $z$, $\phi(z)$.
 Aktiveringsfunktionen kan vara vad som helst så länge den är deriverbar,
 men olika funktioner ger olika bra resultat.
 Sigmoidfunktionen, $\sigma(z)$, är ett exempel på en sådan aktiveringsfunktion
@@ -218,14 +218,14 @@ Målet med träningsalgoritmen blir då att minimera $ C(w, b) $.
 			\node[circle,shading=ball,minimum width=0.5cm] (ball) at (axis cs:0.2,0.6,0.4) {};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Gradient descent}
+	\caption{Gradient descent kan efterliknas vid en boll som rullar nerför en dal.}
 	\label{fig:descent}
 \end{figure}
 
 En algoritm för det är \emph{gradient descent}.
 Om man föreställer sig en funktion $ f(x_1, x_2) $ som en dal,
 se figur~\ref{fig:descent},
-säger intuition att en boll skulle rulla ner för sluttningen till botten.
+säger intuition att en boll skulle rulla nerför sluttningen till botten.
 Vi kan simulera detta genom att räkna ut gradienten av $ f $.
 Gradienten av $ f $, $ \nabla f $, vid en punkt är en vektor
 som pekar i riktningen av den brantaste lutningen vid den punkten:
