@@ -1,9 +1,18 @@
 \section{Metod}
 
-Designa ett neuronnät i MATLAB som lämpar sig för felkompensationen.
-
-Köra buss med GPS och lutningsgivare för att få höjddata och rå lutningsdata. Under bestämda tidsintervall så kommer en trigometrisk funktion regelbundet att mäta lutningen med hjälp av höjddatan och en intergral av hastigheten. 
-Den råa lutningsdatan tillsammans med en beräknade lutningen är neuronnätets träningsdata.
-
+En GPS fästes på den främre delen av en buss och lutningsgivaren fästes på designerad plats. Lutningsgivaren fästes så att den lutar på samma sätt som bussen gör. Bussen sattes sedan i bruk då GPS och lutningsgivare mätte och loggade höjddata och rå lutningsdata under bussfärden. Under regelbundna tidsintervall så beräknade en trigometrisk funktion lutningen med hjälp av höjddatan och en intergral av hastigheten. % Ska "fminbnd" funktionen och " h2 = interp1(s, h, s1 + x)" förklaras här?
+Hastigheten deriverades och användes som neuronnätets träningsdata tillsammans med den råa lutningsdatan och den beräknade lutningen.
 Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
-Träna neuronnätet med träningsdatan för att hitta fungerande weights och biases.
+
+Med hjälp av MATLAB så tränades flera olika neurala nätverk med olika konfigurationer. %[Skriv in ett specifikt antal neruala nätverk som tränades upp (görs efter projektveckan) (eller blir det bättre att inte ha ett specifikt antal?)]
+För att hitta den den bästa möjliga konfigurationen för lutningskorrigering så tränades olika cascade- och feedforward 
+%Såg att det fanns ingen bakgrund om cascadeforward - Ska vi bara testa feedforward nätverk? 
+nätverk upp med olik mängd hidden layers, antal neuroner i hidden layers och input layer. Med den kvadratiska förlustfunktionen och gradient decent funktionen och så beräknades optimala weights och biases för varje enskilt nätverk så alla neurala nätverk presterar optimalt för just dess konfiguration.
+%Hur mycket tid ska vi ge ett nätverk att träna? 1, 10, 40 min? Detta beror väl på hur snabbt de tränas och hur snabbt de närmar sig det optimala. Säg 180 min / antal nätverk = träningstid för ett nätverk ? Antar att vi kan bestämma vad som är rimligt på projektveckan.
+Nätverken jämfördes
+%   OBS!_-_-_-_-_-_-_-_-_Hur ska vi jämföra dem objektivt?_-_-_-_-_-_-_-_-_-_  Vi skulle kunna beräkna den absoluta intergralen mellan nätverkets output och den riktiga lutningen och välja det nätverk som får det lägsta värdet (är detta rimligt/möjligt?). Om vi endast tränar ca 20st så är väl det möjligt att jämflöra dem för hand.
+och det nätverk som hade den minsta felmarginalen utvaldes som det bästa nätverket med den bästa konfigurationen.
+
+%Dubbelkolla stavning och meningsuppbyggnad
+
+%Ska ett mer passande ord än 'optimal' användas då det är inte helt optimalt i sig, utan de är de bästa vi kunde hitta?
