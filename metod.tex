@@ -19,7 +19,7 @@
 
 		\draw[thin, dashed] (A) -- (1, 0) node[below] {$s_1$} (A -| B) -- ({0, 0} -| B) node[below] {$s_1 + x$};
 		\draw[decorate,decoration={brace,mirror,raise=3pt}] ({1, 1} -| B) -- node[right=4pt] {$\Delta h$} (B);
-		\draw[decorate,decoration={brace,mirror,raise=23pt}] (B) -- node[above left=16pt] {$l$} (1, 1);
+		\draw[decorate,decoration={brace,mirror,raise=23pt}] (B) -- (1, 1) node[midway, xshift=-19pt,yshift=26pt] {$l$};
 		\draw pic[draw, "$v$", angle eccentricity=1.4] {angle=corner--A--B};
 		\fill[draw=black,fill=white] (A) circle (2.0pt);
 
