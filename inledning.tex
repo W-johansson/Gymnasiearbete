@@ -13,6 +13,20 @@ Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
 
+% Räkna ut lutning med hjälp av moment
+Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
+sätt att räkna ut fordonets lutning.
+Detta räknas ut med hjälp av vridmomentet i motorn.
+Lutning kan approximeras med god säkerhet vid konstant hastighet
+men inbromsningar skapar problem.
+Vid inbromsning skapas en friktionskraft
+som måste tas till hänsyn.
+Friktionskraftens moment räknas ut genom att ta
+radien multiplicerat med my och kraftens storlek.
+my finns mellan bromsskivan
+och bromsbeläggen och kan variera mellan 0,2 - 0,4.
+Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
+
 %vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
 hur djurs hjärnor fungerar och kommunicerar.
@@ -43,6 +57,21 @@ riktningen på den piezoelektriska kroppens vibration
 fås av att man mäter magnituden av kraftenkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
+
+% Fel i piezokristaller
+Felen i piezokristallerna härstammar från att signalen som orsakas av fordonets
+lutning är väldigt svag.
+När fordonet vibrerar orsakas störningar i signalen och eftersom den är så svag
+påverkas den avsevärt.
+Sedan finns det ett fel i uppskattningen av accelerationen.
+Sensorn som mäter accelerationen använder tidsderivatan av hastigheten för
+att räkna ut accelerationen.
+Hastigheten mäts via ett kugghjul.
+När sensorn i kugghjulet utsätts för viberationer kommer mätningen av
+hastigheten att påverkas vilket ger opålitliga resultat.
+Detta fel uppstår både vid lutningsapproximation med lutningsgivare likväl som utan.
+Dock är felet lättar eatt lösa när lutningsgivare används.
+Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 
 \subsection{Artificiella neuroner}
 % Figur för neuron
