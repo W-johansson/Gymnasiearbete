@@ -6,18 +6,22 @@
 \usepackage{comment}
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{tikz,pgfplots}
-\usepackage{verbatim}
 \usepackage{lmodern,microtype}
 
 \bibliography{cites}
-\usetikzlibrary{shapes}
+\usetikzlibrary{shapes,arrows,intersections,decorations.pathreplacing,calc,quotes,angles,babel,matrix,chains,positioning}
 
-\title{Projektplan}
+\title{{\huge \textsc{Projektplan}}}
 \author{Grupp B7}
 
 \begin{document}
 \maketitle
+\pagenumbering{gobble}
+\tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
 
 \input{inledning}
 
@@ -35,13 +39,30 @@ Därmed utsätts vi inte för någon större risk än vad en vanlig vardag utgö
 
 \section{Tidsplan för arbetet}
 \begin{center}
-	{\textbf{Schema för projektvecka}}
-\begin{tabular}{r | l l l l l }
-	tid & måndag & tisdag & onsdag & torsdag & fredag \\ \hline
-	8:00 & arbete & arbete & arbete & arbete & arbete \\
-	16:00 & gå hem & gå hem & gå hem & gå hem & gå hem \\ \hline
+	{\textbf{Tidsplan för projektet\footnote{Preliminär tidsplan}}} \par
+	\begin{tabular}{r | l}
+		Datum & Uppgiftsdeadline \\ \hline
+		17/10 & Projektplanen \\
+		27/10 & Laboration genomförd \\
+		19/11 & Analys av resultat \\
+		3/12 & Fullständig teori och bakgrund \\
+		24/12 & Fullständig metod och resultat \\
+		\hline
+	\end{tabular} \par
 
-\end{tabular}
+	\vspace{0.75cm}
+
+	{\textbf{Schema för projektvecka}} \par
+	\begin{tabular}{l | l l l l l}
+		Dag & 9:00 -- 11:00 & 12:00 -- 16:00 \\ \hline
+		Måndag & Opponering & Revidering \\
+		Tisdag & Genomföra experiment* & Fortsätta med experimentet* \\
+		Onsdag & Analysera data* & Börja konstruera neuronnät* \\
+		Torsdag & Konstruera neuronnät* & (13:00) Backateatern \\
+		Fredag & Testa neuronnät & Testa neuronnät \\
+		\hline
+	\end{tabular} \par
+	\hfill {\scriptsize * -- tid för handledarbesök}
 \end{center}
 
 % Arbetet före, under och efter projektveckan (OBS – Det ska vara detaljerat!).
