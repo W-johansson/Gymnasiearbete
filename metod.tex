@@ -101,11 +101,12 @@ beräknas lutningen $v$ med arcus tangens:
 
 Bussen sattes i bruk då GPS och lutningsgivare mätte och loggade höjddata och
 rå lutningsdata under bussfärden.
-Efter bussfärden så beräknades lutningen med funktionen i figur (10) 
+Efter bussfärden så beräknades lutningen i ekvation 10 
 hjälp av höjddatan, en intergral av hastigheten och bussens längd.
 Hastigheten deriverades och användes som neuronnätets träningsdata tillsammans med den
 råa lutningsdatan och den beräknade lutningen.
 Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
+
 Med hjälp av MATLAB så tränades flera olika neurala nätverk med olika konfigurationer.
 För att hitta den den bästa möjliga konfigurationen för lutningskorrigering tränades
 olika cascade- och feedforward nätverk upp med olik mängd hidden layers, antal neuroner
