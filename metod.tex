@@ -85,7 +85,9 @@
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
 
-Bussen kördes med en GPS i bakre ändan för att få höjden som en funktion av sträckan.
+En buss kördes med en lutningsgivare och
+en GPS som mätte hastigheten och altituden i bakre ändan.
+Hastigheten integrerades för att få höjden som en funktion av sträckan.
 I varje punkt kan en rätvinklig triangel konstrueras
 där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
 Då gäller Pythagoras sats:
@@ -94,32 +96,18 @@ Då gäller Pythagoras sats:
 \end{equation}
 Genom att minimera en förlustfunktion av $x$
 för hur väl ekvation~\ref{eq:pythsats} stämmer
-beräknas lutningen $v$ med arcus tangens:
+beräknades lutningen $v$ med arcus tangens:
 \begin{equation}
 	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
 \end{equation}
 
-Bussen sattes i bruk då GPS och lutningsgivare mätte och loggade höjddata och
-rå lutningsdata under bussfärden.
-Efter bussfärden så beräknades lutningen i ekvation 10 
-hjälp av höjddatan, en intergral av hastigheten och bussens längd.
-Hastigheten deriverades och användes som neuronnätets träningsdata tillsammans med den
-råa lutningsdatan och den beräknade lutningen.
-Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
-
-Med hjälp av MATLAB så tränades flera olika neurala nätverk med olika konfigurationer.
-För att hitta den den bästa möjliga konfigurationen för lutningskorrigering tränades
-olika cascade- och feedforward nätverk upp med olik mängd hidden layers, antal neuroner
-i hidden layers och input layer.
-Med den kvadratiska förlustfunktionen och gradient decent funktionen och så beräknades
-optimala weights och biases för varje enskilt nätverk så alla neurala nätverk presterar
-optimalt för just dess konfiguration.
-Nätverken jämfördes och det nätverk som hade den minsta felmarginalen utvaldes som det
-bästa nätverket med den bästa konfigurationen.
-% Anders TODO
-% Ska "fminbnd" funktionen och " h2 = interp1(s, h, s1 + x)" förklaras här?
-%[Skriv in ett specifikt antal neruala nätverk som tränades upp (görs efter projektveckan) (eller blir det bättre att inte ha ett specifikt antal?)]
-%Såg att det fanns ingen bakgrund om cascadeforward - Ska vi bara testa feedforward nätverk?
-%Hur mycket tid ska vi ge ett nätverk att träna? 1, 10, 40 min? Detta beror väl på hur snabbt de tränas och hur snabbt de närmar sig det optimala. Säg 180 min / antal nätverk = träningstid för ett nätverk ? Antar att vi kan bestämma vad som är rimligt på projektveckan.
-%   OBS!_-_-_-_-_-_-_-_-_Hur ska vi jämföra dem objektivt?_-_-_-_-_-_-_-_-_-_  Vi skulle kunna beräkna den absoluta intergralen mellan nätverkets output och den riktiga lutningen och välja det nätverk som får det lägsta värdet (är detta rimligt/möjligt?). Om vi endast tränar ca 20st så är väl det möjligt att jämflöra dem för hand.
-%Ska ett mer passande ord än 'optimal' användas då det är inte helt optimalt i sig, utan de är de bästa vi kunde hitta?
+Hastigheten deriverades för att få accelerationen som en funktion av tiden.
+Rådatan från lutningsgivaren, den beräknade lutningen
+och accelerationen användes som träningsdata för neuronnäten.
+I MATLAB tränades flera neuronnät med stochastic gradient descent algoritmen.
+Neuronnäten initierades med olika slumpade vikter och biases och
+antalet dolda lager och antalet neuroner i de dolda lagren varierades
+för att hitta den bästa konfigurationen.
+Nätverken jämfördes och konfigurationen hos nätverket med
+den minsta genomsnittliga absoluta avvikelsen från testdatan
+identifierades som den bästa.
