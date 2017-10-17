@@ -85,7 +85,7 @@
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
 
-Bussen körs med en GPS i bakre ändan för att få höjden som en funktion av sträckan.
+Bussen kördes med en GPS i bakre ändan för att få höjden som en funktion av sträckan.
 I varje punkt kan en rätvinklig triangel konstrueras
 där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
 Då gäller Pythagoras sats:
@@ -99,12 +99,10 @@ beräknas lutningen $v$ med arcus tangens:
 	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
 \end{equation}
 
-En GPS fästes på den främre delen av en buss och lutningsgivaren fästes på designerad plats.
-Lutningsgivaren fästes så att den lutar på samma sätt som bussen gör.
-Bussen sattes sedan i bruk då GPS och lutningsgivare mätte och loggade höjddata och
+Bussen sattes i bruk då GPS och lutningsgivare mätte och loggade höjddata och
 rå lutningsdata under bussfärden.
-Under regelbundna tidsintervall så beräknade en trigometrisk funktion lutningen med
-hjälp av höjddatan och en intergral av hastigheten.
+Efter bussfärden så beräknades lutningen med funktionen i figur (10) 
+hjälp av höjddatan, en intergral av hastigheten och bussens längd.
 Hastigheten deriverades och användes som neuronnätets träningsdata tillsammans med den
 råa lutningsdatan och den beräknade lutningen.
 Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
