@@ -17,14 +17,15 @@ Därför behövs en algoritm för att felkompensera dessa störningar.
 Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
 sätt att räkna ut fordonets lutning.
 Detta räknas ut med hjälp av vridmomentet i motorn.
-Lutning kan approximeras med god säkerhet vid konstant hastighet
-men inbromsningar skapar problem.
-Vid inbromsning skapas en friktionskraft
-som måste tas till hänsyn.
-Friktionskraftens moment räknas ut genom att ta
-radien multiplicerat med my och kraftens storlek.
-my finns mellan bromsskivan
-och bromsbeläggen och kan variera mellan 0,2 - 0,4.
+Lutning kan approximeras med god säkerhet vid konstant hastighet men inbromsningar
+skapar problem.
+Vid inbromsning skapas en friktionskraft som måste tas till hänsyn.
+Friktionskraftens beräknas med:
+\begin{equation}
+	F_f = \lVert F \rVert \cdot r \cdot \mu
+\end{equation}
+där $F$ är kraftens storlek, $r$ är radien, och $\mu$ friktionskeofficienten
+som finns mellan bromsskivan och bromsbeläggen vilken kan variera mellan 0,2 - 0,4.
 Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
 
 %vad neuronnät är och vad de används till
@@ -91,8 +92,8 @@ Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 			\node[on chain=1,label=above:Vikter,join=by o-latex] (w1) {$w_1$};
 		\end{scope}
 		\begin{scope}[start chain=3]
-			\node[on chain=3] at (0,-1.0cm) (x3) {$x_n$};
-			\node[on chain=3,join=by o-latex] (w3) {$w_n$};
+			\node[on chain=3] at (0,-1.0cm) (x3) {$x_3$};
+			\node[on chain=3,join=by o-latex] (w3) {$w_3$};
 		\end{scope}
 		\node[label=above:\parbox{2cm}{\centering Bias, $b$}] at (sigma|-w1) (b) {};
 		\draw[-latex] (w1) -- (sigma);
