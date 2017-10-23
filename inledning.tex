@@ -7,27 +7,12 @@ För att bland annat köra på rätt växel, optimera motorns styrprogram
 och operera olika bromsfunktioner % och vad mer/något mer?
 mätes fordonets lutning.
 För det ändamålet ska lutningsgivare användas.
-Lutningsgivaren är en fristående modul som kommunicerar med styrdatorn via
+Lutningsgivaren är en fristående modul som använder piezokristaller för att
+mäta lutningen och kommunicerar med styrdatorn via
 Controller Area Network (CAN)-kommunikation.
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
-
-% Räkna ut lutning med hjälp av moment
-Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
-sätt att räkna ut fordonets lutning.
-Detta räknas ut med hjälp av vridmomentet i motorn.
-Lutning kan approximeras med god säkerhet vid konstant hastighet men inbromsningar
-skapar problem.
-Vid inbromsning skapas en friktionskraft som måste tas till hänsyn.
-Friktionskraftens moment beräknas med:
-\begin{equation}
-	M = r \cdot \mu \cdot \lVert F \rVert
-\end{equation}
-där $F$ är kraften, $r$ är radien, och $\mu$ är friktionskoefficienten
-mellan bromsskivan och bromsbeläggen vilken kan variera mellan 0,2 och 0,4.
-Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
-\autocite{lauri17}
 
 %vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
@@ -48,7 +33,7 @@ Piezoelektriska material ger upphov till
 elektriska laddningar på deras yta under yttre mekaniskt tryck,
 vilket kallas den direkta piezoelektriska effekten.
 Det mekaniska arbete som utförs omvandlas till elektricitet, det omvända gäller
-också, elektricitet omvandlas till mekansikt arbete i den omvända
+också, elektricitet omvandlas till mekaniskt arbete i den omvända
 piezoelektriska effekten i vilken kristallen deformeras.
 \autocite{electronicdesign2016}
 Piezoelektriska lutningsgivare använder elektriska signaler som är
@@ -61,19 +46,40 @@ och använder geometriska samband mellan dem.
 \autocite{chiang00}
 
 % Fel i piezokristaller
-Felen i piezokristallerna härstammar från att signalen som orsakas av fordonets
-lutning är väldigt svag.
-När fordonet vibrerar orsakas störningar i signalen och eftersom den är så svag
+Accelerationen orsakar fel i lutningen från lutningsgivaren p.g.a. att
+piezokristallernas signal är väldigt svag.
+Även när fordonet vibrerar orsakas störningar i signalen och eftersom den är så svag
 påverkas den avsevärt.
 Sedan finns det ett fel i uppskattningen av accelerationen.
 Sensorn som mäter accelerationen använder tidsderivatan av hastigheten för
 att räkna ut accelerationen.
-Hastigheten mäts via ett kugghjul.
+Hastigheten mätes via ett kugghjul.
 När sensorn i kugghjulet utsätts för viberationer kommer mätningen av
 hastigheten att påverkas vilket ger opålitliga resultat.
 Detta fel uppstår både vid lutningsapproximation med lutningsgivare likväl som utan.
 Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
+\autocite{lauri17}
+
+\subsection{Felkompensering utan neuronnät}
+% Räkna ut lutning med hjälp av moment
+Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
+sätt att räkna ut fordonets lutning.
+Detta räknas ut med hjälp av vridmomentet i motorn.
+Lutning kan approximeras med god säkerhet vid konstant hastighet men inbromsningar
+skapar problem.
+Vid inbromsning skapas en friktionskraft som måste tas till hänsyn.
+Friktionskraftens moment beräknas med:
+\begin{equation}
+	M = r \cdot \mu \cdot \lVert F \rVert
+\end{equation}
+där $F$ är kraften, $r$ är radien i motorns drivaxel, och $\mu$ är friktionskoefficienten
+mellan bromsskivan och bromsbeläggen vilken kan variera mellan 0,2 och 0,4.
+Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
+\autocite{lauri17}
+
+% Lutningsgivare kan inte skilja på acceleration och tyngdaccelerationen,
+% vilket är ett problem när neuronnät inte används
 
 \subsection{Artificiella neuroner}
 % Figur för neuron
@@ -260,6 +266,7 @@ och räkna ut gradienten från dem:
 	\nabla C \approx \frac{1}{m'} \sum^{m'}_{i=1} \nabla C_{x_i}
 \end{equation}
 med exempel från minibatchen $ \mathbb{B} $.
+\autocite{nielsen15}
 
 \section{Syfte}
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
