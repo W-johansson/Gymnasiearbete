@@ -85,7 +85,9 @@
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
 
-Bussen körs med en GPS i bakre ändan för att få höjden som en funktion av sträckan.
+En buss kördes med en lutningsgivare och
+en GPS som mätte hastigheten och altituden i bakre ändan.
+Hastigheten integrerades för att få höjden som en funktion av sträckan.
 I varje punkt kan en rätvinklig triangel konstrueras
 där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
 Då gäller Pythagoras sats:
@@ -94,18 +96,18 @@ Då gäller Pythagoras sats:
 \end{equation}
 Genom att minimera en förlustfunktion av $x$
 för hur väl ekvation~\ref{eq:pythsats} stämmer
-beräknas lutningen $v$ med arcus tangens:
+beräknades lutningen $v$ med arcus tangens:
 \begin{equation}
 	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
 \end{equation}
 
-Designa ett neuronnät i MATLAB som lämpar sig för felkompensationen.
-
-Köra buss med GPS för att ta fram en rutt och sen fixa höjddatan från
-(en fin sida Axel hittade på nätet) [Insert webbpage here]. Höjddatan deriveras och ger den riktiga lutningen.
-Derivera hastigheten från elbussen.
-Detta är träningsdatan. 
-
-Träningsdatan ska innefatta någorlunda varierade mätningar på både lutning och acceleration.
-
-Träna neuronnätet med träningsdatan för att hitta fungerande weights och biases.
+Hastigheten deriverades för att få accelerationen som en funktion av tiden.
+Rådatan från lutningsgivaren, den beräknade lutningen
+och accelerationen användes som träningsdata för neuronnäten.
+I MATLAB tränades flera neuronnät med stochastic gradient descent algoritmen.
+Neuronnäten initierades med olika slumpade vikter och biases och
+antalet dolda lager och antalet neuroner i de dolda lagren varierades
+för att hitta den bästa konfigurationen.
+Nätverken jämfördes och konfigurationen hos nätverket med
+den minsta genomsnittliga absoluta avvikelsen från testdatan
+identifierades som den bästa.

@@ -17,14 +17,15 @@ Därför behövs en algoritm för att felkompensera dessa störningar.
 Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
 sätt att räkna ut fordonets lutning.
 Detta räknas ut med hjälp av vridmomentet i motorn.
-Lutning kan approximeras med god säkerhet vid konstant hastighet
-men inbromsningar skapar problem.
-Vid inbromsning skapas en friktionskraft
-som måste tas till hänsyn.
-Friktionskraftens moment räknas ut genom att ta
-radien multiplicerat med my och kraftens storlek.
-my finns mellan bromsskivan
-och bromsbeläggen och kan variera mellan 0,2 - 0,4.
+Lutning kan approximeras med god säkerhet vid konstant hastighet men inbromsningar
+skapar problem.
+Vid inbromsning skapas en friktionskraft som måste tas till hänsyn.
+Friktionskraftens moment beräknas med:
+\begin{equation}
+	M = r \cdot \mu \cdot \lVert F \rVert
+\end{equation}
+där $F$ är kraften, $r$ är radien, och $\mu$ är friktionskoefficienten
+mellan bromsskivan och bromsbeläggen vilken kan variera mellan 0,2 och 0,4.
 Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
 \autocite{lauri17}
 
@@ -38,7 +39,7 @@ Men för att ha avsedd funktion måste de tränas, alltså är arbete med neuron
 uppdelat i två faser: en inlärningsfas och en tillämpningsfas där nätverket sedan
 utför den ämnade uppgiften.
 \autocite{copeland16}
-Det är möjligt att sedan forstätta träna nätverket
+Det är möjligt att sedan fortsätta träna nätverket
 under användning, men oftast slutar man träna det när resultet är önskvärt.
 \autocite{wiki-neuronnat}
 
@@ -71,7 +72,7 @@ Hastigheten mäts via ett kugghjul.
 När sensorn i kugghjulet utsätts för viberationer kommer mätningen av
 hastigheten att påverkas vilket ger opålitliga resultat.
 Detta fel uppstår både vid lutningsapproximation med lutningsgivare likväl som utan.
-Dock är felet lättar eatt lösa när lutningsgivare används.
+Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 
 \subsection{Artificiella neuroner}
@@ -92,8 +93,8 @@ Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 			\node[on chain=1,label=above:Vikter,join=by o-latex] (w1) {$w_1$};
 		\end{scope}
 		\begin{scope}[start chain=3]
-			\node[on chain=3] at (0,-1.0cm) (x3) {$x_n$};
-			\node[on chain=3,join=by o-latex] (w3) {$w_n$};
+			\node[on chain=3] at (0,-1.0cm) (x3) {$x_3$};
+			\node[on chain=3,join=by o-latex] (w3) {$w_3$};
 		\end{scope}
 		\node[label=above:\parbox{2cm}{\centering Bias, $b$}] at (sigma|-w1) (b) {};
 		\draw[-latex] (w1) -- (sigma);
@@ -111,9 +112,9 @@ Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 	\begin{tikzpicture}
 		\begin{axis}[legend style={at={(0.02,0.98)},anchor=north west},
 			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$}]
-			\addplot[Brown!] {(1)/(1+e^-x)};
-			\addplot[OliveGreen!] {(1)/(1+e^(-2*x+4))};
-			\addplot[BlueViolet!] {(1)/(1+e^(-0.5*x-1))};
+			\addplot[RubineRed] {(1)/(1+e^-x)};
+			\addplot[NavyBlue] {(1)/(1+e^(-2*x+4))};
+			\addplot[YellowOrange] {(1)/(1+e^(-0.5*x-1))};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Aktiveringsfunktionen sigmoid. \label{fig:sigmoid}}
