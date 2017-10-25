@@ -44,6 +44,7 @@ riktningen på den piezoelektriska kroppens vibration
 fås av att man mäter magnituden av kraftkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
+%Pendelmetaforen och dess bilder passar ganska bra här 
 
 % Fel i piezokristaller
 Accelerationen orsakar fel i lutningen från lutningsgivaren p.g.a. att
@@ -60,6 +61,53 @@ Detta fel uppstår både vid lutningsapproximation med lutningsgivare likväl so
 Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
+
+\subsection{Signalutjämning}
+Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
+Ett brus kan visa sig i grafen men det går att minimera bruset med en signalutjämningsfunktion. 
+Signalutjämningsfunktionen kan se lite olika ut beroende på dess setup men de har liknande funktion. 
+
+En funktionen fungerar så att den använder det nuvarande värdet och
+tidigare värden för att hitta ett värde någonstans mellan dem. Vad det 
+nya värdet blir beror på värdet c vilket säger hur mycket funktionen ska 
+ta hänsynt till det nuvarande värdet och de tidigare värden. Den enklaste
+signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär: 
+
+\begin{equation}
+	a_{0-new} = a_{0}c + a_{-1}(1 - c)
+\end{equation}
+
+Olika värden på c ger olika mycket utjämning på en graf. Med ett för litet c är
+grafen fortfarande skakig och ger värden som inte stämmer överens med
+verkligheten. Med ett för stort c så kan grafen bli för tillplattad och ge
+orimliga värden. Det gäller att hitta ett optimalt värde på c för att få
+en slät graf och att behålla rimliga värden.
+
+I ett flerodrningsfilter så används flera tidigare mätningar för att
+beräkna det utslätade värdet av $a_{0}$. Ett flerordningsfilter ser ut såhär:
+
+\begin{equation}
+	a_{0-new} = a_{0}c_{1} + a_{-1}c_{2} + … + a_{1-n}c_{n} 
+\end{equation}
+
+Där $c_1 + c_2 +c_3 + … + c_n = 1$.
+ $ c_1 + c_2 +c_3 + … + c_n = 1$
+ måste vara sant för annars så kommer
+funktionen att reducera eller amplifiera värdena för värden
+av c mindre respektive större än 1.
+
+Flerordningsfilter möjliggör en mer avancerad setup som kan anpassa
+nya värden efter mycket äldre värden än det förra värdet som ett
+förstaordningsfilter gör. 
+c kan t.ex anta värdena \{0.2, 0.2, 0.2, 0.2, 0.2\} (med respektive mätvärde 
+$a_0, a_{-1}, a_{-2}, a_{-3}, a_{-4}$
+ ) eller \{0.1, 0.2, 0.3, 0.4\}
+ (respektive $ a_0, a_{-1}, a_{-2}, a_{-3} $ ). 
+Den första setupen skulle ge ett medelvärde över det nya värdet 
+tillsammans med de fyra tidigare värden. Den andra setupen skulle
+ inte tillåta det nya mätta värdet att påverka så funktionen 
+så mycket, utan setupen skulle göra att funktionen lägger större
+ vikt på de tidigare värdena.
 
 \subsection{Felkompensering utan neuronnät}
 % Räkna ut lutning med hjälp av moment
