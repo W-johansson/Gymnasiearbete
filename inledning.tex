@@ -102,6 +102,32 @@ Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
 
+%En väldigt kort och kladdig förklarning på hur vinkeln alfa kan beräknas.
+%Få med ett flödeschema (eller vad det nu kallas) som visar hur varje variabel
+%kommer till och hur de processeras
+%Bild på flödeschema som Erik Lauri ritade upp: 
+%https://www.dropbox.com/sh/iwq586hebhyjesu/AACzZNSC3qXx9Ycw1r56PBNla?dl=0&preview=Foto+2017-10-24+10+00+24.jpg
+\subsection{Algoritm för att beräkna lutningen}
+Signalutjämna phi.
+Derivera hastigheten, signalutjämna accelerationen, timeshifta a(t) 
+så den passar phi(t) och subtrahera a(t) från phi(t) och få alfa(t). %ska α(t) signalutjämnas?
+
+$F_{s} * cos(beta) = F_{g} = mg$
+
+$F_{s} * sin(beta) = F_{a} = ma$
+
+$mg/cos(beta)=ma/sin(beta)$
+
+$tan(beta)=a^{hatt}/g$
+
+$beta=~0, beta=~a^{hatt}/g$
+
+$phi=alfa+beta$
+
+$alfa=phi-beta=~phi-a/g$
+
+$alfa^{hatt} =~ phi^{hatt} - a/g  (alfa är i radianer)$
+
 \subsection{Signalutjämning}
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
 Ett brus kan visa sig i grafen men det går att minimera bruset med en signalutjämningsfunktion. 
