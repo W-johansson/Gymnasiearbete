@@ -44,7 +44,6 @@ riktningen på den piezoelektriska kroppens vibration
 fås av att man mäter magnituden av kraftkomponenten i vibrationens riktning
 och använder geometriska samband mellan dem.
 \autocite{chiang00}
-%Pendelmetaforen och dess bilder passar ganska bra här
 
 % Figur om pendel och acceleration
 \begin{figure}
@@ -86,6 +85,27 @@ och använder geometriska samband mellan dem.
 	\caption{Pendelanalogin illustrerar hur accelerationen påverkar lutningsgivaren. \label{fig:pendel}}
 \end{figure}
 
+Vad lutningsgivaren gör kan efterliknas med att mäta en pendels lutning.
+Under acceleration kommer den uppmätta lutningen $\phi$
+inte överensstämma med den riktiga lutningen $\alpha$.
+Kraften från accelerationen ger upphov till en deviation $\beta$:
+$ \phi = \alpha + \beta $, se figur~\ref{fig:pendel}.
+Eftersom $\alpha$ är så pass liten är den lodräta $F$-komposanten
+ungefär lika med $F_g$, vilket ger:
+\begin{equation}
+	\left\{ \begin{aligned}
+		F \cdot &\cos \beta = mg \\
+		F \cdot &\sin \beta = ma
+	\end{aligned} \right.
+\end{equation}
+\begin{equation}
+	\frac{mg}{\cos \beta} \cdot \sin \beta = ma \implies \tan \beta = \frac{a}{g}
+\end{equation}
+För små vinklar mätta i radianer är $ \tan \beta \approx \beta $.
+Därför behövs $ \frac{a}{g} $ subtraheras från lutningsgivarens värde.
+Detta är Einsteins allmänna relativitetsteori;
+lutningsgivaren kan inte särskilja fordonets acceleration och tyngdaccelerationen.
+
 % Fel i piezokristaller
 Accelerationen orsakar fel i lutningen från lutningsgivaren p.g.a. att
 piezokristallernas signal är väldigt svag.
@@ -102,7 +122,6 @@ Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
 
-%En väldigt kort och kladdig förklarning på hur vinkeln alfa kan beräknas.
 %Få med ett flödeschema (eller vad det nu kallas) som visar hur varje variabel
 %kommer till och hur de processeras
 %Bild på flödeschema som Erik Lauri ritade upp: 
@@ -111,22 +130,6 @@ Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 Signalutjämna phi.
 Derivera hastigheten, signalutjämna accelerationen, timeshifta a(t) 
 så den passar phi(t) och subtrahera a(t) från phi(t) och få alfa(t). %ska α(t) signalutjämnas?
-
-$F_{s} * cos(beta) = F_{g} = mg$
-
-$F_{s} * sin(beta) = F_{a} = ma$
-
-$mg/cos(beta)=ma/sin(beta)$
-
-$tan(beta)=a^{hatt}/g$
-
-$beta=~0, beta=~a^{hatt}/g$
-
-$phi=alfa+beta$
-
-$alfa=phi-beta=~phi-a/g$
-
-$alfa^{hatt} =~ phi^{hatt} - a/g  (alfa är i radianer)$
 
 \subsection{Signalutjämning}
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
