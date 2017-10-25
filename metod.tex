@@ -102,8 +102,9 @@ beräknades lutningen $v$ med arcus tangens:
 \end{equation}
 
 Hastigheten deriverades för att få accelerationen som en funktion av tiden.
-Rådatan från lutningsgivaren, den beräknade lutningen
-och accelerationen användes som träningsdata för neuronnäten.
+Ett tioordningsfilter konstruerades och användes till att signalutjämna
+accelerationen. Rådatan från lutningsgivaren, den beräknade lutningen
+och den signalutjämnade accelerationen användes som träningsdata för neuronnäten.
 I MATLAB tränades flera neuronnät med stochastic gradient descent algoritmen.
 Neuronnäten initierades med olika slumpade vikter och biases och
 antalet dolda lager och antalet neuroner i de dolda lagren varierades
