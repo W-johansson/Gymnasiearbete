@@ -49,37 +49,30 @@ och använder geometriska samband mellan dem.
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
-		\draw[dashed] (0,0) -- (5, 0);
 		\begin{scope}[rotate=25]
-			\draw (0,0) -- (5, 0);
-			\draw (1, 0) rectangle (4, 1.5);
-			\coordinate (c) at (2.5, 0.75);
-			\coordinate (b) at (2.5, 0);
-			\draw (c) -- (b);
-			\draw[thin] ($ (b) + (0.2, 0) $) |- ($ (b) + (0, 0.2) $);
+			\path (2.5, 0.75) coordinate(c) (2.5, 0) coordinate(b);
+			\draw (0,0) -- (5, 0) (1, 0) rectangle (4, 1.5) (c) -- (b)
+				($ (b) + (0.2, 0) $) |- ($ (b) + (0, 0.2) $);
 			\draw[fill] (c) -- +(220:0.8cm) coordinate (p) circle (0.1cm);
 			\draw[->] (3.25, 0.75) -- +(1.25,0) node[below right] {$a$};
 		\end{scope}
-		\coordinate (q) at (c |- {0,0});
-		\draw[dashed] (c) -- (q);
-		\draw[thin] ($ (q) + (0.2, 0) $) |- ($ (q) + (0, 0.2) $);
-		\coordinate (o) at (0,0);
-		\draw pic[draw, "$\alpha$", angle radius=0.9cm, angle eccentricity=1.4] {angle = q--o--b};
-		\draw pic[draw, angle radius=0.5cm] {angle=p--c--q};
-		\draw pic[draw, "$\alpha$", angle radius=0.65cm, angle eccentricity=1.5] {angle = q--c--b};
+		\path (0, 0) coordinate(o) (c |- o) coordinate(q);
+		\draw[dashed] (0,0) -- (5, 0) (c) -- (q);
+		\draw ($ (q) + (0.2, 0) $) |- ($ (q) + (0, 0.2) $)
+			pic[draw, "$\alpha$", angle radius=0.9cm, angle eccentricity=1.4] {angle = q--o--b}
+			pic[draw, angle radius=0.5cm] {angle=p--c--q}
+			pic[draw, "$\alpha$", angle radius=0.65cm, angle eccentricity=1.5] {angle = q--c--b};
 	\end{tikzpicture}
 	\hspace{1cm}
-	\begin{tikzpicture}[>=stealth']
+	\begin{tikzpicture}
 		\coordinate (c) at (4,3.5);
-		\draw[dashed] (c) -- (c |- {0,0}) coordinate (d);
 		\draw[fill] (c) -- +(245:2.5cm) coordinate (p) circle (0.15cm);
-		\draw[draw=blue,thick,->] (p) -- ($(p)!0.5!(c)$) node[below right] {$F$};
-		\draw (c) -- +(300:3.5cm) coordinate(e);
-		\draw[dashed] (p |- c) coordinate (t) -- (p);
-		\draw[draw=blue,->,thick] (p) -- ($(p)!0.9!(p|-{0,0})$) node[right] {$F_g$};
-		\draw pic[draw, "$\alpha$", angle radius=0.7cm, angle eccentricity=1.4] {angle=d--c--e};
-		\draw pic[draw, "$\beta$", angle radius=0.6cm, angle eccentricity=1.4] {angle=p--c--d};
-		\draw pic[draw, "$\beta$", angle radius=0.6cm, angle eccentricity=1.4] {angle=c--p--t};
+		\draw[dashed] (c) -- (c |- {0,0}) coordinate (d) (p |- c) coordinate (t) -- (p);
+		\draw[<->,draw=blue,thick] ($(p)!0.5!(c)$) node[below right] {$F$} -- (p) -- ($(p)!0.9!(p|-{0,0})$) node[right] {$F_g$};
+		\draw (c) -- +(300:3.5cm) coordinate(e)
+			pic[draw, "$\alpha$", angle radius=0.7cm, angle eccentricity=1.4] {angle=d--c--e}
+			pic[draw, "$\beta$", angle radius=0.6cm, angle eccentricity=1.4] {angle=p--c--d}
+			pic[draw, "$\beta$", angle radius=0.6cm, angle eccentricity=1.4] {angle=c--p--t};
 		\draw[fill] (p) circle (0.15cm);
 	\end{tikzpicture}
 	\caption{Pendelanalogin illustrerar hur accelerationen påverkar lutningsgivaren. \label{fig:pendel}}
