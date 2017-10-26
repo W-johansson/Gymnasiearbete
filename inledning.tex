@@ -122,23 +122,15 @@ Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
 
-%Få med ett flödeschema (eller vad det nu kallas) som visar hur varje variabel
-%kommer till och hur de processeras
-%Bild på flödeschema som Erik Lauri ritade upp: 
-%https://www.dropbox.com/sh/iwq586hebhyjesu/AACzZNSC3qXx9Ycw1r56PBNla?dl=0&preview=Foto+2017-10-24+10+00+24.jpg
-\subsection{Algoritm för att beräkna lutningen}
-Signalutjämna phi.
-Derivera hastigheten, signalutjämna accelerationen, timeshifta a(t) 
-så den passar phi(t) och subtrahera a(t) från phi(t) och få alfa(t). %ska α(t) signalutjämnas?
-
-\subsection{Signalutjämning}
+\subsection{Signalutjämning} 
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
 Ett brus kan visa sig i grafen men det går att minimera bruset med en signalutjämningsfunktion. 
-Signalutjämningsfunktionen kan se lite olika ut beroende på dess setup men de har liknande funktion. 
+Signalutjämningsfunktionen kan se lite olika ut beroende på dess konfiguration
+ men de har liknande funktion. 
 
 En funktionen fungerar så att den använder det nuvarande värdet och
 tidigare värden för att hitta ett värde någonstans mellan dem. Vad det 
-nya värdet blir beror på värdet c vilket säger hur mycket funktionen ska 
+nya värdet blir beror ett värde $c$ vilket säger hur mycket funktionen ska 
 ta hänsynt till det nuvarande värdet och de tidigare värden. Den enklaste
 signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär: 
 
@@ -146,11 +138,12 @@ signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär:
 	a_{0-new} = a_{0}c + a_{-1}(1 - c)
 \end{equation}
 
-Olika värden på c ger olika mycket utjämning på en graf. Med ett för litet c är
-grafen fortfarande skakig och ger värden som inte stämmer överens med
-verkligheten. Med ett för stort c så kan grafen bli för tillplattad och ge
-orimliga värden. Det gäller att hitta ett optimalt värde på c för att få
-en slät graf och att behålla rimliga värden.
+Olika värden på $c$ ger olika mycket utjämning på en graf. 
+I detta fall så ger ett för stort värde av $c$ tillbaka en skakig graf 
+då förstaordningsfiltret anpassar inte tillräckligt efter det tidigare värdet.
+Med ett för litet $c$ så kan grafen bli för tillplattad och data förloras. 
+Det gäller att hitta ett optimalt värde på $c$ för att få en slät graf
+utan att förlora för mycket data.
 
 I ett flerodrningsfilter så används flera tidigare mätningar för att
 beräkna det utslätade värdet av $a_{0}$. Ett flerordningsfilter ser ut såhär:
@@ -159,23 +152,23 @@ beräkna det utslätade värdet av $a_{0}$. Ett flerordningsfilter ser ut såhä
 	a_{0-new} = a_{0}c_{1} + a_{-1}c_{2} + … + a_{1-n}c_{n} 
 \end{equation}
 
-Där $c_1 + c_2 + … + c_n = 1$.
- $ c_1 + c_2 + … + c_n = 1$
+Där $c_1 + c_2 + … + c_n = c_{sum}$.
+ $ c_{sum} = 1$
  måste vara sant för annars så kommer
 funktionen antingen att reducera eller amplifiera värdena för värden
-av c mindre respektive större än 1.
+av $c_{sum}$ mindre respektive större än 1.
 
-Flerordningsfilter möjliggör en mer avancerad setup som kan anpassa
+Flerordningsfilter möjliggör en mer avancerad konfiguration som kan anpassa
 nya värden efter mycket äldre värden än det förra värdet som ett
 förstaordningsfilter gör. 
 c kan t.ex anta värdena \{0.2, 0.2, 0.2, 0.2, 0.2\} (med respektive mätvärde 
 $a_0, a_{-1}, a_{-2}, a_{-3}, a_{-4}$
  ) eller \{0.1, 0.2, 0.3, 0.4\}
  (respektive $ a_0, a_{-1}, a_{-2}, a_{-3} $ ). 
-Den första setupen skulle ge ett medelvärde över det nya värdet 
-tillsammans med de fyra tidigare värden. Den andra setupen skulle
+Den första kongifurationen  skulle ge ett medelvärde över det nya värdet 
+tillsammans med de fyra tidigare värden. Den andra konfigurationen skulle
  inte tillåta det nya mätta värdet att påverka så funktionen 
-så mycket, utan setupen skulle göra att funktionen lägger större
+så mycket, utan funktionen lägger större
  vikt på de tidigare värdena.
 
 \subsection{Felkompensering utan neuronnät}
@@ -389,11 +382,20 @@ med exempel från minibatchen $ \mathbb{B} $.
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
 artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 
+%exempel på syfte: Syftet med undersökningen är att ta fram och utvärdera
+%en algoritm och ett artificiellt neuronnät som båda felkompenserar lutningsivare i elbussväxellådor.
+
 \section{Frågeställningar}
 Vi vill undersöka\ldots
 \begin{itemize}
 	\item Varför råsignalen från lutningsgivaren blir opålitlig.
+% ex:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
 	\item Hur nätverket ska vara konfigurerat för att felkompensera; vilka inputs,
 		outputs, antal neuroner, hidden layers och feed-/cascade-forward?
+% ex:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
+%		beräkningar, metoder och antaganden [( tan(x)=x )] måste göras?
 	\item Hur väl det fungerar att felkompensera med neuronnät.
+% ex:	\item Hur väl det fungerar att felkompensera med neuronnät och algoritmer.
+% 4/3: Detta är en generell fråga. Ska vi då besvara hur väl de fungerar generellt sett 
+% och specifikt då vi ger vårt resultat.
 \end{itemize}
