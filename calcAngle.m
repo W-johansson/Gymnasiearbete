@@ -6,7 +6,7 @@ a = diff(v) ./ diff(t);
 % Integrate the velocity to get the distance
 s = cumtrapz(t, v);
 
-l = 15; % The length of the bus in metres
+l = 12; % The length of the bus in metres
 
 % Plot some graphs
 subplot(2, 1, 1);
@@ -29,11 +29,11 @@ for i = 1:50
   h2 = interp1(s, h, s1 + x);
 
   %{
-  %              _-´|
-  %           _-´   |
-  %        _-´      | Opposite = h2 - h1
-  %     _-´         |
-  %  _-´ ) v        |
+  %              _-ï¿½|
+  %           _-ï¿½   |
+  %        _-ï¿½      | Opposite = h2 - h1
+  %     _-ï¿½         |
+  %  _-ï¿½ ) v        |
   % -----------------
   %   Adjacent = x
   %
