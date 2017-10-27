@@ -78,6 +78,38 @@ och använder geometriska samband mellan dem.
 	\caption{Pendelanalogin illustrerar hur accelerationen påverkar lutningsgivaren. \label{fig:pendel}}
 \end{figure}
 
+%Figur om hur algoritmen fungerar
+\begin{figure}
+\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
+	\node (ui1) [nonterminal] {$\Phi$ hatt}; 
+	\node (ui2) [nonterminal,below=of ui1] {v hatt};
+	\node (ui3) [nonterminal,below=of ui2] {g};
+	\node (ui4) [nonterminal,above=of ui1] {Input};
+	\node (ui7) [nonterminal,right=of ui2] {$ \frac{d}{dt} $};
+	\node (ui8) [nonterminal,right=of ui7] {Filter 2};
+	\node (ui5) [nonterminal,above=of ui8] {Filter 1};
+	\node (ui0) [nonterminal,above= of ui5] {Process};
+	\node (ui9) [nonterminal,right=of ui8] {timeshift};
+	\node (ui10) [nonterminal,right=of ui9] {$\div$};
+	\node (ui6) [nonterminal,above=of ui10] {-};
+	\node (ui11) [nonterminal,right=of ui6] {$\alpha$ hatt};
+	\node (ui12) [nonterminal,above=of ui11] {Output};
+		\path (ui1) edge[->] (ui5);
+		\path (ui5) edge[->] (ui6) ($(5.2,0.5)!0.5!(5.5,0)$) node[above right] {$\phi$ $hatt$};
+		\path (ui2) edge[->] (ui7);
+		\path (ui7) edge[->] (ui8);
+		\path (ui8) edge[->] (ui9);
+		\path (ui9) edge[->] (ui10) ($(3.5,-4.0)!0.5!(0,2)$) node[above right] {$â$};
+		\path (ui10) edge[->] (ui6) ($(6.53,-4.0)!0.5!(7,2)$) node[above right] {$\frac{â}{g}$};
+		\path (ui6) edge[->] (ui11);
+			\draw [->] ($ (ui3.east) $) -| ($ (ui10.south)  $);
+			\draw[dashed] (0.77,-2.75) -- (0.77, 1.5);
+			\draw[dashed] (7.15,-2.75) -- (7.15, 1.5);
+\end{tikzpicture}
+	\caption{Algoritmens struktur \label{fig:AlgoritmProcess}}
+\end{figure}
+
+
 Vad lutningsgivaren gör kan efterliknas med att mäta en pendels lutning.
 Under acceleration kommer den uppmätta lutningen $\phi$
 inte överensstämma med den riktiga lutningen $\alpha$.
@@ -374,7 +406,7 @@ Vi vill undersöka\ldots
 	\item Varför råsignalen från lutningsgivaren blir opålitlig.
 % ex:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
 	\item Hur nätverket ska vara konfigurerat för att felkompensera; vilka inputs,
-		outputs, antal neuroner, hidden layers och feed-/cascade-forward?
+		outputs, antal neuroner, hidden layers och feed-/cascade-forward? %+Narx
 % ex:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
 %		beräkningar, metoder och antaganden [( tan(x)=x )] måste göras?
 	\item Hur väl det fungerar att felkompensera med neuronnät.
