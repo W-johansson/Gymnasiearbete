@@ -80,20 +80,21 @@ och använder geometriska samband mellan dem.
 
 %Figur om hur algoritmen fungerar
 \begin{figure}
-\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
-	\node (ui1) [nonterminal] {$\hat{\Phi }$};
-	\node (ui2) [nonterminal,below=of ui1] {$\hat{v}$};
-	\node (ui3) [nonterminal,below=of ui2] {g};
-	\node (ui4) [nonterminal,above=of ui1] {\underline{Input}};
-	\node (ui7) [nonterminal,right=of ui2] {$ \frac{d}{dt} $};
-	\node (ui8) [nonterminal,right=of ui7] {Filter 2};
-	\node (ui5) [nonterminal,above=of ui8] {Filter 1};
-	\node (ui0) [nonterminal,above= of ui5] {\underline{Process}};
-	\node (ui9) [nonterminal,right=of ui8] {timeshift};
-	\node (ui10) [nonterminal,right=of ui9] {$\div$};
-	\node (ui6) [nonterminal,above=of ui10] {-};
-	\node (ui11) [nonterminal,right=of ui6] {$\hat{\alpha}$};
-	\node (ui12) [nonterminal,above=of ui11] {\underline{Output}};
+	\centering
+	\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
+		\node (ui1) [nonterminal] {$\hat{\Phi }$};
+		\node (ui2) [nonterminal,below=of ui1] {$\hat{v}$};
+		\node (ui3) [nonterminal,below=of ui2] {g};
+		\node (ui4) [above=of ui1] {Input};
+		\node (ui7) [nonterminal,right=of ui2] {$ \frac{d}{dt} $};
+		\node (ui8) [nonterminal,right=of ui7] {Filter 2};
+		\node (ui5) [nonterminal,above=of ui8] {Filter 1};
+		\node (ui0) [above= of ui5] {Process};
+		\node (ui9) [nonterminal,right=of ui8] {timeshift};
+		\node (ui10) [nonterminal,right=of ui9] {$\div$};
+		\node (ui6) [nonterminal,above=of ui10] {-};
+		\node (ui11) [nonterminal,right=of ui6] {$\hat{\alpha}$};
+		\node (ui12) [above=of ui11] {Output};
 		\path (ui1) edge[->] (ui5);
 		\path (ui5) edge[->] (ui6) ($(5.7,0.5)!0.5!(5.5,0)$) node[above right] {$\hat{\Phi}$};
 		\path (ui2) edge[->] (ui7);
@@ -102,11 +103,11 @@ och använder geometriska samband mellan dem.
 		\path (ui9) edge[->] (ui10) ($(3.05,-4.0)!0.5!(0,2)$) node[above right] {$\hat{a}$};
 		\path (ui10) edge[->] (ui6) ($(6.0,-4.0)!0.5!(7,2)$) node[above right] {$\frac{\hat{a}}{g}$};
 		\path (ui6) edge[->] (ui11);
-			\draw [->] ($ (ui3.east) $) -| ($ (ui10.south)  $);
-			\draw[dashed] (0.6,-2.75) -- (0.6, 0.7);
-			\draw[dashed] (6.9,-2.75) -- (6.9, 0.7);
-\end{tikzpicture}
-	\caption{Algoritmens struktur \label{fig:AlgoritmProcess}}
+		\draw [->] ($ (ui3.east) $) -| ($ (ui10.south)  $);
+		\draw[dashed] (0.6,-2.75) -- (0.6, 0.7);
+		\draw[dashed] (6.9,-2.75) -- (6.9, 0.7);
+	\end{tikzpicture}
+	\caption{Flödesschema för algoritmens struktur. \label{fig:AlgoritmProcess}}
 \end{figure}
 
 
