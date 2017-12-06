@@ -1,0 +1,1 @@
+:%s/biber/bibtex8/g|$?^\\usepackage?a\makeatletter\def\blx@maxline{77}\makeatother.ZZ

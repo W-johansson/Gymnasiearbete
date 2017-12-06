@@ -1,0 +1,4 @@
+deploy:
+  dropbox_path: /Gymnasiearbete
+  artifacts_path: main.pdf
+  debug: true
