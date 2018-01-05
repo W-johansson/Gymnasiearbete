@@ -7,11 +7,14 @@
 \usepackage{amsmath,amsfonts}
 \usepackage{graphicx}
 \usepackage{lmodern,microtype}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{tikz,pgfplots}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{tikz,pgfplots,pgfplotstable}
+\usepackage{rotating}
 
 \bibliography{cites}
 \usetikzlibrary{shapes,arrows,intersections,decorations.pathreplacing,calc,quotes,angles,babel,matrix,chains,positioning}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{units,groupplots}
 
 \begin{document}
 
@@ -46,7 +49,7 @@
 
 \input{metod}
 
-\section{Resultat}
+\include{resultat}
 
 \section{Diskussion \& slutsatser}
 

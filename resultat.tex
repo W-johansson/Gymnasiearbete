@@ -1,0 +1,37 @@
+\section{Resultat}
+
+% Resultat från lutningsgivare
+\begin{sidewaysfigure}
+	\centering
+	\begin{tikzpicture}
+		\begin{groupplot}[
+				width = \textwidth, height = \textheight / 2,
+				no markers,
+				x unit = s, xlabel = Tid,
+				y unit = \%, ylabel = Lutning,
+				enlarge x limits = false,
+				enlarge y limits = {abs = 0.1cm},
+				group style = {
+					group size = 1 by 2,
+					vertical sep = 0pt,
+					x descriptions at = edge bottom,
+				},
+				% Add a zero line
+				extra y ticks=0, extra y tick labels=, extra y tick style={grid=major},
+				extra x tick style = {grid = major},
+				extra x tick labels=,
+				extra x ticks= {59.94, 102.18, 122.8, 154.74, 214.72, 228.9},
+				]
+				\pgfplotstableread{phi.dat}\phidata;
+				\nextgroupplot
+				\addplot table[x=Time, y=phi] from \phidata;
+				\addlegendentry{$\phi$}
+				\addplot[dashed, color = DarkRed] table[x=Time, y expr = 100 * \thisrow{a} / 9.81] from \phidata;
+				\addlegendentry{$\frac{a}{g}$}
+				\nextgroupplot
+				\addplot[color = Emerald] table[x=Time, y = y] from \phidata;
+				\addlegendentry{$y$}
+		\end{groupplot}
+	\end{tikzpicture}
+	\caption{$\phi$ och $\frac{a}{g}$ som funktioner av tiden konkatenerade från 7 loggar och kontrasterade mot den beräknade lutningen från Gps:en. \label{fig:phiresult}}
+\end{sidewaysfigure}
