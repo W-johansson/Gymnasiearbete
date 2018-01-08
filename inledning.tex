@@ -9,12 +9,12 @@ mätes fordonets lutning.
 För det ändamålet ska lutningsgivare användas.
 Lutningsgivaren är en fristående modul som använder piezokristaller för att
 mäta lutningen och kommunicerar med styrdatorn via
-Controller Area Network (CAN)-kommunikation.
+Controller Area Network (CAN-) kommunikation.
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
 
-%vad neuronnät är och vad de används till
+% Vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
 hur djurs hjärnor fungerar och kommunicerar.
 Neuronnät kan användas för att klara av vissa problem som annars är svårlösta
@@ -28,7 +28,22 @@ Det är möjligt att sedan fortsätta träna nätverket
 under användning, men oftast slutar man träna det när resultet är önskvärt.
 \autocite{wiki-neuronnat}
 
+\subsubsection{Kortfattad översiktsbild}
+Lutningsgivaren baseras på en piezoelektrisk kristall och ger vid användning
+upphov till mätbrus och andra störningar i de mätvärden den loggar.
+Lutningsgivaren kan inte heller skilja mellan om bussen kör på ett lutat underlag
+eller om den accelererar, se sektion~\ref{sec:piezo}.
+Därför behövs den data som lutningsgivaren samlar in felkompenseras för att
+styrenheten i fordonet ska ha avsedd funktion. Bl.a. för att hjälpa växellådan
+bestämma rätt växel och för att operera funktioner som "automatisk startbroms".
+För att felkompensera används ett neuronnät som består av artificiella
+neuroner, se sektion~\ref{sec:neuroner}, vilka är konfigurerade i ett nätverk,
+se sektion~\ref{sec:arkitektur}. För att nätverket ska fungera önskvärt måste
+det tränas i vårt fall tränas det efter en princip som kallas
+stochasticgradient descent, se sektion~\ref{sec:descent}.
+
 \subsection{Piezoelektriska kristaller}
+\label{sec:piezo}
 Piezoelektriska material ger upphov till
 elektriska laddningar på deras yta under yttre mekaniskt tryck,
 vilket kallas den direkta piezoelektriska effekten.
@@ -208,6 +223,7 @@ Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
 % vilket är ett problem när neuronnät inte används
 
 \subsection{Artificiella neuroner}
+\label{sec:neuroner}
 % Figur för neuron
 \begin{figure}
 	\centering
@@ -278,6 +294,7 @@ Med sigmoidfunktionen blir neuronens output alltså $ \sigma(\sum_n w_n x_n + b)
 \autocite{nielsen15}
 
 \subsection{Neuronnätsarkitektur}
+\label{sec:arkitektur}
 \begin{figure}
 	\centering
 	\def\layersep{2.5cm}
@@ -326,6 +343,7 @@ fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
 \autocite{nielsen15}
 
 \subsection{Stochastic gradient descent}
+\label{sec:descent}
 % Förlustfunktionen
 Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
 kan man korrelera små ändringar i vikter och biases
@@ -414,4 +432,6 @@ Vi vill undersöka\ldots
 % ex:	\item Hur väl det fungerar att felkompensera med neuronnät och algoritmer.
 % 4/3: Detta är en generell fråga. Ska vi då besvara hur väl de fungerar generellt sett
 % och specifikt då vi ger vårt resultat.
+%inga fler modeline error i vim
+%inga fler modeline error i vim
 \end{itemize}
