@@ -1,10 +1,6 @@
 sudo: false
 language: generic
 
-branches:
-  only:
-  - master
-
 before_install:
   - rvm install 2.2.6
   - gem install dropbox-deployment
@@ -21,7 +17,8 @@ script:
   - source activate paper
   - conda install -c conda-forge -c pkgw-forge tectonic
   - vim -N -u NONE -s main-compat.keys main.tex
+  - printf "[[default_bundles]]\nurl = \"https://dl.bintray.com/pkgw/tectonic/tl2016extras/2016.0r4/tlextras-2016.0r4.tar\"" | install -D /dev/stdin ~/.config/Tectonic/config.toml
   - tectonic main.tex --print
 
 after_success:
-  - dropbox-deployment
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then dropbox-deployment; fi
