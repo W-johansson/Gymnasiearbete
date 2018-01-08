@@ -35,12 +35,12 @@ Lutningsgivaren kan inte heller skilja mellan om bussen kör på ett lutat under
 eller om den accelererar, se sektion~\ref{sec:piezo}.
 Därför behövs den data som lutningsgivaren samlar in felkompenseras för att
 styrenheten i fordonet ska ha avsedd funktion. Bl.a. för att hjälpa växellådan
-bestämma rätt växel och för att operera funktioner som "automatisk startbroms".
+bestämma rätt växel och för att operera funktioner som ``automatisk startbroms''.
 För att felkompensera används ett neuronnät som består av artificiella
 neuroner, se sektion~\ref{sec:neuroner}, vilka är konfigurerade i ett nätverk,
 se sektion~\ref{sec:arkitektur}. För att nätverket ska fungera önskvärt måste
-det tränas i vårt fall tränas det efter en princip som kallas
-stochasticgradient descent, se sektion~\ref{sec:descent}.
+det tränas - i vårt fall med en metod som kallas \emph{stochastic gradient descent},
+se sektion~\ref{sec:sdg}.
 
 \subsection{Piezoelektriska kristaller}
 \label{sec:piezo}
@@ -343,7 +343,7 @@ fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
 \autocite{nielsen15}
 
 \subsection{Stochastic gradient descent}
-\label{sec:descent}
+\label{sec:sdg}
 % Förlustfunktionen
 Med hjälp av en slät funktion för hur väl nätet approximerar träningsdatan
 kan man korrelera små ändringar i vikter och biases
