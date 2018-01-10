@@ -101,13 +101,19 @@ beräknades lutningen $v$ med arcus tangens:
 	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
 \end{equation}
 
-Hastigheten deriverades för att få accelerationen som en funktion av tiden.
+Sju stycken loggar om \SI{30}{\second} var sparades från bussens styrenhet
+med rådatan från lutningsgivaren, $\phi$, och bussens hastigheten som funktioner av tiden.
+Hastigheterna från bussen användes för att hitta början för varje logg i datan från Gps:en,
+för att indexera in i den beräknade lutningen från Gps:en, $y$.
+Hastigheten deriverades för att få accelerationen, $a$.
 Rådatan från lutningsgivaren, den beräknade lutningen
 och accelerationen användes som träningsdata för neuronnäten.
-I MATLAB tränades flera neuronnät med stochastic gradient descent algoritmen.
-Neuronnäten initierades med olika slumpade vikter och biases och
-antalet dolda lager och antalet neuroner i de dolda lagren varierades
-för att hitta den bästa konfigurationen.
+Flera neuronnät tränades i MATLAB med algoritmen stochastic gradient descent,
+med $\phi$ och $a$ som inputs och $y$ som mål.
+Neuronnät med ett dolt lager initierades med olika slumpade vikter och biases och
+antalet neuroner, $ \{ 1, 2, 3, 4, 5 \} $; \emph{feedback delays}, $ \{ 1, 2, 3, 4, 5 \} $;
+inlärningshastigheten, $\eta$, $ \{ 0.3, 0.5, 0.7 \} $; och minibatchens kardinalitet, $ \{ 1, 10, 20 \} $,
+varierades för att hitta den bästa konfigurationen.
 Nätverken jämfördes och konfigurationen hos nätverket med
 den minsta genomsnittliga absoluta avvikelsen från testdatan
 identifierades som det bästa nätverket och valdes ut för felkompensering.
