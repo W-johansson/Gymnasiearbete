@@ -62,8 +62,12 @@ vilket motsvarar en genomsnittllig avvikelse på
 % Hur nätverket ska vara konfigurerat?
 %5hidden 4 feedback dealy 0,3 learing rate (eta) 10 batch size
 Vi fick lägst förlust när vi tränade med följande parametrar:
-\num{5} st neuroner i hidden layer, \num{4} senaste värdena i feedback delay,
-\num{0.3} $\eta$ (learning rate) och minibatchens kardinalitet på 10.
+\SI{5}{\styck} neuroner i hidden layer, \SI{4}{\styck} senaste värdena i feedback delay,
+\num{0.3} $\eta$ (learning rate) och minibatchens kardinalitet på \num{10}.
 
-I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $ y $, med vad med
+I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $y$, med vad med
 uppmätta lutningen, $ \phi - \frac{a}{g} $.
+
+Figur~\ref{fig:netresult} visar neuronnätets aktiveringar tar in
+lutningsgivarens råvärde och bussens acceleration
+och spottar ut, $a$. Denna visas med den beräknade lutingen från Gps:en, $y$.
