@@ -9,7 +9,7 @@ mätes fordonets lutning.
 För det ändamålet ska lutningsgivare användas.
 Lutningsgivaren är en fristående modul som använder piezokristaller för att
 mäta lutningen och kommunicerar med styrdatorn via
-Controller Area Network (CAN-) kommunikation.
+Controller Area Network (CAN-~) kommunikation.
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
 Därför behövs en algoritm för att felkompensera dessa störningar.
@@ -97,7 +97,7 @@ och använder geometriska samband mellan dem.
 \begin{figure}
 	\centering
 	\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
-		\node (ui1) [nonterminal] {$\hat{\Phi }$};
+		\node (ui1) [nonterminal] {$\hat{\phi }$};
 		\node (ui2) [nonterminal,below=of ui1] {$\hat{v}$};
 		\node (ui3) [nonterminal,below=of ui2] {g};
 		\node (ui4) [above=of ui1] {Input};
@@ -111,7 +111,7 @@ och använder geometriska samband mellan dem.
 		\node (ui11) [nonterminal,right=of ui6] {$\hat{\alpha}$};
 		\node (ui12) [above=of ui11] {Output};
 		\path (ui1) edge[->] (ui5);
-		\path (ui5) edge[->] (ui6) ($(5.7,0.5)!0.5!(5.5,0)$) node[above right] {$\hat{\Phi}$};
+		\path (ui5) edge[->] (ui6) ($(5.7,0.5)!0.5!(5.5,0)$) node[above right] {$\hat{\phi}$};
 		\path (ui2) edge[->] (ui7);
 		\path (ui7) edge[->] (ui8);
 		\path (ui8) edge[->] (ui9);
@@ -341,6 +341,16 @@ och behovet av mer träningsdata.
 Neuronnät är specifika för en uppgift och en arkitektur som
 fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
 \autocite{nielsen15}
+
+\textit{Narxnet} (nonlinear autoregressive neural network with external input)
+är ett neuronnät som kan tränas för att göra en tidsserieprediktion, alltså
+förutsäga, en tidsseries kommande datapunkter.
+Genom att ha tillgång till tidigare datapunkter i serien,
+\textit{feedback-input} och en annan tidsserie, även kallad den externa
+tidsserien.
+Narxnät lämpar sig följdaktligen till att felkompensera lutningsgivare;
+uppgiften går ut på att förutsäga nästa datapunkt i serien och avgöra om den
+stämmer in.
 
 \subsection{Stochastic gradient descent}
 \label{sec:sdg}

@@ -35,3 +35,16 @@
 	\end{tikzpicture}
 	\caption{$\phi$ och $\frac{a}{g}$ som funktioner av tiden konkatenerade från 7 loggar och kontrasterade mot den beräknade lutningen från Gps:en. \label{fig:phiresult}}
 \end{sidewaysfigure}
+
+% Hur väl det fungerar att felkompensera?
+Den kvadratiska förlusten blev \num[round-precision=3]{0.002055976870427035}
+vilket motsvarar en genomsnittllig avvikelse på
+\SI[round-precision=3]{2.7205728686321}{\percent}.
+% Hur nätverket ska vara konfigurerat?
+%5hidden 4 feedback dealy 0,3 learing rate (eta) 10 batch size
+Vi fick lägst förlust när vi tränade med följande parametrar:
+\num{5} st neuroner i hidden layer, \num{4} senaste värdena i feedback delay,
+\num{0.3} $\eta$ (learning rate) och minibatchens kardinalitet på 10.
+
+I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $ y $, med vad med
+uppmätta lutningen, $ \phi - \frac{a}{g} $.
