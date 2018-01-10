@@ -36,6 +36,25 @@
 	\caption{$\phi$ och $\frac{a}{g}$ som funktioner av tiden konkatenerade från 7 loggar och kontrasterade mot den beräknade lutningen från Gps:en. \label{fig:phiresult}}
 \end{sidewaysfigure}
 
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				no markers,
+				legend style={at={(0.02,0.98)},anchor=north west},
+				table/x expr=2 * 0.02 * 10 * \coordindex,
+				xlabel = Tid, x unit = s,
+				ylabel = Lutning, y unit = \%,
+				]
+				\addplot table[y=a] from {predict7.dat};
+				\addlegendentry{$a$}
+				\addplot table[y=y] from {predict7.dat};
+				\addlegendentry{$y$}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Neuronnätets beräknade lutning gentemot Gps:ens lutning. \label{fig:netresult}}
+\end{figure}
+
 % Hur väl det fungerar att felkompensera?
 Den kvadratiska förlusten blev \num[round-precision=3]{0.002055976870427035}
 vilket motsvarar en genomsnittllig avvikelse på
