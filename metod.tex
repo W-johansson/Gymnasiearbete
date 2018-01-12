@@ -85,8 +85,8 @@
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
 
-En buss kördes med en lutningsgivare och
-en GPS som mätte hastigheten och altituden i bakre ändan.
+En buss kördes med en lutningsgivare och en GPS i bakre ändan
+som mätte hastigheten och altituden.
 Hastigheten integrerades för att få höjden som en funktion av sträckan.
 I varje punkt kan en rätvinklig triangel konstrueras
 där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
@@ -101,19 +101,32 @@ beräknades lutningen $v$ med arcus tangens:
 	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
 \end{equation}
 
-Sju stycken loggar om \SI{30}{\second} var sparades från bussens styrenhet
+Sju stycken loggar, vardera \SI{30}{\second}, sparades från bussens styrenhet
 med rådatan från lutningsgivaren, $\phi$, och bussens hastigheten som funktioner av tiden.
 Hastigheterna från bussen användes för att hitta början för varje logg i datan från Gps:en,
 för att indexera in i den beräknade lutningen från Gps:en, $y$.
 Hastigheten deriverades för att få accelerationen, $a$.
 Rådatan från lutningsgivaren, den beräknade lutningen
-och accelerationen användes som träningsdata för neuronnäten.
-Flera neuronnät tränades i MATLAB med algoritmen stochastic gradient descent,
+och accelerationen användes som träningsdata för neuronnäten
+efter att ha normaliserats till $ \left[ 0, 1 \right] $,
+för att rymmas i sigmoidfunktionens värdemängd,
+genom att beräkna:
+\begin{equation}
+	z_i = \frac{x_i - min(x)}{max(x) - min(x)}
+\end{equation}
+där $z$ är normaliserad data, $x$ är onormaliserad data,
+$min(x)$ och $max(x)$ är det minsta respektive största värdet i $x$.
+Lutningarna förmodades vara inom $ \left[ -30, 30 \right] $
+och acceleration inom $ \left[ -3, 3 \right] $.
+
+Neuronnät tränades i MATLAB med algoritmen stochastic gradient descent,
 med $\phi$ och $a$ som inputs och $y$ som mål.
-Neuronnät med ett dolt lager initierades med olika slumpade vikter och biases och
-antalet neuroner, $ \{ 1, 2, 3, 4, 5 \} $; \emph{feedback delays}, $ \{ 1, 2, 3, 4, 5 \} $;
-inlärningshastigheten, $\eta$, $ \{ 0.3, 0.5, 0.7 \} $; och minibatchens kardinalitet, $ \{ 1, 10, 20 \} $,
-varierades för att hitta den bästa konfigurationen.
+De initierades med ett dolt lager, slumpade vikter och biases
+och antalet neuroner; antalet \emph{feedback delays};
+inlärningshastigheten, $\eta$; och minibatchens kardinalitet varierades med
+$ \{ 1, 2, 3, 4, 5 \} $, $ \{ 1, 2, 3, 4, 5 \} $,
+$ \{ 0.3, 0.5, 0.7 \} $, respektive $ \{ 1, 10, 20 \} $
+för att hitta den bästa konfigurationen.
 Nätverken jämfördes och konfigurationen hos nätverket med
-den minsta genomsnittliga absoluta avvikelsen från testdatan
-identifierades som det bästa nätverket och valdes ut för felkompensering.
+den minsta genomsnittliga kvadrerade avvikelsen från testdatan
+identifierades som lämpligast och valdes ut för felkompensering.
