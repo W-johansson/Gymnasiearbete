@@ -61,13 +61,18 @@ vilket motsvarar en genomsnittllig avvikelse på
 \SI[round-precision=3]{2.7205728686321}{\percent}.
 % Hur nätverket ska vara konfigurerat?
 %5hidden 4 feedback dealy 0,3 learing rate (eta) 10 batch size
-Vi fick lägst förlust när vi tränade med följande parametrar:
+Vi fick lägst förlust när vi tränade ett narxnät med följande parametrar:
 \SI{5}{\styck} neuroner i hidden layer, \SI{4}{\styck} senaste värdena i feedback delay,
 \num{0.3} $\eta$ (learning rate) och minibatchens kardinalitet på \num{10}.
 
-I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $y$, med vad med
-uppmätta lutningen, $ \phi - \frac{a}{g} $.
+I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $y$, med den
+uppmätta lutningen, $ \phi - \frac{a}{g} $, och rådatan från
+lutningsgivaren, $phi$.
+I både figur~\ref{fig:phiresult} och figur~\ref{fig:netresult}
+innebär positiv och negativ lutning att bussen körs uppför respektive
+nedför en lutning.
 
-Figur~\ref{fig:netresult} visar neuronnätets aktiveringar tar in
+Figur~\ref{fig:netresult} visar neuronnätets aktiveringar som tar in
 lutningsgivarens råvärde och bussens acceleration
-och spottar ut, $a$. Denna visas med den beräknade lutingen från Gps:en, $y$.
+och ger lutningen som neuronnätet beräknat, $a$.
+Denna visas med den beräknade lutingen från Gps:en, $y$.
