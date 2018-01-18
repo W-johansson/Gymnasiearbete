@@ -43,10 +43,19 @@
 	{\today\par}
 \end{titlepage}
 
-% Innehållsförtecking
 \pagenumbering{gobble}
+
+\ifdefined\sammanfattning
+\begin{abstract}
+\sammanfattning
+\end{abstract}
+\clearpage
+\fi
+
+% Innehållsförtecking
 \tableofcontents
 \cleardoublepage
+
 \pagenumbering{arabic}
 %\end{comment}
 
@@ -58,6 +67,8 @@
 \input{resultat}
 
 \section{Diskussion \& slutsatser}
+
+\ifdefined\diskussion\diskussion\fi
 
 \clearpage
 \printbibliography
