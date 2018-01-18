@@ -164,7 +164,10 @@ Dock är felet lättare att lösa när lutningsgivare används.
 Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
 
-\subsection{Signalutjämning}
+\subsection{Andra metoder för felkompensering}
+\subsubsection{Signalutjämning -- felkompensering utan neuronnät}
+Med en lutningsgivare installerad är man inte begränsad till neuronnät för att
+felkompensera eftersom att det finns andra metoder, t.ex. signalutjämning.
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
 Ett brus kan visa sig i grafen men det går att minimera bruset med en signalutjämningsfunktion.
 Signalutjämningsfunktionen kan se lite olika ut beroende på dess konfiguration
@@ -203,7 +206,7 @@ tillsammans med de fyra tidigare värden. Den andra konfigurationen skulle
 inte tillåta det nya mätta värdet att påverka så funktionen så mycket,
 utan funktionen lägger större vikt på de tidigare värdena.
 
-\subsection{Felkompensering utan neuronnät}
+\subsubsection{Felkompensering utan lutningsgivare}
 % Räkna ut lutning med hjälp av moment
 Ifall man inte har en lutningsgivare installerad i sitt fordon krävs ändå ett
 sätt att räkna ut fordonets lutning.
@@ -220,8 +223,9 @@ mellan bromsskivan och bromsbeläggen vilken kan variera mellan 0,2 och 0,4.
 Därför uppstår en osäkerhet med att räkna ut lutningen utan lutningsgivare.
 \autocite{lauri17}
 
-% Lutningsgivare kan inte skilja på acceleration och tyngdaccelerationen,
-% vilket är ett problem när neuronnät inte används
+% \subsection{För- och nackdelar med neuronnät}
+% \subsubsection{Fördelarna med neuronnät}
+% \subsubsection{Nackdelarna med neuronnät}
 
 \subsection{Artificiella neuroner}
 \label{sec:neuroner}
