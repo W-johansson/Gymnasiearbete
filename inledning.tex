@@ -355,12 +355,12 @@ Genom att ha tillgång till tidigare datapunkter i serien,
 tidsserien.
 NARX-nät lämpar sig följdaktligen till att felkompensera lutningsgivare;
 uppgiften går ut på att förutsäga nästa datapunkt i serien och avgöra om den
-stämmer in.\autocite{narxnet} 
-Att använda NARX-nät istället för feed-forward 
-kan vara en fördel när det gäller felkompensering. Feedforward kommer 
-inte ihåg vilken data den har stött på innan och den behandlar varje datapunkt 
+stämmer in.\autocite{narxnet}
+Att använda NARX-nät istället för feed-forward
+kan vara en fördel när det gäller felkompensering. Feedforward kommer
+inte ihåg vilken data den har stött på innan och den behandlar varje datapunkt
 individuellt. Detta kan vara en fördel i vissa situationer men inte för felkompensering
-av lutningsgivare då tidigare datapunkter hänger samman med varandra. 
+av lutningsgivare då tidigare datapunkter hänger samman med varandra.
 Fördelen med NARX-nät är att den kan komma ihåg tidigare värden och kan
 anpassa sin output efter dem, vilket kan förenkla processen att förutsäga nästa värde.
 
@@ -444,15 +444,13 @@ artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 \section{Frågeställningar}
 Vi vill undersöka\ldots
 \begin{itemize}
-% ex:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
+% alternativ:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
 	\item Hur nätverket ska vara konfigurerat för att felkompensera; vilka inputs,
 		outputs, typ av nät och antal neuroner och dolda lager?
-% ex:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
+% alternativ:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
 %		beräkningar, metoder och antaganden [( tan(x)=x )] måste göras?
 	\item Hur väl det fungerar att felkompensera med neuronnät.
-% ex:	\item Hur väl det fungerar att felkompensera med neuronnät och algoritmer.
+% alternativ:	\item Hur väl det fungerar att felkompensera med neuronnät och algoritmer.
 % 4/3: Detta är en generell fråga. Ska vi då besvara hur väl de fungerar generellt sett
 % och specifikt då vi ger vårt resultat.
-%inga fler modeline error i vim
-%inga fler modeline error i vim
 \end{itemize}
