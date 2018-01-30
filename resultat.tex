@@ -55,24 +55,24 @@
 	\caption{Neuronnätets beräknade lutning gentemot GPS:ens lutning. \label{fig:netresult}}
 \end{figure}
 
-% Hur väl det fungerar att felkompensera?
-Den kvadratiska förlusten blev \num[round-precision=3]{0.002055976870427035}
-vilket motsvarar en genomsnittllig avvikelse på
+Det mest lämpade neuronnätet blev det med följande parametrar:
+\SI{5}{\styck} neuroner i det dolda lagret, en feedback delay på \SI{4}{\styck} värden,
+inlärningshastighet på \num{0.3} och \SI{10}{\styck} element i minibatchen.
+Dess kvadratiska förlusten var \num[round-precision=3]{0.002055976870427035}
+vilket ger en genomsnittlig avvikelse på
 \SI[round-precision=3]{2.7205728686321}{\percent}.
-% Hur nätverket ska vara konfigurerat?
-%5hidden 4 feedback dealy 0,3 learing rate (eta) 10 batch size
-Vi fick lägst förlust när vi tränade ett narxnät med följande parametrar:
-\SI{5}{\styck} neuroner i hidden layer, \SI{4}{\styck} senaste värdena i feedback delay,
-\num{0.3} $\eta$ (learning rate) och minibatchens kardinalitet på \num{10}.
 
-I figur~\ref{fig:phiresult} kontrasteras den beräknade lutningen, $y$, med den
-uppmätta lutningen, $ \phi - \frac{a}{g} $, och rådatan från
-lutningsgivaren, $phi$.
-I både figur~\ref{fig:phiresult} och figur~\ref{fig:netresult}
-innebär positiv och negativ lutning att bussen körs uppför respektive
-nedför en lutning som är angiven i procent.
+Lutningen från lutningsgivaren subtraherat med accelerationen dividerat med tyngdaccelerationen
+blev inte lika med den beräknande lutningen från GPS:en, se figur~\ref{fig:phiresult},
+där $\phi$ är lutningen från lutningsgivaren,
+$\frac{a}{g}$ är accelerationen dividerat med tyngdaccelerationen
+och $y$ är den beräknade lutningen från GPS:en.
 
-Figur~\ref{fig:netresult} visar neuronnätets aktiveringar som tar in
-lutningsgivarens råvärde och bussens acceleration
-och ger lutningen som neuronnätet beräknat, $a$.
-Denna visas med den beräknade lutingen från GPS:en, $y$.
+Figur~\ref{fig:netresult} visar neuronnätets aktiveringar, $a$, på
+lutningsgivarens råvärde och bussens acceleration,
+tillsammans med den beräknade lutingen från GPS:en, $y$.
+
+I både figur~\ref{fig:phiresult} och figur~\ref{fig:netresult} innebär
+positiv och negativ lutning att bussen kör i en uppförs- respektive nedförsbacke.
+Enheten är procent, det vill säga,
+höjdskillnaden i meter per 100 meters horisontell förflyttning.
