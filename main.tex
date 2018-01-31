@@ -53,6 +53,7 @@
 \pagenumbering{gobble}
 
 \ifdefined\sammanfattning
+\renewcommand{\abstractname}{Abstract}
 \begin{abstract}
 \sammanfattning
 \end{abstract}
@@ -73,9 +74,10 @@
 
 \input{resultat}
 
+\ifdefined\diskussion
 \section{Diskussion \& slutsatser}
-
-\ifdefined\diskussion\diskussion\fi
+\diskussion
+\fi
 
 \clearpage
 \printbibliography
