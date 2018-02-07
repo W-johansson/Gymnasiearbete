@@ -1,13 +1,60 @@
 \ifx\main\undefined\input{main.tex}\endinput\fi
 
 \long\def\sammanfattning{
-Hello this is my very nice abstract!
 
-It's the best kind of abstract, really.
-It's about busses and stuff
 }
 
 \long\def\diskussion{
-Det här är en fin diskussion.
+% Allmännt
+
+
+% Resultat
+Efter som att lutningen från lutningsgivaren subtraherat med acceleratoinen
+dividerat med tyngdaccelerationen inte blev lika med de beräknade lutningen
+från GPS:en, se figur~\ref{fig:phiresult}, innebär det att det finns antigen
+finns mätbrus från lutningsgivaren eller att den beräknade lutningen från
+GPS:en är svår korrelerad med den från lutningsgivaren.
+Eller att båda påståendena gäller.
+
+% METOD
+% - Fördelar
+NARX-när är mycket välanpassade till att användas för tidsserier.
+
+Samt att neuronnät i en perfekt värld klarar av att överse för alla de delar
+som skulle felkompenseras för.
+
+% - Förbättringar
+När vi försöker hitta våra sju korta loggar i den väldigt långa loggen från
+GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
+gentemot den beräknade lutningen.
+Ett alternativ skulle kunna vara att anväda sig av två eller fler faktorer för
+att garantera att man tar fram exakta startpunkter.
+
+% Felkällor
+Varje neuronnätskonfiguration testas en gång med slumpade begynnelsevikter
+vilket kan leda till att förlustfunktionen aldrig får fram de mest optimala
+vikterna.
+Om man istället testar varje konfiguration flera gånger kan man minsta risken
+för att de mest lämpade vikterna inte hittas.
+Alltså kan en mer lämpad      konfiguration       ha förbisetts.
+
+Dessutom är GPS:en mycket mindre finkänslig än lutningsgivaren, den ger bara
+utslag för varje halvmeters elevations förändring medan lutningsgivaren ragerar
+och ger större/mindre lutning av bara små viberationer.
+Ytterlligare mäter lutningsgivaren lutningen med mycket hög precision.
+Det här gör det ännu svårare att korrelera de båda filerna vilket innebär att
+nätet kommer att vara svårare att träna eftersom att den kan förekomma stora
+avvikelser i datan.
+Som exempel kan det nämnas att kring $x = 80$ i figur~\ref{fig:phiresult} ges
+lutningen från lutningsgivaren som \SI{7}{\percent} medan den beräknades till
+\SI{-5}{\percent} från GPS:en.
+
+Validerar på testdatan, nödvändigt på grund av små datamängdet, därför svårt
+att veta om det spelar stor roll.
+Antagligen gör det det vilket innebär att nätet tränas för att klara av den
+datan vi har men att det skulle prestera mycket sämre om vi validerade på en
+annan data.
+Därmed får vi antagligen mindre avvikelse än vad vi egentligen borde i avseende
+på vårt lilla urval.
 
 }
