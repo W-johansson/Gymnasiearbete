@@ -1,13 +1,14 @@
 \ifx\main\undefined\input{main.tex}\endinput\fi
 
 \long\def\sammanfattning{
-Hello this is my very nice abstract!
-
-It's the best kind of abstract, really.
+This study investigated the capabilites of a neuralnetwork to be able to correct an inclinometer. The study was conducted using an inclinometer and a GPS to montior the inclination. After this the measured inclination from the inclinometer and the GPS were compared using the GPS's inclination as a key. The neuralnetwork was then trained on this data. The results from the neuralnetwork was that it was able to predict the inclination with a mean squared error of a little over 1 \%. 
 }
 
 \long\def\diskussion{
-Det här är en fin diskussion.
+Resultatet var inte så bra som målet. Förhoppningen var att lyckas med att komma under 1 \%  i genomsnittligt kvadrerat fel. Detta eftersom vissa funktioner som finns i bussen är känsliga för lutning, som till exempel extra hög motoreffekt. Erfarenhet från riktiga fordon visar på att det är svårt att få bättre än 1 \% i felmarginal. Att gränsen för hur känslig algoritmen ligger på 1 \% blir då naturligt och den är tillräckligt exakt för de funktioner som skall användas. Den viktigaste faktorn är att fordonet inte kommer att börja rulla förrän vid ungefär 1\%. Rullmotståndet motsvarar alltså 1\% och när lutningen går över 1 \% måste detta kunna detekteras. Faktorer som fjädringsrörelser och gropar i vägen kan motsvara kring 2-3 \% lutning och därför är lutningen aldrig pålitlig i ett vakuum. Bruset som uppstår i signalen motverkas med en hysteres. Detta brus kan också innebära stora förändringar i signalen och är en annan faktor till varför felmarginalen kan vara så stor som 1 \%. 
 
-\SI{13}{\kilo\meter\per\second} fet enhet.
+Neuronnät av typen NARX användes eftersom den är bra vid mätningar av tidsserier. Ifall endast lutningsgivaren visar fel skulle detta vara enkelt för NARX-nätet att lösa. Dock är inte GPS-datan helt tillförlitlig. 
+Metoden har också vissa förbättringsområden bland vilka den största är hur mätningen av lutningen blev genomförd. En stor mätning istället för sju små hade varit bättre eftersom man skulle komma undan problemet med att indexera bussvariabler och den riktiga lutningen. När lutningsgivarens och GPS:ens lutningar skulle matchas uppstod problem. Vissa matchades helt felaktigt. Mer kontrollerade testförutsättningar är ett annat sätt att förbättra resultatet. Genom att till exempel motera lutningsgivaren på en rigg isoleras lutningsgivaren och mer tillförlitliga värden på lutningen och accelationen kan fås. 
+
+Lite felkällor är hur förlustfunktionen är uppbyggd, valideringen på testdatan, att GPS:en gav storkornig data och mätningen var tvungen att ske genom CAN-nätverket och inte genom PCM:en. När förlustfunktionen skall hitta mest optimala vikterna kan den hamna i ett minivärde som inte är det globala minimum. Detta leder såklart till att algoritmen inte blir helt optimal. Valideringen på testdatan är en felkälla som beror på vår begränsade datamängd. Mer data hade lett till ett mer tillförlitligt resultat, speciellt eftersom mycket av datan inte var särskilt bra. Samma sak gäller för GPS:en men här spelar också grovkornigheten, alltså att den inte gav avslag särskilt ofta, roll. Hur mycket dessa felkällor har påverkat resultatet är svårt att säga men det hade med säkerhet blivit bättre. 
 }
