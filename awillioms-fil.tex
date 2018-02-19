@@ -1,18 +1,63 @@
 \ifx\main\undefined\input{main.tex}\endinput\fi
 
 \long\def\sammanfattning{
-The inclinometer is very versitile and artificial neural networks are nice.
+% inledning
+\noindent To operate various functions inclinometers are used in vehicles,
+since the instrument is prone to measuring errors---such as white noice and it
+being unable to differentiate acceleration from inclination--- it needs to be
+compensated.
+We choose to use an artificial neural network for the compensation,
+%we choose it over other methods such as mathematical filters for its ability to
+consisting of artificial neurons arranged in an architecture where each and
+every neuron have an activation function---the sigmoid
+function---and an overall training algorithm---stochastic gradient descent.
+With varibables  as: weights, biases, numbers of neurons in the hidden
+layer, learing rate, size of the minibatch and the feedback delay.
+% frågeställningar
+We sought to identify the best configuration of the network, id est the values
+of our variables that produce the smallest deviation from the validation data,
+and use it to determine how well it performed the compensation and thereby if
+it would be suiteable for usage in a real vehicle.
+% metod
+Our method was to mount the inclinometer and a GPS to calculate the inclination
+the vehcile traveled in and afterwards match the files and use this as the
+training data for the network.
+The initial configurations of the nets were randomized.
+% resultat
+The result set the mean squared error to
+\num[round-precision=3]{0.002055976870427035} which correspond to an average
+offset of \SI[round-precision=3]{2.7205728686321}{\percent}.
+% diskussion
+We concluded that our compensated inclination would not suffice for real usage
+due to difficulties correlating the calculated inclinatoin with the observed
+one.
 }
 
 \long\def\diskussion{
 % Allmännt
+
 % Resultat
-Efter som att lutningen från lutningsgivaren subtraherat med accelerationen
+När vi inspekterar resultatet syns det att det antigen är de sju loggfilernas
+startpunkter i GPS-filen som inte stämmer överens eller att det är svårt att
+matcha det lutnigsgivaren har mätt med det som beräknats med hjälp av GPS:en.
+
+Eftersom att lutningen från lutningsgivaren subtraherat med accelerationen
 dividerat med tyngdaccelerationen inte blev lika med den beräknade lutningen
 från GPS:en, se figur~\ref{fig:phiresult}, innebär det att det antigen finns
 mätbrus från lutningsgivaren eller att den beräknade lutningen från GPS:en
 är svår att korrelera med den från lutningsgivaren.
 Det kan även vara båda två som gäller.
+
+Olika fjädringsrörelser och ojämnheter i vägen kan motsvara en avvikelse på upp
+till \SI{3}{\percent}, alltså får inte en funktion som till exempel extra hög
+motoreffekt som aktiveras när lutningen är över \SI{2}{\percent} inte aktiveras
+av låt säga en grop.
+Därmed kommer den i praktiken aktiveras när den felkompenserade lutningen från
+lutningsgivaren överstiger \SI{2}{\percent}.
+Vilket innebär att med vår avvikelse skulle en sådan funktion mer eller mindre
+kunna aktiveras även när bussen står på nästan plant underlag.
+Alltså uppfyller den inte den tumregel på en avvikelse av maximalt
+\SI{1}{\percent} som Erik Lauri advocerade.
 
 % METOD
 % - Fördelar
@@ -21,19 +66,12 @@ NARX-nät är mycket välanpassade till att användas för tidsserier.
 Samt att neuronnät i en perfekt värld klarar av att behandla alla de faktorer
 som skulle kunna behövas felkompenseras.
 
-% - Förbättringar
-När vi försöker hitta våra sju korta loggar i den väldigt långa loggen från
-GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
-gentemot den beräknade lutningen.
-Ett alternativ skulle kunna vara att anväda sig av två eller fler faktorer för
-att garantera att man tar fram exakta startpunkter.
-
 % Felkällor
-Varje neuronnätskonfiguration testas en gång med slumpade begynnelsevikter
+Varje neuronnätskonfiguration testas en gång med slumpade begynnelse variabler
 vilket kan leda till att förlustfunktionen aldrig får fram de mest optimala
-vikterna.
+variablerna.
 Om man istället testar varje konfiguration flera gånger kan man minska risken
-för att de mest lämpade vikterna inte hittas.
+för att de mest lämpade värdena inte hittas.
 Alltså kan en mer lämpad konfiguration ha förbisetts i vår undersökning.
 
 Dessutom är GPS:en mycket mindre finkänslig än lutningsgivaren, den ger bara
@@ -42,7 +80,7 @@ på minsta lilla rörelse och ger mycket precisa lutningsvärden.
 Det här gör det ännu svårare att korrelera de båda filerna vilket innebär att
 nätet kommer att vara svårare att träna eftersom att den kan förekomma stora
 avvikelser i datan.
-Som exempel kan det nämnas att kring $x = 80$ i figur~\ref{fig:phiresult} ges
+Ett exemper är att kring $x = 80$ i figur~\ref{fig:phiresult} ges
 lutningen från lutningsgivaren som \SI{7}{\percent} medan den beräknades till
 \SI{-5}{\percent} från GPS:en.
 
@@ -54,6 +92,12 @@ Antagligen spelar det roll vilket i så fall innebär att nätet tränas för at
 klara av en specifik uppgift väldigt bra men det skulle vara olämpligt att
 felkompensera annan data med nätet.
 Därmed får vi antagligen en mindre kvadrerad förlust än vad nätet skulle få på
-längre logfiler.
+längre loggfiler.
 
+% - Förbättringar
+När vi försöker hitta våra sju korta loggar i den väldigt långa loggen från
+GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
+gentemot den beräknade lutningen.
+Ett alternativ är att anväda sig av två eller fler faktorer för
+att garantera korrekta startpunkter tas fram.
 }
