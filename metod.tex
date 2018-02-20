@@ -6,6 +6,23 @@
 \definecolor{c3f4340}{RGB}{63,67,64}
 \definecolor{cadadad}{RGB}{173,173,173}
 
+En buss kördes med en lutningsgivare och en GPS i bakre ändan
+som mätte hastigheten och altituden.
+Hastigheten integrerades för att få höjden som en funktion av sträckan.
+I varje punkt kan en rätvinklig triangel konstrueras
+där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
+Då gäller Pythagoras sats:
+\begin{equation} \label{eq:pythsats}
+	x^2 + \Delta h^2 = l^2
+\end{equation}
+Genom att minimera en förlustfunktion av $x$
+för hur väl ekvation~\eqref{eq:pythsats} stämmer
+beräknades lutningen $v$ med arcus tangens:
+\begin{equation}
+	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
+\end{equation}
+
+% Figur för fetaste bussen i sjukaste backen någonsin, mer extrem än i x-games
 \begin{figure}
 	\centering
 	\begin{tikzpicture}[thick, >=stealth']
@@ -84,22 +101,6 @@
 	\end{tikzpicture}
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
-
-En buss kördes med en lutningsgivare och en GPS i bakre ändan
-som mätte hastigheten och altituden.
-Hastigheten integrerades för att få höjden som en funktion av sträckan.
-I varje punkt kan en rätvinklig triangel konstrueras
-där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
-Då gäller Pythagoras sats:
-\begin{equation} \label{eq:pythsats}
-	x^2 + \Delta h^2 = l^2
-\end{equation}
-Genom att minimera en förlustfunktion av $x$
-för hur väl ekvation~\eqref{eq:pythsats} stämmer
-beräknades lutningen $v$ med arcus tangens:
-\begin{equation}
-	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
-\end{equation}
 
 Sju stycken loggar, vardera \SI{30}{\second}, sparades från bussens styrenhet
 med rådatan från lutningsgivaren, $\phi$, och bussens hastighet som funktioner av tiden.

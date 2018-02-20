@@ -1,4 +1,45 @@
 \section{Resultat}
+Det mest lämpade neuronnätet blev det med följande parametrar:
+\SI{5}{\styck} neuroner i det dolda lagret, en feedback delay på \SI{4}{\styck} värden,
+inlärningshastighet på \num{0.3} och \SI{10}{\styck} element i minibatchen.
+Dess kvadratiska förlusten var \num[round-precision=3]{0.002055976870427035}
+vilket ger en genomsnittlig avvikelse på
+\SI[round-precision=3]{2.7205728686321}{\percent}.
+
+Lutningen från lutningsgivaren subtraherat med accelerationen dividerat med tyngdaccelerationen
+blev inte lika med den beräknande lutningen från GPS:en, se figur~\ref{fig:phiresult},
+där $\phi$ är lutningen från lutningsgivaren,
+$\frac{a}{g}$ är accelerationen dividerat med tyngdaccelerationen
+och $y$ är den beräknade lutningen från GPS:en.
+
+Figur~\ref{fig:netresult} visar neuronnätets aktiveringar, $a$, på
+lutningsgivarens råvärde och bussens acceleration,
+tillsammans med den beräknade lutingen från GPS:en, $y$.
+
+% Figur för kontrastering av GPS och lutningsgivarens lutningar
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				no markers,
+				legend style={at={(0.02,0.98)},anchor=north west},
+				table/x expr=2 * 0.02 * 10 * \coordindex,
+				xlabel = Tid, x unit = s,
+				ylabel = Lutning, y unit = \%,
+				]
+				\addplot table[y=a] from {predict7.dat};
+				\addlegendentry{$a$}
+				\addplot table[y=y] from {predict7.dat};
+				\addlegendentry{$y$}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Neuronnätets beräknade lutning gentemot GPS:ens lutning. \label{fig:netresult}}
+\end{figure}
+
+I både figur~\ref{fig:phiresult} och figur~\ref{fig:netresult} innebär
+positiv och negativ lutning att bussen kör i en uppförs- respektive nedförsbacke.
+Enheten är procent, det vill säga,
+höjdskillnaden i meter per 100 meters horisontell förflyttning.
 
 % Resultat från lutningsgivare
 \begin{sidewaysfigure}
@@ -35,44 +76,3 @@
 	\end{tikzpicture}
 	\caption{$\phi$ och $\frac{a}{g}$ som funktioner av tiden konkatenerade från 7 loggar och kontrasterade mot den beräknade lutningen från GPS:en. \label{fig:phiresult}}
 \end{sidewaysfigure}
-
-\begin{figure}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-				no markers,
-				legend style={at={(0.02,0.98)},anchor=north west},
-				table/x expr=2 * 0.02 * 10 * \coordindex,
-				xlabel = Tid, x unit = s,
-				ylabel = Lutning, y unit = \%,
-				]
-				\addplot table[y=a] from {predict7.dat};
-				\addlegendentry{$a$}
-				\addplot table[y=y] from {predict7.dat};
-				\addlegendentry{$y$}
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Neuronnätets beräknade lutning gentemot GPS:ens lutning. \label{fig:netresult}}
-\end{figure}
-
-Det mest lämpade neuronnätet blev det med följande parametrar:
-\SI{5}{\styck} neuroner i det dolda lagret, en feedback delay på \SI{4}{\styck} värden,
-inlärningshastighet på \num{0.3} och \SI{10}{\styck} element i minibatchen.
-Dess kvadratiska förlusten var \num[round-precision=3]{0.002055976870427035}
-vilket ger en genomsnittlig avvikelse på
-\SI[round-precision=3]{2.7205728686321}{\percent}.
-
-Lutningen från lutningsgivaren subtraherat med accelerationen dividerat med tyngdaccelerationen
-blev inte lika med den beräknande lutningen från GPS:en, se figur~\ref{fig:phiresult},
-där $\phi$ är lutningen från lutningsgivaren,
-$\frac{a}{g}$ är accelerationen dividerat med tyngdaccelerationen
-och $y$ är den beräknade lutningen från GPS:en.
-
-Figur~\ref{fig:netresult} visar neuronnätets aktiveringar, $a$, på
-lutningsgivarens råvärde och bussens acceleration,
-tillsammans med den beräknade lutingen från GPS:en, $y$.
-
-I både figur~\ref{fig:phiresult} och figur~\ref{fig:netresult} innebär
-positiv och negativ lutning att bussen kör i en uppförs- respektive nedförsbacke.
-Enheten är procent, det vill säga,
-höjdskillnaden i meter per 100 meters horisontell förflyttning.
