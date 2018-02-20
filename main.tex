@@ -22,11 +22,14 @@
 }
 \DeclareSIUnit\styck{st}
 
-\def\main{main}
 \makeatletter
-\edef\@tempa{\jobname}
+\def\fps@figure{hbtp}
+\def\fps@table{hbtp}
+
+\edef\@tmp{\jobname}
+\def\main{main}
 \@onelevel@sanitize\main
-\ifx\@tempa\main \else \input{\jobname.tex}\fi
+\ifx\@tmp\main \else \input{\jobname.tex}\fi
 \makeatother
 
 \begin{document}
