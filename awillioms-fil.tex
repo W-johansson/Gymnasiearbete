@@ -5,7 +5,7 @@
 \noindent To operate various functions inclinometers are used in vehicles,
 since the instrument is prone to measuring errors---such as white noice and it
 being unable to differentiate acceleration from inclination--- it needs to be
-compensated.
+error compensated.
 We choose to use an artificial neural network for the compensation,
 %we choose it over other methods such as mathematical filters for its ability to
 consisting of artificial neurons arranged in an architecture where each and
@@ -30,7 +30,11 @@ offset of \SI[round-precision=3]{2.7205728686321}{\percent}.
 % diskussion
 We concluded that our compensated inclination would not suffice for real usage
 due to difficulties correlating the calculated inclinatoin with the observed
-one.
+one. The GPS is much more apt to measure bigger elevation deviations and
+therefore our calculated incination---which is used as a target---does not
+suffice in combination with our small data set.
+
+\noindent\textbf{Keywords:} Neuralnetwork, incinometer, error compensation, filtering.
 }
 
 \long\def\diskussion{
@@ -48,28 +52,34 @@ mätbrus från lutningsgivaren eller att den beräknade lutningen från GPS:en
 är svår att korrelera med den från lutningsgivaren.
 Det kan även vara båda två som gäller.
 
+Alltså fungerar neuronnätet bättre än förväntat, svårigheten är att korrelera
+den beräknade lutningen med den uppmätta och således är det vårt ``facit'' som
+är lite undermåligt.
+
 Olika fjädringsrörelser och ojämnheter i vägen kan motsvara en avvikelse på upp
 till \SI{3}{\percent}, alltså får inte en funktion som till exempel extra hög
-motoreffekt som aktiveras när lutningen är över \SI{2}{\percent} inte aktiveras
+motoreffekt som aktiveras när lutningen är över \SI{2}{\percent} aktiveras
 av låt säga en grop.
 Därmed kommer den i praktiken aktiveras när den felkompenserade lutningen från
-lutningsgivaren överstiger \SI{2}{\percent}.
+lutningsgivaren överstiger \SI{3}{\percent}.
 Vilket innebär att med vår avvikelse skulle en sådan funktion mer eller mindre
 kunna aktiveras även när bussen står på nästan plant underlag.
 Alltså uppfyller den inte den tumregel på en avvikelse av maximalt
 \SI{1}{\percent} som Erik Lauri advocerade.
+Därmed skulle den vara olämplig att använda i ett riktigt fordon.
 
 % METOD
 % - Fördelar
-NARX-nät är mycket välanpassade till att användas för tidsserier.
-
+En av de fördelar som finns med vår metod är att vi använder oss av
+NARX-nät som är mycket välanpassade till att användas för tidsserier.
 Samt att neuronnät i en perfekt värld klarar av att behandla alla de faktorer
 som skulle kunna behövas felkompenseras.
 
 % Felkällor
-Varje neuronnätskonfiguration testas en gång med slumpade begynnelse variabler
-vilket kan leda till att förlustfunktionen aldrig får fram de mest optimala
-variablerna.
+I praktiken fungerar däremot inte vår plan och har ett par felkällor.
+Till och börja med testas varje neuronnätskonfiguration en gång med slumpade
+begynnelse variabler vilket kan leda till att förlustfunktionen aldrig får fram
+de mest optimala variablerna.
 Om man istället testar varje konfiguration flera gånger kan man minska risken
 för att de mest lämpade värdena inte hittas.
 Alltså kan en mer lämpad konfiguration ha förbisetts i vår undersökning.
@@ -95,9 +105,16 @@ Därmed får vi antagligen en mindre kvadrerad förlust än vad nätet skulle f�
 längre loggfiler.
 
 % - Förbättringar
+Det finns med andra ord vissa metodförbättringar som kan göras för att i
+framtiden få bättre resultat.
 När vi försöker hitta våra sju korta loggar i den väldigt långa loggen från
 GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
 gentemot den beräknade lutningen.
 Ett alternativ är att anväda sig av två eller fler faktorer för
 att garantera korrekta startpunkter tas fram.
+
+Samt har vi läst om hur lutningsgivaren monteras på en rigg där alla rörelser
+den utsätts för noga kan övervakas. Det skulle krävas betydligt mycker mer tid
+och resurser än vad vi hade tillgång till men eftersom att det bevisligen
+fungerar är det en beprövad förbättring för att uppnå önskat resultat.
 }

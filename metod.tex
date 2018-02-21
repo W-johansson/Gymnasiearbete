@@ -1,5 +1,21 @@
 \section{Metod}
 
+En buss kördes med en lutningsgivare och en GPS i bakre ändan
+som mätte hastigheten och altituden.
+Hastigheten integrerades för att få höjden som en funktion av sträckan.
+I varje punkt kan en rätvinklig triangel konstrueras
+där hypotenusan är bussens längd, se figur~\ref{fig:fetbuss}.
+Då gäller Pythagoras sats:
+\begin{equation} \label{eq:pythsats}
+	x^2 + \Delta h^2 = l^2
+\end{equation}
+Genom att minimera en förlustfunktion av $x$
+för hur väl ekvation~\eqref{eq:pythsats} stämmer
+beräknades lutningen $v$ med arcus tangens:
+\begin{equation}
+	v = \arctan \frac{\Delta h}{\min_x \left(l^2 - x^2 - \Delta h^2 \right)^2} \text{ där } 0 \leq x \leq l
+\end{equation}
+
 \definecolor{cb42e25}{RGB}{180,46,37}
 \definecolor{ce94f2e}{RGB}{233,79,46}
 \definecolor{cd2edf3}{RGB}{210,237,243}
