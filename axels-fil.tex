@@ -1,13 +1,47 @@
 \ifx\main\undefined\input{main.tex}\endinput\fi
 
 \long\def\sammanfattning{
-Hello this is my very nice abstract!
-
-It's the best kind of abstract, really.
+A neural network for error compensating inclinometers in autobuses is presented.
 }
 
 \long\def\diskussion{
-Det här är en fin diskussion.
+Fordonet börjar rulla vid lutning över ungefär \SI{1}{\percent}.
+Det medför att det är nödvändigt att kunna särkilja lutningar på
+\SI{2}{\percent} från \SI{0}{\percent}.
+Eftersom neuronnätets genomsnittliga fel låg på \SI{2.72}{\percent}
+kan man anta att resultatet var otillfredställande,
+vilket styrks av att i figur~\ref{fig:netresult} vid \SI{26}{\second}
+så är neuronnätets resultat \SI{\sim 0}{\percent}
+medan facit säger \SI{\sim 4}{\percent}.
+Å andra sidan brukar gropar i vägen och fordonets fjädringsrörelser
+motsvara \SIrange{2}{3}{\percent}.
+Dessutom skulle fordonets styrfunktioners hysteres skydda mot några svängningar.
+Valideringsdata för svagt lutande plan skulle behövas för att säkert
+kunna säga.
 
-\SI{13}{\kilo\meter\per\second} fet enhet.
+% Förklara fel i fig:phiresult
+Den tidigare noterade diskrepansen mellan en del värden i
+figur~\ref{fig:phiresult} kan förklaras av
+GPS:ens halvmeter i mätnoggrannhet vilken gjorde att den inte
+mätte svängrörelserna i busskarossen som lutningsgivaren gjorde,
+eller av att indexeringen in i GPS:ens datapunkter misslyckades.
+Genom att spara en enda lång mätsekvens från bussen skulle man kringgå det senare
+då man endast behövt synkronisera GPS- och bussdata på ett ställe.
+Ett annat alternativ skulle vara att montera lutningsgivaren på en rigg.
+Då lutningen i sådanna fall skulle vara explicit kontrollerad
+hade man sluppit använda sig av GPS eller dylikt.
+
+% Felkällor
+Varje neuronnätskonfiguration tränades med
+en uppsättning slumpade vikter och biases allena,
+varför det är möjligt att SDG algoritmen fastnade i ett lokalt minimum
+eller att en bättre förlust kunnat nås snabbare.
+På grund av den begränsade mängden träningsdata är det möjligt att
+nätet överanpassade,
+det vill säga att det memorerade träningsdatan men inte lärde sig
+generalisera till nya situationer.
+
+% Förbättringar
+% Dropout
+% regularization
 }
