@@ -1,7 +1,7 @@
 \documentclass[]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[swedish]{babel}
+\usepackage[english,swedish]{babel}
 \usepackage[backend=biber,style=verbose-ibid,citestyle=authortitle-ibid]{biblatex}
 \usepackage{comment}
 \usepackage{amsmath,amsfonts}
@@ -57,10 +57,11 @@
 \pagenumbering{gobble}
 
 \ifdefined\sammanfattning
-\renewcommand{\abstractname}{Abstract}
+\begin{otherlanguage}{english}
 \begin{abstract}
 \sammanfattning
 \end{abstract}
+\end{otherlanguage}
 \clearpage
 \fi
 
