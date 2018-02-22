@@ -373,7 +373,7 @@ kan man korrelera små ändringar i vikter och biases
 till små förbättringar i prestandan.
 Den \emph{kvadratiska förlustfunktionen} är en sådan funktion:
 \begin{equation} \label{eq:cost}
-	C(w, b) \equiv \frac{1}{2n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
+	C(w, b) \equiv \frac{1}{n} \displaystyle\sum_x \lVert y(x) - a \rVert^2
 \end{equation}
 där $ w $ är alla vikter i nätet, $ b $ är alla biases,
 $ n $ är antalet träningsindata, $ a $ är en vektor med utdata när $ x $ är indata
