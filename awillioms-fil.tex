@@ -3,7 +3,7 @@
 \long\def\sammanfattning{
 % inledning
 \noindent To operate various functions inclinometers are used in vehicles,
-since the instrument is prone to measuring errors---such as white noice and it
+since the instrument is prone to measuring errors---such as static noice and it
 being unable to differentiate acceleration from inclination--- it needs to be
 error compensated.
 We choose to use an artificial neural network for the compensation,
@@ -44,17 +44,13 @@ suffice in combination with our small data set.
 När vi inspekterar resultatet syns det att det antigen är de sju loggfilernas
 startpunkter i GPS-filen som inte stämmer överens eller att det är svårt att
 matcha det lutnigsgivaren har mätt med det som beräknats med hjälp av GPS:en.
-
 Eftersom att lutningen från lutningsgivaren subtraherat med accelerationen
 dividerat med tyngdaccelerationen inte blev lika med den beräknade lutningen
 från GPS:en, se figur~\ref{fig:phiresult}, innebär det att det antigen finns
 mätbrus från lutningsgivaren eller att den beräknade lutningen från GPS:en
 är svår att korrelera med den från lutningsgivaren.
-Det kan även vara båda två som gäller.
-
-Alltså fungerar neuronnätet bättre än förväntat, svårigheten är att korrelera
-den beräknade lutningen med den uppmätta och således är det vårt ``facit'' som
-är lite undermåligt.
+Det kan även vara en kombination av de båda.
+% kan vara en kombination
 
 Olika fjädringsrörelser och ojämnheter i vägen kan motsvara en avvikelse på upp
 till \SI{3}{\percent}, alltså får inte en funktion som till exempel extra hög
@@ -67,11 +63,16 @@ kunna aktiveras även när bussen står på nästan plant underlag.
 Alltså uppfyller den inte den tumregel på en avvikelse av maximalt
 \SI{1}{\percent} som Erik Lauri advocerade.
 Därmed skulle den vara olämplig att använda i ett riktigt fordon.
+%Samtidigt innebär det att neuronnätet faktiskt felkompenserar vilket i sin tur
+%innebär att svårigheten är att korrelera den beräknade lutningen, alltså vårt
+%``facit'', med den uppmätta lutningen.
 
 Ytterligare en faktor är när nätet tränas på en begränsad datamängd är att det
-kan överkompensera.
-Det kan därmed inte avgöra som är normaltillståndet och kommer alltid att säga
-att fordonet befinner sig i en lutning även om det framförs på plan mark.
+kan överanpassa.
+Det kan därmed inte avgöra som är ett ``normaltillstånd'' och kommer alltid att
+bedöma att fordonet framförs i en backe även om det framförs på plan mark.
+För att avgöra om så är fallet skulle nätet behöva valideras på mer eller
+mindre plan mark.
 
 % METOD
 % - Fördelar
@@ -85,8 +86,7 @@ I praktiken fungerar däremot inte vår plan och har ett par felkällor.
 Till och börja med testas varje neuronnätskonfiguration en gång med slumpade
 begynnelse variabler vilket kan leda till att förlustfunktionen aldrig får fram
 de mest optimala variablerna.
-Om man istället testar varje konfiguration flera gånger kan man minska risken
-för att de mest lämpade värdena inte hittas.
+Minimeringen av förlustfunktionen skulle kunna fastna i ett lokalt minimum.
 Alltså kan en mer lämpad konfiguration ha förbisetts i vår undersökning.
 
 Dessutom är GPS:en mycket mindre finkänslig än lutningsgivaren, den ger bara
@@ -117,8 +117,7 @@ GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
 gentemot den beräknade lutningen.
 Ett alternativ är att anväda sig av två eller fler faktorer för
 att garantera korrekta startpunkter tas fram.
-
-Samt har vi läst om hur lutningsgivaren monteras på en rigg där alla rörelser
+Samt är det möjligt att montera lutningsgivaren på en rigg där alla rörelser
 den utsätts för noga kan övervakas. Det skulle krävas betydligt mycker mer tid
 och resurser än vad vi hade tillgång till men eftersom att det bevisligen
 fungerar är det en beprövad förbättring för att uppnå önskat resultat.
