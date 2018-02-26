@@ -357,13 +357,6 @@ tidsserien.
 NARX-nät lämpar sig följdaktligen till att felkompensera lutningsgivare;
 uppgiften går ut på att förutsäga nästa datapunkt i serien och avgöra om den
 stämmer in.\autocite{narxnet}
-Att använda NARX-nät istället för feed-forward
-kan vara en fördel när det gäller felkompensering. Feedforward kommer
-inte ihåg vilken data den har stött på innan och den behandlar varje datapunkt
-individuellt. Detta kan vara en fördel i vissa situationer men inte för felkompensering
-av lutningsgivare då tidigare datapunkter hänger samman med varandra.
-Fördelen med NARX-nät är att den kan komma ihåg tidigare värden och kan
-anpassa sin output efter dem, vilket kan förenkla processen att förutsäga nästa värde.
 
 \subsection{Stochastic gradient descent}
 \label{sec:sdg}
