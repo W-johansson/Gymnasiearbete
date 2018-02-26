@@ -1,14 +1,26 @@
 \ifx\main\undefined\input{main.tex}\endinput\fi
 
+% Mean absolute error
+\def\mae{\SI[round-precision=3]{2.7205728686321}{\percent}}
+
 \long\def\sammanfattning{
-A neural network for error compensating inclinometers in autobuses is presented.
+Automatic transmission require road inclination to operate various routines.
+To this end,
+a Nonlinear Auto Regressive with Exogenous Input (NARX) model
+for filtering the volatile output of inclinometers is presented.
+Accelerations; raw inclinometer readings; and inclinations,
+derived from elevations, were collected from
+the bus computer and a rear-mounted GPS, for use as training parameters.
+An unsatisfactory mean absolute error of \mae{} was attained,
+which was ascribed to faults in generating the inclination output parameter.
 }
 
 \long\def\diskussion{
+% Behövs för automatisk startbroms
 Fordonet börjar rulla vid lutning över ungefär \SI{1}{\percent}.
 Det medför att det är nödvändigt att kunna särkilja lutningar på
 \SI{2}{\percent} från \SI{0}{\percent}.
-Eftersom neuronnätets genomsnittliga fel låg på \SI{2.72}{\percent}
+Eftersom neuronnätet ernådde en genomsnittlig absolut avvikelse på \mae{}
 kan man anta att resultatet var otillfredställande,
 vilket styrks av att i figur~\ref{fig:netresult} vid \SI{26}{\second}
 så är neuronnätets resultat \SI{\sim 0}{\percent}
