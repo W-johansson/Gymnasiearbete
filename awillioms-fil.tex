@@ -3,24 +3,24 @@
 \long\def\sammanfattning{
 % inledning
 \noindent To operate various functions inclinometers are used in vehicles,
-since the instrument is prone to measuring errors---such as static noice and it
+since the instrument is prone to measuring errors---such as static noise and it
 being unable to differentiate acceleration from inclination--- it needs to be
 error compensated.
 We choose to use an artificial neural network for the compensation,
 %we choose it over other methods such as mathematical filters for its ability to
 consisting of artificial neurons arranged in an architecture where each and
-every neuron have an activation function---the sigmoid
+every neuron has an activation function---the sigmoid
 function---and an overall training algorithm---stochastic gradient descent.
-With varibables  as: weights, biases, numbers of neurons in the hidden
-layer, learing rate, size of the minibatch and the feedback delay.
+With variables as weights, biases, numbers of neurons in the hidden
+layer, learning rate, size of the minibatch and the feedback delay.
 % frågeställningar
 We sought to identify the best configuration of the network, id est the values
 of our variables that produce the smallest deviation from the validation data,
 and use it to determine how well it performed the compensation and thereby if
-it would be suiteable for usage in a real vehicle.
+it would be suitable for usage in a real vehicle.
 % metod
 Our method was to mount the inclinometer and a GPS to calculate the inclination
-the vehcile traveled in and afterwards match the files and use this as the
+the vehicle traveled in and afterward match the files and use this as the
 training data for the network.
 The initial configurations of the nets were randomized.
 % resultat
@@ -29,12 +29,12 @@ The result set the mean squared error to
 offset of \SI[round-precision=3]{2.7205728686321}{\percent}.
 % diskussion
 We concluded that our compensated inclination would not suffice for real usage
-due to difficulties correlating the calculated inclinatoin with the observed
+due to difficulties correlating the calculated inclination with the observed
 one. The GPS is much more apt to measure bigger elevation deviations and
 therefore our calculated incination---which is used as a target---does not
-suffice in combination with our small data set.
+suffice in combination with our small dataset.
 
-\noindent\textbf{Keywords:} Neuralnetwork, incinometer, error compensation, filtering.
+\noindent\textbf{Keywords:} Neural network, inclinometer, error compensation, filtering.
 }
 
 \long\def\diskussion{
@@ -43,7 +43,7 @@ suffice in combination with our small data set.
 % Resultat
 När vi inspekterar resultatet syns det att det antigen är de sju loggfilernas
 startpunkter i GPS-filen som inte stämmer överens eller att det är svårt att
-matcha det lutnigsgivaren har mätt med det som beräknats med hjälp av GPS:en.
+matcha det lutningsgivaren har mätt med det som beräknats med hjälp av GPS:en.
 Eftersom att lutningen från lutningsgivaren subtraherat med accelerationen
 dividerat med tyngdaccelerationen inte blev lika med den beräknade lutningen
 från GPS:en, se figur~\ref{fig:phiresult}, innebär det att det antigen finns
@@ -94,12 +94,13 @@ utslag för varje halvmeters elevations förändring medan lutningsgivaren reage
 på minsta lilla rörelse och ger mycket precisa lutningsvärden.
 Det här gör det ännu svårare att korrelera de båda filerna vilket innebär att
 nätet kommer att vara svårare att träna eftersom att den kan förekomma stora
-avvikelser i datan.
-Ett exemper är att kring $x = 80$ i figur~\ref{fig:phiresult} ges
+avvikelser i mätdatan.
+Ett exempel är att kring $x = 80$ i figur~\ref{fig:phiresult} ges
 lutningen från lutningsgivaren som \SI{7}{\percent} medan den beräknades till
 \SI{-5}{\percent} från GPS:en.
 
-När vi validerar neuronnätens lämplighet för felkompensering sker det på testdatan,
+När vi validerar neuronnätens lämplighet för felkompensering sker det på filer
+som vi tränat nätet på,
 vilket är nödvändigt på grund av att vi har små datamängder, men det blir därför
 svårt att avgöra hur mycket det påverkat resultatet.
 Vi har ju ingen annan data att testa på.
@@ -115,10 +116,10 @@ framtiden få bättre resultat.
 När vi försöker hitta våra sju korta loggar i den väldigt långa loggen från
 GPS:en blir det olika startpunkter när vi utgår ifrån accelerationen
 gentemot den beräknade lutningen.
-Ett alternativ är att anväda sig av två eller fler faktorer för
+Ett alternativ är att använda sig av två eller fler faktorer för
 att garantera korrekta startpunkter tas fram.
 Samt är det möjligt att montera lutningsgivaren på en rigg där alla rörelser
-den utsätts för noga kan övervakas. Det skulle krävas betydligt mycker mer tid
+den utsätts för noga kan övervakas. Det skulle krävas betydligt mycket mer tid
 och resurser än vad vi hade tillgång till men eftersom att det bevisligen
 fungerar är det en beprövad förbättring för att uppnå önskat resultat.
 }
