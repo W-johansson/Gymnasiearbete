@@ -288,10 +288,11 @@ Med sigmoidfunktionen blir neuronens output alltså $ \sigma(\sum_n w_n x_n + b)
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[legend style={at={(0.02,0.98)},anchor=north west},
-			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$}]
-			\addplot[RubineRed] {(1)/(1+e^-x)};
-			\addplot[NavyBlue] {(1)/(1+e^(-2*x+4))};
-			\addplot[YellowOrange] {(1)/(1+e^(-0.5*x-1))};
+			legend entries={$\sigma(x)$, $\sigma(2x + 4)$, $\sigma(0.5x - 1)$},
+			every axis plot/.append style={thick}]
+			\addplot {(1)/(1+e^-x)};
+			\addplot {(1)/(1+e^(-2*x+4))};
+			\addplot {(1)/(1+e^(-0.5*x-1))};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Aktiveringsfunktionen sigmoid. \label{fig:sigmoid}}
@@ -323,17 +324,17 @@ fungerar bra i ett fall behöver inte nödvändigtvis göra det i ett annat.
 	\def\layersep{2.5cm}
 	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
 		\tikzstyle{every pin edge}=[<-,shorten <=1pt]
-		\tikzstyle{neuron}=[circle,fill=black!25,minimum size=17pt,inner sep=0pt]
-		\tikzstyle{input}=[neuron, fill=red!45];
-		\tikzstyle{output}=[neuron, fill=green!50];
-		\tikzstyle{hidden neuron}=[neuron, fill=blue!50];
+		\tikzstyle{neuron}=[circle,minimum size=17pt,inner sep=0pt]
+		\tikzstyle{input}=[neuron, fill=Dark2-A];
+		\tikzstyle{hidden}=[neuron, fill=Dark2-B];
+		\tikzstyle{output}=[neuron, fill=Dark2-C];
 		\tikzstyle{annot} = [text width=4em, text centered]
 
 		\foreach \name / \y in {1,...,2}
 			\node[input, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
 		\foreach \name / \y in {1,...,3}
 			\path[yshift=0.5cm]
-				node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+				node[hidden] (H-\name) at (\layersep,-\y cm) {};
 		\node[output,pin={[pin edge={->}]right:Output}, right of=H-2] (O) {};
 		\foreach \source in {1,...,2}
 			\foreach \dest in {1,...,3}
