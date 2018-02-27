@@ -67,10 +67,10 @@ höjdskillnaden i meter per 100 meters horisontell förflyttning.
 				\nextgroupplot
 				\addplot table[x=Time, y=phi] from \phidata;
 				\addlegendentry{$\phi$}
-				\addplot[dashed, color = DarkRed] table[x=Time, y expr = 100 * \thisrow{a} / 9.81] from \phidata;
+				\addplot+[dashed] table[x=Time, y expr = 100 * \thisrow{a} / 9.81] from \phidata;
 				\addlegendentry{$\frac{a}{g}$}
 				\nextgroupplot
-				\addplot[color = Emerald] table[x=Time, y = y] from \phidata;
+				\addplot table[x=Time, y = y] from \phidata;
 				\addlegendentry{$y$}
 		\end{groupplot}
 	\end{tikzpicture}
