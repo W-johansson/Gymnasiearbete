@@ -101,7 +101,7 @@ beräknades lutningen $v$ med arcus tangens:
 	\caption{Lutningsberäkning: Ett visst värde på $x$ ger en rätvinklig triangel. \label{fig:fetbuss}}
 \end{figure}
 
-Sju stycken loggar, vardera \SI{30}{\second}, sparades från bussens styrenhet
+Sju stycken loggar, med 50 datapunkter per sekund, sparades från bussens styrenhet
 med rådatan från lutningsgivaren, $\phi$, och bussens hastighet som funktioner av tiden.
 Hastigheterna från bussen användes för att hitta början för varje logg i datan från GPS:en,
 för att indexera in i den beräknade lutningen från GPS:en, $y$.
@@ -119,7 +119,7 @@ $min(x)$ och $max(x)$ är det minsta respektive största värdet i $x$.
 Lutningar förmodades vara inom $ \left[ -30, 30 \right] $
 och accelerationer inom $ \left[ -3, 3 \right] $.
 
-Neuronnät tränades i MATLAB med algoritmen stochastic gradient descent,
+Neuronnät tränades i MATLAB med \num{3000} epoker av algoritmen stochastic gradient descent,
 med $\phi$ och $a$ som inputs och $y$ som mål.
 De initierades med ett dolt lager, slumpade vikter och biases
 och antalet neuroner; antalet \emph{feedback delays};
