@@ -138,7 +138,39 @@ felkompensera eftersom att det finns andra metoder, t.ex. signalutjämning.
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
 Ett brus kan visa sig i grafen men det går att minimera bruset med en signalutjämningsfunktion.
 Signalutjämningsfunktionen kan se lite olika ut beroende på dess konfiguration
-men de har liknande funktion.
+men de har liknande funktion, se figur~\ref{fig:process}.
+%Figur om hur algoritmen fungerar
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
+		\node (ui1) [nonterminal] {$\hat{\phi }$};
+		\node (ui2) [nonterminal,below=of ui1] {$\hat{v}$};
+		\node (ui3) [nonterminal,below=of ui2] {g};
+		\node (ui4) [above=of ui1] {Input};
+		\node (ui7) [nonterminal,right=of ui2] {$ \frac{d}{dt} $};
+		\node (ui8) [nonterminal,right=of ui7] {Filter 2};
+		\node (ui5) [nonterminal,above=of ui8] {Filter 1};
+		\node (ui0) [above= of ui5] {Process};
+		\node (ui9) [nonterminal,right=of ui8] {timeshift}; %Timeshiftade vi verkligen?
+		\node (ui10) [nonterminal,right=of ui9] {$\div$};
+		\node (ui6) [nonterminal,above=of ui10] {-};
+		\node (ui11) [nonterminal,right=of ui6] {$\hat{\alpha}$};
+		\node (ui12) [above=of ui11] {Output};
+		\path (ui1) edge[->] (ui5);
+		\path (ui5) edge[->] (ui6) ($(5.7,0.5)!0.5!(5.5,0)$) node[above right] {$\hat{\phi}$};
+		\path (ui2) edge[->] (ui7);
+		\path (ui7) edge[->] (ui8);
+		\path (ui8) edge[->] (ui9);
+		\path (ui9) edge[->] (ui10) ($(3.05,-4.0)!0.5!(0,2)$) node[above right] {$\hat{a}$};
+		\path (ui10) edge[->] (ui6) ($(6.0,-4.0)!0.5!(7,2)$) node[above right] {$\frac{\hat{a}}{g}$};
+		\path (ui6) edge[->] (ui11);
+		\draw [->] ($ (ui3.east) $) -| ($ (ui10.south)  $);
+		\draw[dashed] (0.6,-2.75) -- (0.6, 0.7);
+		\draw[dashed] (6.9,-2.75) -- (6.9, 0.7);
+	\end{tikzpicture}
+	\caption{Flödesschema för algoritmens struktur.
+	\label{fig:AlgoritmProcess}} \label{fig:process}
+\end{figure}
 
 En funktionen fungerar så att den använder det nuvarande värdet och
 tidigare värden för att hitta ett värde någonstans mellan dem. Vad det
@@ -172,38 +204,6 @@ Den första konfigurationen skulle ge ett medelvärde över det nya värdet
 tillsammans med de fyra tidigare värden. Den andra konfigurationen skulle
 inte tillåta det nya mätta värdet att påverka så funktionen så mycket,
 utan funktionen lägger större vikt på de tidigare värdena.
-
-%Figur om hur algoritmen fungerar
-\begin{figure}
-	\centering
-	\begin{tikzpicture}[nonterminal/.style={rectangle,minimum size=6mm,very thick,draw=black!50, top color=white, bottom color=black!5, font=\itshape}, node distance=5mm]
-		\node (ui1) [nonterminal] {$\hat{\phi }$};
-		\node (ui2) [nonterminal,below=of ui1] {$\hat{v}$};
-		\node (ui3) [nonterminal,below=of ui2] {g};
-		\node (ui4) [above=of ui1] {Input};
-		\node (ui7) [nonterminal,right=of ui2] {$ \frac{d}{dt} $};
-		\node (ui8) [nonterminal,right=of ui7] {Filter 2};
-		\node (ui5) [nonterminal,above=of ui8] {Filter 1};
-		\node (ui0) [above= of ui5] {Process};
-		\node (ui9) [nonterminal,right=of ui8] {timeshift}; %Timeshiftade vi verkligen?
-		\node (ui10) [nonterminal,right=of ui9] {$\div$};
-		\node (ui6) [nonterminal,above=of ui10] {-};
-		\node (ui11) [nonterminal,right=of ui6] {$\hat{\alpha}$};
-		\node (ui12) [above=of ui11] {Output};
-		\path (ui1) edge[->] (ui5);
-		\path (ui5) edge[->] (ui6) ($(5.7,0.5)!0.5!(5.5,0)$) node[above right] {$\hat{\phi}$};
-		\path (ui2) edge[->] (ui7);
-		\path (ui7) edge[->] (ui8);
-		\path (ui8) edge[->] (ui9);
-		\path (ui9) edge[->] (ui10) ($(3.05,-4.0)!0.5!(0,2)$) node[above right] {$\hat{a}$};
-		\path (ui10) edge[->] (ui6) ($(6.0,-4.0)!0.5!(7,2)$) node[above right] {$\frac{\hat{a}}{g}$};
-		\path (ui6) edge[->] (ui11);
-		\draw [->] ($ (ui3.east) $) -| ($ (ui10.south)  $);
-		\draw[dashed] (0.6,-2.75) -- (0.6, 0.7);
-		\draw[dashed] (6.9,-2.75) -- (6.9, 0.7);
-	\end{tikzpicture}
-	\caption{Flödesschema för algoritmens struktur. \label{fig:AlgoritmProcess}}
-\end{figure}
 
 \subsubsection{Felkompensering utan lutningsgivare}
 % Räkna ut lutning med hjälp av moment
