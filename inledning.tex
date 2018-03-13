@@ -1,25 +1,26 @@
 \section{Teori \& bakgrund}
 \subsection{Inledning}
 % Bakgrund
-Automatiska växellådor sitter idag i en mängd av olika fordon,
-däribland en helt elektrisk buss under utveckling av Volvo.
-För att bland annat köra på rätt växel, optimera motorns styrprogram
-och operera olika bromsfunktioner % och vad mer/något mer?
-mätes fordonets lutning.
-För det ändamålet ska lutningsgivare användas.
+Olika mätinstrument är i dag monterade i nästan alla fordon för att bland annat
+köra på rätt växel, optimera motorns styrprogram och operera olika
+bromsfunktioner.
+Vilken lutning fordonet framförs i kan vara avgörande för olika funktioner och
+för det ändamålet mätes fordonets lutning med hjälp av en lutningsgivare.
 Lutningsgivaren är en fristående modul som använder piezokristaller för att
-mäta lutningen och kommunicerar med styrdatorn
+mäta lutningen och den kommunicerar med styrdatorn
 via Controller Area Network (CAN) kommunikation.
 Detta fungerar bra vid rörelse i konstant hastighet
 men vid accelereration uppstår mätbrus och andra störningar.
-Därför behövs en algoritm för att felkompensera dessa störningar.
+Volvo ska utreda möjligheten att använda en ny lutningsgivare i bland annat en
+helt elektrisk buss, därför behövs en algoritm för att felkompensera dessa
+störningar tas fram.
 
 % Vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
 hur djurs hjärnor fungerar och kommunicerar.
 Neuronnät kan användas för att klara av vissa problem som annars är svårlösta
 med konventionella datalogiska metoder.
-Ett neuronnät ``lär sig'', precis som vi gör, genom att observera.
+Ett neuronnät ``lär sig'', precis som vi människor gör, genom att observera.
 Men för att ha avsedd funktion måste de tränas, alltså är arbete med neuronnät
 uppdelat i två faser: en inlärningsfas och en tillämpningsfas där nätverket sedan
 utför den ämnade uppgiften.
@@ -31,10 +32,10 @@ under användning, men oftast slutar man träna det när resultet är önskvärt
 \subsubsection{Kortfattad översiktsbild}
 Lutningsgivaren baseras på en piezoelektrisk kristall och ger vid användning
 upphov till mätbrus och andra störningar i de mätvärden den loggar.
-Lutningsgivaren kan inte heller skilja mellan om bussen kör på ett lutat underlag
+Lutningsgivaren kan inte heller skilja mellan om bussen kör på ett lutande underlag
 eller om den accelererar, se sektion~\ref{sec:piezo}.
-Därför behövs den data som lutningsgivaren samlar in felkompenseras för att
-styrenheten i fordonet ska ha avsedd funktion. Bl.a. för att hjälpa växellådan
+Därför behöver den data som lutningsgivaren samlar in felkompenseras för att
+styrenheten i fordonet ska ha avsedd funktion. Bland annat för för att hjälpa växellådan
 bestämma rätt växel och för att operera funktioner som ``automatisk startbroms''.
 För att felkompensera används ett neuronnät som består av artificiella
 neuroner, se sektion~\ref{sec:neuroner}, vilka är konfigurerade i ett nätverk,
@@ -212,7 +213,7 @@ sätt att räkna ut fordonets lutning.
 Detta räknas ut med hjälp av vridmomentet i motorn.
 Lutning kan approximeras med god säkerhet vid konstant hastighet men inbromsningar
 skapar problem.
-Vid inbromsning skapas en friktionskraft som måste tas till hänsyn.
+Vid inbromsning skapas en friktionskraft som måste tas hänsyn till .
 Friktionskraftens moment beräknas med:
 \begin{equation}
 	M = r \cdot \mu \cdot \lVert F \rVert
@@ -248,7 +249,7 @@ och ser ut som:
 \end{equation}
 Dess värdemängd är normaliserad från 0\,till\,1, se figur~\ref{fig:sigmoid}.
 Om $z$ är ett stort positivt tal kommer $ \sigma(z) \approx 1 $,
-medan om $z$ är ett stort negativt tal så kommer $ \sigma(z) \approx 0 $.
+medan om $z$ är ett stort negativt tal kommer $ \sigma(z) \approx 0 $.
 Grafens lutning påverkas av vikterna medan biasen förskjuter hela kurvan i x-led.
 Med sigmoidfunktionen blir neuronens output alltså $ \sigma(\sum_n w_n x_n + b) $.
 \autocite{nielsen15}
@@ -440,8 +441,8 @@ artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 Vi vill undersöka\ldots
 \begin{itemize}
 % alternativ:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
-	\item Hur nätverket ska vara konfigurerat för att felkompensera; vilka inputs,
-		outputs, typ av nät och antal neuroner och dolda lager?
+	\item Hur nätverket ska vara konfigurerat för att felkompensera: vilka
+		inputs/outputs; typ av nät; antal neuroner och dolda lager?
 % alternativ:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
 %		beräkningar, metoder och antaganden [( tan(x)=x )] måste göras?
 	\item Hur väl det fungerar att felkompensera med neuronnät?
