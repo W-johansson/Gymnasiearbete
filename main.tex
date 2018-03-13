@@ -44,16 +44,17 @@
 	\centering
 	\includegraphics[height=3.5cm]{logo}\par
 	\vspace{0.6cm}
-	{\scshape\LARGE Hulebäcksgymnasiet}\par
+	{\scshape\Large Hulebäcksgymnasiet}\par
 	\vspace{0.5cm}
-	{\bfseries\Large Gymnasiearbete}\par
+	{\bfseries\large Gymnasiearbete}\par
 	\vspace{2cm}
 	{\scshape\huge Felkompensering av Lutningsgivare med Neuronnät}\par
 	\vfill
-	{\Large\itshape Anders, Axel, Jonas \& William}\par
-	\vspace{0.4cm}
-	{\large Handledare: {\itshape Èva Fülöp}}\par
-	\vspace{0.4cm}
+	\ifdefined\forfattare
+	\forfattare
+	\fi
+	%{\large Handledare: {\itshape Èva Fülöp}}\par
+	\vspace{0.3cm}
 	{\today\par}
 \end{titlepage}
 
