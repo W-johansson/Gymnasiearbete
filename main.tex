@@ -3,11 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,swedish]{babel}
 \usepackage[backend=biber,style=verbose-ibid,citestyle=authortitle-ibid]{biblatex}
-\usepackage{comment}
 \usepackage{amsmath,amsfonts}
+\usepackage{etoolbox,array,comment}
 \usepackage{graphicx}
 \usepackage{lmodern,microtype}
-\usepackage[dvipsnames,svgnames]{xcolor}
 \usepackage{tikz,pgfplots,pgfplotstable}
 \usepackage{rotating}
 \usepackage{rotfloat}
@@ -34,6 +33,11 @@
 \def\main{main}
 \@onelevel@sanitize\main
 \ifx\@tmp\main \else \input{\jobname.tex}\fi
+
+\ifdefined\medforfattare
+\def\medforfattaretable{}
+\foreach \x in \medforfattare {\protected@xappto\medforfattaretable{& \x \\}}
+\fi
 \makeatother
 
 \begin{document}
@@ -50,11 +54,12 @@
 	\vspace{2cm}
 	{\scshape\huge Felkompensering av Lutningsgivare med Neuronnät}\par
 	\vfill
-	\ifdefined\forfattare
-	\forfattare
-	\fi
-	%{\large Handledare: {\itshape Èva Fülöp}}\par
-	\vspace{0.3cm}
+	\begin{tabular}{>{\large}l >{\large\it}r}
+		\ifdefined\forfattare Författare: & \forfattare \\\fi
+		\ifdefined\medforfattare Medförfattare: \medforfattaretable \fi
+		Handledare: & Èva Fülöp
+	\end{tabular}
+	\vfill
 	{\today\par}
 \end{titlepage}
 
