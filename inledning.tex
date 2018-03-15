@@ -185,16 +185,19 @@ men de har liknande funktion, se figur~\ref{fig:process}.
 	\label{fig:AlgoritmProcess}} \label{fig:process}
 \end{figure}
 
-En funktionen fungerar så att den använder det nuvarande värdet och
+Funktionen fungerar så att den använder det nuvarande värdet och
 tidigare värden för att hitta ett värde någonstans mellan dem. Vad det
-nya värdet blir beror ett värde $c$ vilket säger hur mycket funktionen ska
-ta hänsynt till det nuvarande värdet och de tidigare värden. Den enklaste
+nya värdet blir beror på en konstant, $c$, vilket säger hur mycket funktionen ska
+ta hänsyn till det nuvarande och tidigare värden. Det finns så kallade 
+flerordningsfilter vilket använder sig av flera tidigare värden men den enklaste
 signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär:
 \begin{equation}
-	a_{0-new} = a_{0}c + a_{-1}(1 - c)
+	a_{new} = a_{0}c + a_{-1}(1 - c)
 \end{equation}
+
+\begin{comment}
 Olika värden på $c$ ger olika mycket utjämning på en graf.
-I detta fall så ger ett för stort värde av $c$ tillbaka en skakig graf
+I detta fall ger ett för stort värde på $c$ tillbaka en skakig graf
 då förstaordningsfiltret inte anpassar tillräckligt efter det tidigare värdet.
 Med ett för litet $c$ kan grafen bli för tillplattad och information förloras.
 Det gäller att hitta ett optimalt värde på $c$ för att få en slät graf
@@ -203,7 +206,7 @@ utan att förlora för mycket information.
 I ett flerordningsfilter så används flera tidigare mätningar för att
 beräkna det utslätade värdet av $a_{0}$. Ett flerordningsfilter ser ut såhär:
 \begin{equation}
-	a_{0-new} = a_{0}c_{1} + a_{-1}c_{2} + \dotsb + a_{1-n}c_{n}
+	a_{new} = a_{0}c_{1} + a_{-1}c_{2} + \dotsb + a_{1-n}c_{n}
 \end{equation}
 Där $ c_1 + c_2 + \dotsb + c_n = \sum c = 1 $ för att funktionen
 inte ska reducera eller amplifiera värdena.
@@ -217,6 +220,7 @@ Den första konfigurationen skulle ge ett medelvärde över det nya värdet
 tillsammans med de fyra tidigare värden. Den andra konfigurationen skulle
 inte tillåta det nya mätta värdet att påverka så funktionen så mycket,
 utan funktionen lägger större vikt på de tidigare värdena.
+\end{comment}
 
 \subsubsection{Felkompensering utan lutningsgivare}
 % Räkna ut lutning med hjälp av moment
