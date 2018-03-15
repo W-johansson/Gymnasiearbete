@@ -1,19 +1,21 @@
 \section{Teori \& bakgrund}
 \subsection{Inledning}
 % Bakgrund
-Olika mätinstrument är i dag monterade i nästan alla fordon för att bland annat
-köra på rätt växel, optimera motorns styrprogram och operera olika
-bromsfunktioner.
-Vilken lutning fordonet framförs i kan vara avgörande för olika funktioner och
-för det ändamålet mätes fordonets lutning med hjälp av en lutningsgivare.
+Mätinstrument monteras i nästan alla fordon för att bland annat
+optimera olika automatiska funktioner så som växellådor,
+bromsfunktioner och motorns styrprogram.
+% Olika mätinstrument är i dag monterade i nästan alla fordon för att bland annat
+% köra på rätt växel, optimera motorns styrprogram och operera olika bromsfunktioner.
+Vilken lutning fordonet framförs i är avgörande för olika funktioner.
+% för det ändamålet mätes fordonets lutning med hjälp av en lutningsgivare.
+Volvo ska utreda möjligheten att använda lutningsgivare för att tillgodose
+lutningsbehovet i en helt elektrisk buss.
+Dessa fungerar bra vid rörelse i konstant hastighet
+men vid accelereration uppstår mätbrus och andra störningar.
+Därför behövs en algoritm för att felkompensera dessa störningar.
 Lutningsgivaren är en fristående modul som använder piezokristaller för att
 mäta lutningen och den kommunicerar med styrdatorn
 via Controller Area Network (CAN) kommunikation.
-Detta fungerar bra vid rörelse i konstant hastighet
-men vid accelereration uppstår mätbrus och andra störningar.
-Volvo ska utreda möjligheten att använda en ny lutningsgivare i bland annat en
-helt elektrisk buss, därför behövs en algoritm för att felkompensera dessa
-störningar tas fram.
 
 % Vad neuronnät är och vad de används till
 Ett artificiellt neuronnät är en självlärande algoritm som inspirerats av
