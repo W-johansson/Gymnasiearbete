@@ -27,6 +27,20 @@ Det är möjligt att sedan fortsätta träna nätverket
 under användning, men oftast slutar man träna det när resultet är önskvärt.
 \autocite{wiki-neuronnat}
 
+Erfarenhet från riktiga fordon i trafik säger att det är svårt
+att få bättre än \SI{1}{\percent} i felmarginal.
+Fordonets fjädringsrörelser och gropar i vägen motsvarar ofta kring
+\SIrange{2}{3}{\percent} lutning,
+vilka inte får utlösa funktioner i bussen.
+Anta att man har en funktion, till exempel extra hög motoreffekt,
+som skall vara aktiv om lutningen är över \SI{2}{\percent}.
+För att undvika att funktionen växlar av och på för ofta,
+använder man s.k. hysteres:
+när den estimerade lutningen är över \SI{3}{\percent} aktiveras funktionen,
+under \SI{1}{\percent} inaktiveras den och mellan \SIrange{1}{3}{\percent}
+behåller den på-avstatus.
+\autocite{lauri17}
+
 \subsubsection{Kortfattad översiktsbild}
 Lutningsgivaren baseras på en piezoelektrisk kristall och ger vid användning
 upphov till mätbrus och andra störningar i de mätvärden den loggar.
