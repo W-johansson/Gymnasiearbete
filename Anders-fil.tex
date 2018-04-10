@@ -2,27 +2,50 @@
 
 \long\def\sammanfattning{
 
-This study investigates the applicability of neuralnetworks in compensating error in inclinometers in electricbusses. The neuralnetwork was to predict the inclination with the acceleration and raw inclinometerdata as inputs. It was given a key to learn from, which was calculated with the altitude data from a GPS and travel distance.
-Different configurations of neuralnetworks were tested -- with the variables being; numbers of hidden neurons, weights, biases, feedback delay, size of minibatch and learning rate -- and the one with best result was a NARX-network with an average deviation of 2.72\%. The unofficial goal of having no more than 1\% deviation -- which is a standard advocated by Eric Lauri -- was not achieved. The neural network did manage to predict the inclination to a certain degree, but not as well as hoped. There were a few sources of error that warped both the inputdata and the key which as a consequence gave a poorer result. If the major sources of error were eliminated there is a possibility of neuralnetworks being able to accurately predict inclination good enough for real usage.
+This study investigates the applicability of neuralnetworks in compensating errors in inclinometers used by electric busses. The neuralnetwork was to predict the inclination with the acceleration and raw inclinationdata as inputs. It was given a key to learn from, which was calculated with the altitude data from a GPS and travel distance.
+Different configurations of neuralnetworks were tested -- with the variables being numbers of hidden neurons, weights, biases, feedback delay, size of minibatch and learning rate -- and the one with best result was a NARX-network with an average deviation of 2.72\%. The standard goal of having no more than 1\% deviation was not achieved. There were a few sources of error -- such as the inputdata was not continuous, the inclinometer was producing static noise and it was not mounted in a stabile way for it was showed sings of oscillating movement -- that warped both the inputdata and the key which as a consequence gave a poorer result. It remains to be seen if neural networks are able to accurately predict inclination well enough for real usage.
+
+%	Omformulera den sista meningen till en uppmaning till fortsatt undersökning istället för egen spekulering
+%bakgrund saknas
+%	Erik Lauri
+%	Inofficielt mål - står det i documentet?
+%Eva's anteckningar
+%	Axel's anteckningar - google drive
+%	Google drive doc
+
+%   intent - why
+%	Space in "electricbusses" och "inclinometerdata" ? Sök på internet, fråga
+%Bakgrund saknas i Abstract  ("lägg till syfte")
+%	Erik eller Eric
 
 }
 
 \long\def\diskussion{
 
-Att använda NARX-nät istället för feedforward kan vara en fördel när det gäller felkompensering av lutningsgivare. Feedforward konfigurationen kommer inte ihåg vilken data den har stött på innan vilket innebär att den behandlar varje datapunkt enskilt. Detta kan vara en fördel i vissa situationer men inte för felkompensering av lutningsgivare, då tidigare datapunkter och riktiga värden är korrelerade med varandra. Fördelen med NARX-nät är att den kan komma ihåg tidigare värden och kan anpassa sin output efter dem, vilket kan förenkla processen att förutsäga nästa värde. \autocite{youtube-neural networks}
+%	Ta bort källa
+%	Strukturera den sista meningarna
+%	Förkorta 'skaknings-stycket' - Använd istället datan från Github
+%	Inofficielt mål
+%	hysteres delen
+%inledning
+%	framtida forskning istället för egen spekulering
+%	'dessa' används för ofta
+%	'det' och inte 'den' för narx-nät
+%	+- tecken
 
+Neuronnätet lyckades approximera den beräknade lutningen men det uppnådde inte standarden att den genomsnittliga avvikelsen var lägre än 1\% lutning. Därmed är NARX-nätet inte lämpat för riktig användning. Anledningen till att man har en sådan standard är för att olika funktioner aktiveras i olika lutningar. Då det tränade nätverkets genomsnittliga avvikelse var cirka 2.72\%, skulle dessa funktioner kunna aktiveras i vissa fall där de inte bör vara aktiva. Dock skulle en hysteres kunna utnyttjas då den minskar hur känslig aktiveringen och avslaget av funktionerna är så att jitter och andra mindre felkällor inte kommer att förvirra funktionerna genom att aktivera och avaktivera dem spontant.
 
-Neuronnätet lyckades approximera den beräknade lutningen, men det inofficiella målet, att avvikelsen skulle inte överstiga 1\%, nåddes inte. Neuronnätet når inte standarden av maximalt 1\% avvikelse och är därmed inte lämpad för riktig användning. Anledningen till att man har en sådan standard är för att olika funktioner aktiveras i olika lutningar. Då vår genomsnittliga avvikelse var cirka 2.72\%, så skulle dessa funktioner kunna aktiveras i fall där de inte bör vara aktiva. Dock så skulle en hysteres kunna utnyttjas i dessa fall då den minskar hur känslig aktiveringen och avslaget av funktionerna är. 
+Att använda NARX-nät istället för feedforward kan vara en fördel när det gäller felkompensering av lutningsgivare. Feedforward-konfigurationen kommer inte ihåg vilken data den har stött på innan vilket innebär att den behandlar varje datapunkt enskilt. Detta kan vara en fördel i vissa situationer men inte för felkompensering av lutningsgivare, då tidigare datapunkter är korrelerade med varandra. Fördelen med NARX-nät är att det kan komma ihåg tidigare värden och kan anpassa sin output efter dem, vilket kan förenkla processen att förutsäga nästa värde.
 
-Den uppmätta lutningen gav inte ett svar som gick att enkelt korrelera med den beräknade lutningen. Detta innebär att antingen lutningsdatan eller den beräknade accelerationen innehåller opålitliga mätvärden. Med hjälp av bildredigeringsprogram så analyserades figur 8 och antalet pixlar mättes och jämfördes med axlarna, och lutningsgivaren mättes till att maximalt ha ett mätbrus på +-0.14\% lutning. På samma sätt undersöktes en specifik del i mätdatan i figur 8 som indikerade att lutningsgivaren kan skaka. Mätdatan visar att direkt efter bussen hade stannat så fortsatte lutningsgivaren att ge utslag i form av en dämpad sinuskurva, därmed slutsatsen att lutningsgivaren skakar. Med samma metod som innan så uppmättes den maximala skakningen till att kunna ge utslag på +-1.49\% lutning
+Den uppmätta lutningen gav inte ett svar som enkelt gick att korrelera med den beräknade lutningen. Det innebär att antingen lutningsdatan eller den beräknade accelerationen innehåller opålitliga mätvärden. Lutningsdatan visar att lutningsgivaren fortsatte ge utslag efter att bussen stannat i form av en dämpad sinuskurva. Slutsatsen är därmed att lutningsgivaren skakar. Ur mätdatan så uppmättes sinuskurvans maximala aplitud till $\pm1.467\%$ och ett mätbrus till $\pm0.0585\%$ lutning.
 
-Det finns en risk att när nätverket tränades med förlustfunktionen så hamnade den i ett lokalt minimum och har fastnat då den endast rör sig mot ett lägre tillstånd. Den rör sig inte mot det globala minimumet utan endast det lokala.
-Det gick inte att koppla in sig direkt i bussens styrenhet, vilket gjorde att sju enskilda loggar sparades. Dessa skulle sedan pusslas ihop med Gps:ens motsvarande data vilket kan ha medfört felplaceringar. Denna felkälla skulle kunna minimeras genom att direkt koppla sig in i bussens styrenhet för att få en lång mätsekvens, då man behöver endast matcha en sekvens istället för sju.
+Det finns en risk att när nätverket tränades med förlustfunktionen hamnade det i ett lokalt minimum och fastnade. Det rör sig inte mot det globala minimumet utan endast ett lokalt minimum och kan därmed fastna i suboptimala tillstånd.
+Det gick inte att koppla in sig direkt i bussens styrenhet, vilket gjorde att sju enskilda loggar sparades. Dessa skulle sedan pusslas ihop med GPS:ens motsvarande data vilket kan ha medfört felplaceringar. Denna felkälla skulle kunna minimeras genom att direkt koppla sig in i bussens styrenhet för att få en lång mätsekvens och endast behöver matcha en sekvens istället för sju.
 
-Narx-nätet hade inte tillgång till en större mängd data att träna sig mot. Detta kan leda till att nätet specialiserar sig på att endast felkompensera den mätta datan och kommer därmed inte kunna felkompensera i praktiken.
+NARX-nätet hade inte tillgång till en stor mängd data att träna sig mot, vilket skulle kunna leda till att nätet specialisera sig på att endast felkompensera den uppmätta datan och är därmed inte lämpad för praktisk användning.
 
-Att GPS:en hade en mätnoggrannhet på en halvmeter och att lutningsgivaren var mycket känslig gjorde att GPS:ens höjddata var svårkorrelerad med lutningsgivarens data. Alltså kan lutningsgivaren ge utslag inom ett viss höjdintervall utan att GPS:en ger ny höjddata. Med detta så blir datan svårkorrelerad.
+Att GPS:en hade en mätnoggrannhet på en halvmeter och att lutningsgivaren var mycket känslig gjorde att GPS:ens höjddata var svårkorrelerad med lutningsgivarens data. Alltså kan lutningsgivaren ge utslag inom ett viss höjdintervall utan att GPS:en ger ny höjddata. 
 
-Om de större felkällorna skulle elimineras och en större mängd data vilket är kontinuerlig ges till ett NARX-nät att träna sig mot så är det möjligt att nätet skulle vara lämpad för riktig användning.
+Det kvarstår ytterligare forskning för att se om neurala nätverk kan vara lämpade för att felkorrigera lutningsgivare i elbussar, då med tidigare nämnda felkällor som har påverkat resultatet så är det svårt att dra en slutsats.
 
 }

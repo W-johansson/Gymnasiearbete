@@ -145,11 +145,9 @@ Dessa anledningar gör att lutningsgivare är fördelaktiga att använda.
 \autocite{lauri17}
 
 \subsection{Andra metoder för felkompensering}
-En anledning till att neuronnät valdes ut som felkompenseringsfunktion av lutning och inte 
-enklare funktioner som signalutjämning och beräkning av lutning genom vridmoment, 
-var på grund av att de enklare hade en begränsad förmåga att beräkna lutningen jämfört
-med neuronnät. 
+I den här sektionen presenteras tidigare medel för felkompensering.
 \subsubsection{Signalutjämning -- felkompensering utan neuronnät}
+\label{sec:signalutjamning}
 Med en lutningsgivare installerad är man inte begränsad till neuronnät för att
 felkompensera eftersom att det finns andra metoder, t.ex. signalutjämning.
 Instrument kan ge opålitliga värden på grund av eventuella störsignaler.
@@ -200,9 +198,9 @@ signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär:
 \end{equation}
 Olika värden på $c$ ger olika mycket utjämning på en graf.
 Ett för stort värde resulterar en skakig graf medan ett för lågt värde
-resulterar en för tillplattad graf vilket gör att information förloras.
+resulterar i en tillplattad graf vilket innebär att information om lutningen går förlorad.
 Signalutjämning måste konfigureras manuellt och därmed är det svårt att
-hitta ett optimalt värde av $c$, men även om ett optimalt värde hittas så 
+hitta ett optimalt värde av $c$. Men även om ett optimalt värde hittas så 
 har denna funktion ingen förmåga att förutsäga nästa värde.
 
 \begin{comment}
