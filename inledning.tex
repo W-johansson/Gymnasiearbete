@@ -92,7 +92,7 @@ ungefär lika med accelerationskraften, $ma$, vilket ger:
 För små vinklar mätta i radianer är $ \tan \beta \approx \beta $,
 därför behövs $ \frac{a}{g} $ subtraheras från lutningsgivarens värde.
 Detta är Einsteins allmänna relativitetsteori;
-lutningsgivaren kan inte särskilja fordonets acceleration och tyngdaccelerationen.
+lutningsgivaren kan inte särskilja fordonets acceleration från tyngdaccelerationen.
 \autocite{lauri17}
 
 % Figur om pendel och acceleration
@@ -190,7 +190,7 @@ men de har liknande funktion, se figur~\ref{fig:process}.
 Funktionen fungerar så att den använder det nuvarande värdet och
 tidigare värden för att hitta ett värde någonstans mellan dem. Vad det
 nya värdet blir beror på en konstant, $c$, vilket säger hur mycket funktionen ska
-ta hänsyn till det nuvarande och tidigare värden. Det finns så kallade 
+ta hänsyn till det nuvarande och tidigare värden. Det finns så kallade
 flerordningsfilter vilket använder sig av flera tidigare värden men den enklaste
 signalutjämningsfunktionen är förstaordningsfiltret vilket ser ut såhär:
 \begin{equation}
@@ -200,7 +200,7 @@ Olika värden på $c$ ger olika mycket utjämning på en graf.
 Ett för stort värde resulterar en skakig graf medan ett för lågt värde
 resulterar i en tillplattad graf vilket innebär att information om lutningen går förlorad.
 Signalutjämning måste konfigureras manuellt och därmed är det svårt att
-hitta ett optimalt värde av $c$. Men även om ett optimalt värde hittas så 
+hitta ett optimalt värde av $c$. Men även om ett optimalt värde hittas så
 har denna funktion ingen förmåga att förutsäga nästa värde.
 
 \begin{comment}
@@ -336,7 +336,7 @@ för att skyffla informationen framåt.
 Outputlagrets aktiveringar blir resultatet av neuronnätet.
 Medan antalet input- och outputneuroner otvetydligt kan bestämmas
 från formen av ens träningsdata,
-så finns bara empiriskt deriverad heuristik för strukturen på ens dolda lager.
+finns bara empiriskt deriverad heuristik för strukturen på ens dolda lager.
 Exempel på nackdelar med fler neuroner är längre träningstider
 och behovet av mer träningsdata.
 Neuronnät är specifika för en uppgift och en arkitektur som
@@ -458,19 +458,10 @@ med exempel från minibatchen $ \mathbb{B} $.
 Syftet med undersökningen är att ta fram och utvärdera en algoritm med
 artificiella neuronnät som felkompenserar lutningsgivare i elbussväxellådor.
 
-%exempel på syfte: Syftet med undersökningen är att ta fram och utvärdera
-%en algoritm och ett artificiellt neuronnät som båda felkompenserar lutningsivare i elbussväxellådor.
-
 \section{Frågeställningar}
 Vi vill undersöka\ldots
 \begin{itemize}
-% alternativ:	\item Varför råsignalen fårn lutningsgivaren och hastighetsmätaren blir opålitlig.
-	\item Hur nätverket ska vara konfigurerat för att felkompensera: vilka
-		inputs/outputs; typ av nät; antal neuroner och dolda lager?
-% alternativ:	\item Hur ska algoritmen vara strukturerad för att felkompensera; vilka inputs,
-%		beräkningar, metoder och antaganden [( tan(x)=x )] måste göras?
+	\item Hur nätverket ska vara konfigurerat för att felkompensera:
+		vilka inputs/outputs, typ av nät och antal neuroner och dolda lager?
 	\item Hur väl det fungerar att felkompensera med neuronnät?
-% alternativ:	\item Hur väl det fungerar att felkompensera med neuronnät och algoritmer.
-% 4/3: Detta är en generell fråga. Ska vi då besvara hur väl de fungerar generellt sett
-% och specifikt då vi ger vårt resultat.
 \end{itemize}

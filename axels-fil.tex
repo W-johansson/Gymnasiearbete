@@ -7,32 +7,28 @@
 \def\mae{\SI[round-precision=3]{2.7205728686321}{\percent}}
 
 \long\def\sammanfattning{
-Automatic transmission require road inclination to operate various routines.
+Automatic transmission requires road inclination to operate various routines.
 To this end,
 a Nonlinear Auto Regressive with Exogenous Input (NARX) model
 for filtering the volatile output of inclinometers is presented.
 Accelerations; raw inclinometer readings; and inclinations,
 derived from elevations, were collected from
-the bus computer and a rear-mounted GPS, for use as training parameters.
+the bus computer and a rear-mounted GPS for use as training parameters.
 An unsatisfactory mean absolute error of \mae{} was attained,
 which was ascribed to faults in generating the inclination output parameter.
 }
 
 \long\def\diskussion{
-% Behövs för automatisk startbroms
 Fordonet börjar rulla vid lutning över ungefär \SI{1}{\percent}.
 Det medför att det är nödvändigt att kunna särkilja lutningar på
 \SI{2}{\percent} från \SI{0}{\percent}.
-Eftersom neuronnätet ernådde en genomsnittlig absolut avvikelse på \mae{}
-kan man anta att resultatet var otillfredställande,
+Neuronnätets ernådda genomsnittliga absoluta avvikelse på \mae{}
+tyder på att resultatet var otillfredställande,
 vilket styrks av att i figur~\ref{fig:netresult} vid \SI{26}{\second}
 så är neuronnätets resultat \SI{\sim 0}{\percent}
-medan facit säger \SI{\sim 4}{\percent}.
-Å andra sidan brukar gropar i vägen och fordonets fjädringsrörelser
-motsvara \SIrange{2}{3}{\percent}.
-Dessutom skulle fordonets styrfunktioners hysteres skydda mot några svängningar.
-Valideringsdata för svagt lutande plan skulle behövas för att säkert
-kunna säga.
+medan GPS:en gav \SI{\sim 4}{\percent}.
+Antingen stämmer GPS:en eller så har neuronnätet tränats på felaktig data;
+bägge utfall är suboptimala.
 
 % Förklara fel i fig:phiresult
 Den tidigare noterade diskrepansen mellan en del värden i
@@ -40,10 +36,13 @@ figur~\ref{fig:phiresult} kan förklaras av
 GPS:ens halvmeter i mätnoggrannhet vilken gjorde att den inte
 mätte svängrörelserna i busskarossen som lutningsgivaren gjorde,
 eller av att indexeringen in i GPS:ens datapunkter misslyckades.
+Valideringsdata, det vill säga separat data från träningsdatan,
+för ett lutande slätt plan skulle kunna säga om det berodde på det förra,
+eftersom möjliga svängningar och gropar skulle elimineras.
 Genom att spara en enda lång mätsekvens från bussen skulle man kringgå det senare
 då man endast behövt synkronisera GPS- och bussdata på ett ställe.
 Ett annat alternativ skulle vara att montera lutningsgivaren på en rigg.
-Då lutningen i sådanna fall skulle vara explicit kontrollerad
+Då lutningen i sådana fall skulle vara explicit kontrollerad
 hade man sluppit använda sig av GPS eller dylikt.
 
 % Felkällor
@@ -51,12 +50,13 @@ Varje neuronnätskonfiguration tränades med
 en uppsättning slumpade vikter och biases allena,
 varför det är möjligt att SDG algoritmen fastnade i ett lokalt minimum
 eller att en bättre förlust kunnat nås snabbare.
-På grund av den begränsade mängden träningsdata är det möjligt att
-nätet överanpassade,
+Dessutom på grund av den begränsade mängden träningsdata
+är det möjligt att nätet överanpassade,
 det vill säga att det memorerade träningsdatan men inte lärde sig
 generalisera till nya situationer.
-
-% Förbättringar
-% Dropout
-% regularization
+Det skulle behöva ses över huruvida det är fallet genom att
+införskaffa mer valideringsdata.
+Metoder för att isåfall åtgärda det inkluderar
+att använda ett nät som är precis stort nog för att ge en adekvat anpassning
+och att sluta träna tidigare för att inte ge neuronnätet tid att specialisera sig.
 }
